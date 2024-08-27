@@ -26,6 +26,8 @@ public class UserEntity implements UserDetails {
   @Column(length = 50)
   private String name;
   @Column(length = 100)
+  private String lastname;
+  @Column(length = 100)
   private String email;
   private String password;
   private boolean isEnabled;
@@ -41,7 +43,7 @@ public class UserEntity implements UserDetails {
   @PrePersist
   public void onCreate(){
     this.isDeleted = false;
-    this.isEnabled = false;
+    this.isEnabled = true;
     this.isBanned = false;
     this.createdAt = LocalDateTime.now();
   }

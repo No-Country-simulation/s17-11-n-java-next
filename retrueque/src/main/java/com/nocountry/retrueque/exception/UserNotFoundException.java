@@ -1,6 +1,8 @@
 package com.nocountry.retrueque.exception;
 
-public class UserNotFoundException extends RuntimeException{
+import jakarta.persistence.EntityNotFoundException;
+
+public class UserNotFoundException extends EntityNotFoundException {
   public UserNotFoundException(String id) {
     super("Usuario no encontrado, id: "+id);
   }
