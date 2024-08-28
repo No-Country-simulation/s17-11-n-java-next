@@ -1,4 +1,4 @@
-# turbo
+# Turbo
 
 turbo es una herramienta para crear proyectos de Next.js de forma rápida y sencilla.
 puedes usarlo o no, depende de tu proyecto.
@@ -13,6 +13,7 @@ leer mas en : <https://turbo.build/repo/docs/getting-started/add-to-existing-rep
 - se agrego la linea "check-types": "tsc --noEmit" en el archivo json
 - Se agrego la linea "packageManager": "npm@10.8.1",
 
-para corer la aplicacon con turbo se puede usar el comando `turbo run dev`
-para construnir la aplicacion con trubo se puede usar el comando `turbo build`
-para ver el readme de la aplicacion se puede usar el comando `turbo readme`
+- se debe instalar turbo con el siguiente comando npm install turbo --global
+- corer la aplicacon con turbo se puede usar el comando `turbo run dev`
+- para construnir la aplicacion con trubo se puede usar el comando `turbo build`
+- para ver el readme de la aplicacion se puede usar el comando `turbo readme`
