@@ -3,14 +3,19 @@ package com.nocountry.retrueque.service;
 import com.nocountry.retrueque.exception.UserNotFoundException;
 import com.nocountry.retrueque.model.dto.request.UserReq;
 import com.nocountry.retrueque.model.dto.response.UserRes;
+import com.nocountry.retrueque.model.entity.TokenEntity;
 import com.nocountry.retrueque.model.entity.UserEntity;
 import com.nocountry.retrueque.model.mapper.UserMapper;
 import com.nocountry.retrueque.repository.UserRepository;
 import com.nocountry.retrueque.service.interfaces.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +24,21 @@ public class UserServiceImp implements UserService {
   private final UserMapper userMapper;
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final TokenServiceImp tokenServiceImp;
+  private final EmailServiceImp emailServiceImp;
 
   @Override
+  @Transactional
   public UserRes create(UserReq user) {
     UserEntity newUser = this.userMapper.reqToEntity(user);
     newUser.setPassword(passwordEncoder.encode(user.password()));
     var savedUser = this.userRepository.save(newUser);
+
+    // Generar el token de verificación
+    String token = tokenServiceImp.createVerificationToken(savedUser);
+    //Enviar email de verificación
+    emailServiceImp.sendEmail(savedUser.getEmail(),token);
+
     return this.userMapper.entityToRes(savedUser);
   }
 

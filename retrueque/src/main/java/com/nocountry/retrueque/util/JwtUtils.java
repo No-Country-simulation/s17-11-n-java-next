@@ -21,20 +21,32 @@ public class JwtUtils {
   private String secretKey;
 
   @Value("${jwt.time.expiration}")
-  private int timeExpiration;
+  private long sessionExpiration;
+
+  @Value("${email.token.time.expiration}")
+  private long emailTokenExpiration;
 
   private SecretKey getKey() {
     byte[] keyBites = Decoders.BASE64.decode(secretKey);
     return Keys.hmacShaKeyFor(keyBites);
   }
 
-  public String getToken(UserDetails userDetail) {
+  public String generateSessionToken(UserDetails userDetail) {
     Map<String, Object> extraClaims = new HashMap<>();
     return Jwts.builder()
             .claims(extraClaims)
             .subject(userDetail.getUsername())
             .issuedAt(new Date(System.currentTimeMillis()))
-            .expiration(Date.from(Instant.now().plus(timeExpiration, ChronoUnit.MILLIS)))
+            .expiration(Date.from(Instant.now().plus(sessionExpiration, ChronoUnit.MILLIS)))
+            .signWith(this.getKey(), Jwts.SIG.HS256)
+            .compact();
+  }
+
+  public String generateEmailVerificationToken(UserDetails userDetail) {
+    return Jwts.builder()
+            .subject(userDetail.getUsername())
+            .issuedAt(new Date())
+            .expiration(Date.from(Instant.now().plus(emailTokenExpiration, ChronoUnit.MILLIS)))
             .signWith(this.getKey(), Jwts.SIG.HS256)
             .compact();
   }
@@ -55,7 +67,7 @@ public class JwtUtils {
     return this.getClaim(token, Claims::getSubject);
   }
 
-  private boolean isTokenExpired(String token){
+  public boolean isTokenExpired(String token){
     Date expirationDate = this.getClaim(token, Claims::getExpiration);
     return expirationDate.before(new Date());
   }
