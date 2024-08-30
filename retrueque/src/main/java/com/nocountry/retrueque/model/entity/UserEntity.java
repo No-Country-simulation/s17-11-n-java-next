@@ -26,7 +26,7 @@ public class UserEntity implements UserDetails {
   private Long id;
   @Column(length = 50)
   private String name;
-  @Column(length = 100)
+  @Column(length = 100, unique = true)
   private String email;
   private String password;
   private boolean isEnabled;

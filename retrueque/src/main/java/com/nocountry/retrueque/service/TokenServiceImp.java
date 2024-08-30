@@ -1,53 +1,47 @@
 package com.nocountry.retrueque.service;
 
-import com.nocountry.retrueque.model.dto.response.UserEmailVerificationRes;
-import com.nocountry.retrueque.model.entity.TokenEntity;
+import com.nocountry.retrueque.model.dto.response.EmailVerificationTokenRes;
 import com.nocountry.retrueque.model.entity.UserEntity;
 import com.nocountry.retrueque.model.mapper.EmailVerificationMapper;
-import com.nocountry.retrueque.repository.TokenRepository;
 import com.nocountry.retrueque.repository.UserRepository;
+import com.nocountry.retrueque.service.interfaces.TokenService;
 import com.nocountry.retrueque.util.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TokenServiceImp {
-    private final TokenRepository tokenRepository;
+public class TokenServiceImp implements TokenService {
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
-    //private final EmailVerificationMapper emailVerificationMapper;
+    private final EmailVerificationMapper emailVerificationMapper;
 
-
+    //Crea el token que se enviara al email
+    @Override
     public String createVerificationToken(UserEntity user) {
-        TokenEntity verificationToken = new TokenEntity();
-        verificationToken.setUser(user);
-
-        String token = jwtUtils.generateEmailVerificationToken(user);
-        verificationToken.setToken(token);
-
-        tokenRepository.save(verificationToken);
-
-        return token;
+        return jwtUtils.generateEmailVerificationToken(user);
     }
 
-
-    /*
-    public UserEmailVerificationRes verifyToken(String token) {
-
-        TokenEntity storedToken = tokenRepository.findByToken(token)
-                .orElseThrow(() -> new IllegalArgumentException("Token inválido"));
-
-        if (jwtUtils.isTokenExpired(storedToken.getToken())) {
+    //Verifica que el token que envio el usuario para comprobar su email sea valído
+    @Override
+    public EmailVerificationTokenRes verifyToken(String token) {
+        if (jwtUtils.isTokenExpired(token)) {
             throw new IllegalArgumentException("Token expirado");
         }
+        // Decodificar el token y extraer el email del usuario
+        String email = jwtUtils.getUsernameFromToken(token);
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Token invalido"));
 
-        UserEntity user = storedToken.getUser();
+        // Verificar si el usuario ya está habilitado
+        if (user.isEnabled()) {
+            throw new IllegalArgumentException("El usuario ya está verificado");
+        }
+
         user.setEnabled(true);
         userRepository.save(user);
 
-        //return emailVerificationMapper.toUserEmailVerificationRes(user.getEmail(),user.isEnabled());
+        return emailVerificationMapper.toUserEmailVerificationRes(user.getEmail(), user.isEnabled());
     }
 
-     */
 }
