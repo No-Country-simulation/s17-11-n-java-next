@@ -16,8 +16,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
-const ServiceCard = ({ title, description, location }) => (
+interface ServiceCardProps {
+  title: string;
+  description: string;
+  location: string;
+}
+const ServiceCard: React.FC<ServiceCardProps> = ({
+  title,
+  description,
+  location,
+}) => (
   <div
     className="bg-gray-100 border-2 border-[#BAD6EF] rounded-lg shadow-md flex flex-col h-full  flex-shrink-0 overflow-hidden"
     style={{
