@@ -9,9 +9,17 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const ServiceCard = ({ title, description, location }) => (
   <div
-    className="bg-gray-100 border-2 border-[#BAD6EF] rounded-lg shadow-md flex flex-col h-full basis-[calc(25%-1.6rem)] flex-shrink-0 overflow-hidden"
+    className="bg-gray-100 border-2 border-[#BAD6EF] rounded-lg shadow-md flex flex-col h-full  flex-shrink-0 overflow-hidden"
     style={{
       filter: "drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25))",
     }}
@@ -43,13 +51,6 @@ const ServiceCard = ({ title, description, location }) => (
 );
 
 const RelatedServices = () => {
-  const scrollContainerRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
-
   const services = [
     {
       title: "Título 1",
@@ -78,90 +79,22 @@ const RelatedServices = () => {
     },
   ];
 
-  const startDragging = (e: MouseEvent) => {
-    setIsDragging(true);
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current as HTMLDivElement;
-      setStartX(e.pageX - container.offsetLeft);
-      setScrollLeft(container.scrollLeft);
-    }
-  };
-
-  const stopDragging = () => {
-    setIsDragging(false);
-  };
-
-  const move = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Scroll-fast
-    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
-    checkScrollPosition();
-  };
-
-  const scroll = (direction) => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      const scrollAmount =
-        direction === "left" ? -container.offsetWidth : container.offsetWidth;
-      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
-  const checkScrollPosition = () => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      setShowLeftArrow(container.scrollLeft > 0);
-      setShowRightArrow(
-        container.scrollLeft < container.scrollWidth - container.clientWidth
-      );
-    }
-  };
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      container.addEventListener("scroll", checkScrollPosition);
-      checkScrollPosition();
-    }
-    return () =>
-      container && container.removeEventListener("scroll", checkScrollPosition);
-  }, []);
-
   return (
     <section className="py-8 relative">
-      <h2 className="text-[36px] font-bold mb-6">SERVICIOS RELACIONADOS</h2>
-      <div className="relative">
-        <div
-          ref={scrollContainerRef}
-          className="flex py-4 overflow-x-auto cursor-grab gap-[1.6rem] active:cursor-grabbing scrollbar-hide"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          onMouseDown={startDragging}
-          onMouseLeave={stopDragging}
-          onMouseUp={stopDragging}
-          onMouseMove={move}
-        >
-          {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
-          ))}
-        </div>
-        {showLeftArrow && (
-          <button
-            onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md"
-          >
-            <ChevronLeft size={24} />
-          </button>
-        )}
-        {showRightArrow && (
-          <button
-            onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md"
-          >
-            <ChevronRight size={24} />
-          </button>
-        )}
+      <h2 className="text-[36px] font-bold">SERVICIOS RELACIONADOS</h2>
+      <div className="services cursor-grab">
+        <Carousel>
+          <CarouselContent className="py-8">
+            {services.map((service, index) => (
+              <CarouselItem
+                key={index}
+                className="basis-1/2 md:basis-1/3 lg:basis-1/4"
+              >
+                <ServiceCard {...service} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );
