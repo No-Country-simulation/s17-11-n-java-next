@@ -38,3 +38,9 @@ email:
       expiration: ${EMAIL_TOKEN_EXPIRATION}
   link:
     confirmation: ${LINK_CONFIRMATION}
+aws:
+  s3:
+    bucketName: ${AWS_BUCKET_NAME}
+    accessKeyId: ${AWS_KEY_ID}
+    secretAccessKey: ${AWS_SECRET_ACCES_KEY}
+    region: ${AWS_REGION}
