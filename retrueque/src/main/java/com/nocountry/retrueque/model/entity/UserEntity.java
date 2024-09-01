@@ -26,15 +26,13 @@ public class UserEntity implements UserDetails {
   private Long id;
   @Column(length = 50)
   private String name;
+  @Column(length = 50)
+  private String last_name;
   @Column(length = 100, unique = true)
   private String email;
   private String password;
   private boolean isEnabled;
-  private String dniFrontUrl;
-  private String dniBackUrl;
   private boolean isBanned;
-  @Column(length = 30)
-  private String phone;
   private boolean isDeleted;
   @Column(updatable = false, nullable = false)
   private LocalDateTime createdAt;
@@ -50,6 +48,9 @@ public class UserEntity implements UserDetails {
   @ManyToOne
   @JoinColumn(name="role_id", nullable = false)
   private Role role;
+
+  @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+  private UserProfileEntity profile;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

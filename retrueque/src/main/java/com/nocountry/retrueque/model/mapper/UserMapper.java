@@ -11,14 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-
-  @Mapping(target = "role", source = "roleId")
   UserEntity reqToEntity(UserReq userReq);
   UserRes entityToRes (UserEntity user);
-
-  default Role map(long roleId){
-    Role role = new Role();
-    role.setId(roleId);
-    return role;
-  }
 }

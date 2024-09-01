@@ -7,7 +7,6 @@ import com.nocountry.retrueque.model.mapper.ResendTokenEmailMapper;
 import com.nocountry.retrueque.repository.UserRepository;
 import com.nocountry.retrueque.service.interfaces.EmailService;
 import com.nocountry.retrueque.service.interfaces.TokenService;
-import com.nocountry.retrueque.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
