@@ -1,11 +1,6 @@
 import React from "react";
-import { Star, Edit, Trash2, ChevronUp } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import HeaderProfile from "./HeaderProfile";
-import FooterProfile from "./FooterProfile";
+import HeaderProfile from "./components/HeaderProfile";
+import FooterProfile from "./components/FooterProfile";
 const user = {
   name: "John Doe",
   avatar: "https://placehold.co/64x64/png",
