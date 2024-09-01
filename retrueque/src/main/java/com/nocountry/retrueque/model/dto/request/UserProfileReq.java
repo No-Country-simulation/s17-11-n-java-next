@@ -1,5 +1,7 @@
 package com.nocountry.retrueque.model.dto.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public record UserProfileReq(
         String profileImage,
         String dniFrontImage,
