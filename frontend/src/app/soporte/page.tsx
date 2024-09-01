@@ -16,26 +16,34 @@ interface FAQItemProps {
   answer: string;
   isOpen: boolean;
   toggle: () => void;
+  index: number;
 }
 const FAQItem: React.FC<FAQItemProps> = ({
   question,
   answer,
   isOpen,
   toggle,
+  index,
 }) => (
-  <div className="border-b border-gray-200 py-4">
+  <div className="border-gray-200">
     <button
-      className="flex justify-between items-center w-full text-left font-medium text-gray-900 focus:outline-none"
+      className={`flex justify-between px-4 py-6 rounded-lg items-center w-full text-left font-medium text-gray-900 focus:outline-none border-2 border-[#BAD6EF] ${
+        isOpen ? "bg-[#BAD6EF]" : ""
+      } ${index !== 0 ? "border-t-0" : ""} ${index}`}
       onClick={toggle}
     >
-      <span>{question}</span>
+      <span className="font-medium">{question}</span>
       {isOpen ? (
         <ChevronUp className="flex-shrink-0 ml-2" />
       ) : (
         <ChevronDown className="flex-shrink-0 ml-2" />
       )}
     </button>
-    {isOpen && <div className="mt-2 text-gray-600">{answer}</div>}
+    {isOpen && (
+      <div className="px-4 text-gray-600 border-lg border-[2px] border-[#BAD6EF] rounded-lg">
+        {answer}
+      </div>
+    )}
   </div>
 );
 
@@ -72,23 +80,26 @@ const FAQComponent = () => {
   ];
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader className="bg-blue-500 text-white">
-        <CardTitle className="text-2xl font-bold">
-          PREGUNTAS FRECUENTES
-        </CardTitle>
-        <div className="relative mt-4">
-          <Input
-            placeholder="Buscador"
-            className="pl-10 pr-4 py-2 w-full rounded-md text-gray-900"
-          />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+    <Card className="border-none rounded-none shadow-none">
+      <CardHeader className="bg-[#74ACDF] text-white">
+        <div className="w-full max-w-2xl mx-auto">
+          <CardTitle className="text-[36px] font-bold text-black">
+            PREGUNTAS FRECUENTES
+          </CardTitle>
+          <div className="relative mt-4">
+            <Input
+              placeholder="Buscador"
+              className="pr-10 pl-4 py-6 w-full rounded-md text-gray-900"
+            />
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="pt-6 w-full max-w-[1232px] mx-auto">
         {faqs.map((faq, index) => (
           <FAQItem
             key={index}
+            index={index}
             question={faq.question}
             answer={faq.answer}
             isOpen={index === openIndex}
@@ -96,15 +107,15 @@ const FAQComponent = () => {
           />
         ))}
       </CardContent>
-      <CardFooter className="flex flex-col items-center">
-        <h3 className="text-xl font-semibold mb-2">
+      <CardFooter className="flex flex-col items-center mt-6">
+        <h3 className="text-[36px] font-semibold mb-2">
           ¿Te quedaste con la duda?
         </h3>
         <p className="text-center mb-4">
           ¡No dudes en contactarnos para resolver cualquier consulta y sumarla a
           la comunidad!
         </p>
-        <Button className="bg-yellow-400 hover:bg-yellow-500 text-white">
+        <Button className="bg-[#F6B40E] hover:bg-[#ffc32c] text-black text-[20px] py-4 px-4 lg:px-20">
           Contáctanos
         </Button>
       </CardFooter>
