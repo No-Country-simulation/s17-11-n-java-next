@@ -48,7 +48,7 @@ public class UserServiceImp implements UserService {
   public String softDeleteById(long id) {
     this.verifyIsExist(id);
     this.userRepository.softDelete(id);
-    return "Usuario eliminado con éxito, id:"+id;
+    return "User deleted successfully, id:"+id;
   }
 
   @Override

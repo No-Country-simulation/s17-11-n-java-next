@@ -1,5 +1,8 @@
 package com.nocountry.retrueque.security;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nocountry.retrueque.controller.ApiResponse;
 import com.nocountry.retrueque.util.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -8,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,18 +39,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
-    username = this.jwtUtils.getUsernameFromToken(token);
-    boolean isAuthenticated = SecurityContextHolder.getContext().getAuthentication() != null;
-    if (username != null && !isAuthenticated) {
-      var userDetails = this.userDetailsService.loadUserByUsername(username);
-      if (jwtUtils.isTokenValid(token, userDetails)) {
-        var authToken = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities());
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+    try {
+      username = this.jwtUtils.getUsernameFromToken(token);
+      boolean isAuthenticated = SecurityContextHolder.getContext().getAuthentication() != null;
+      if (username != null && !isAuthenticated) {
+        var userDetails = this.userDetailsService.loadUserByUsername(username);
+        if (jwtUtils.isTokenValid(token, userDetails)) {
+          var authToken = new UsernamePasswordAuthenticationToken(
+                  userDetails,
+                  null,
+                  userDetails.getAuthorities());
+          authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+          SecurityContextHolder.getContext().setAuthentication(authToken);
+        }
       }
+    } catch (Exception e) {
+      response.setStatus(HttpStatus.BAD_REQUEST.value());
+      response.getWriter().write(convertToJson(new ApiResponse<>(e.getMessage(), null)));
+      return;
     }
     filterChain.doFilter(request, response);
   }
@@ -57,5 +67,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       return authHeader.substring(7);
     }
     return null;
+  }
+
+  private String convertToJson(Object object) throws JsonProcessingException {
+    if (object == null) {
+      return null;
+    }
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.writeValueAsString(object);
   }
 }

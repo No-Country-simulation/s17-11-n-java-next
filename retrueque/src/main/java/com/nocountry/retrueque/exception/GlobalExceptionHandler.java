@@ -1,6 +1,7 @@
 package com.nocountry.retrueque.exception;
 
 import com.nocountry.retrueque.controller.ApiResponse;
+import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<ApiResponse<?>> handleNotFoundException(EntityNotFoundException e, WebRequest request) {
     var error = new ApiResponse<>(e.getMessage(), null);

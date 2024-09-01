@@ -2,6 +2,7 @@ package com.nocountry.retrueque.model.mapper;
 
 import com.nocountry.retrueque.model.dto.request.UserReq;
 import com.nocountry.retrueque.model.dto.response.UserRes;
+import com.nocountry.retrueque.model.dto.response.UserResShort;
 import com.nocountry.retrueque.model.entity.Role;
 import com.nocountry.retrueque.model.entity.UserEntity;
 import org.mapstruct.Context;
@@ -14,11 +15,14 @@ public interface UserMapper {
 
   @Mapping(target = "role", source = "roleId")
   UserEntity reqToEntity(UserReq userReq);
+  @Mapping(target = "username", expression = "java(user.getName()+ ' '+user.getLastname())")
+  UserResShort entityToShort(UserEntity user);
+
   UserRes entityToRes (UserEntity user);
 
-  default Role map(long roleId){
+  default Role map(Integer roleId){
     Role role = new Role();
-    role.setId(roleId);
+    role.setId(roleId.longValue());
     return role;
   }
 }

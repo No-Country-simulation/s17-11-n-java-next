@@ -1,6 +1,7 @@
 package com.nocountry.retrueque.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -39,28 +40,28 @@ public class JwtUtils {
             .compact();
   }
 
-  private Claims getAllClaims(String token){
+  private Claims getAllClaims(String token) throws Exception{
     return Jwts.parser()
             .verifyWith(this.getKey())
             .build()
             .parseSignedClaims(token)
             .getPayload();
   }
-  private <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
+  private <T> T getClaim(String token, Function<Claims, T> claimsResolver) throws Exception {
     final Claims claims = this.getAllClaims(token);
     return claimsResolver.apply(claims);
   }
 
-  public String getUsernameFromToken(String token) {
+  public String getUsernameFromToken(String token) throws Exception {
     return this.getClaim(token, Claims::getSubject);
   }
 
-  private boolean isTokenExpired(String token){
+  private boolean isTokenExpired(String token) throws Exception{
     Date expirationDate = this.getClaim(token, Claims::getExpiration);
     return expirationDate.before(new Date());
   }
 
-  public boolean isTokenValid(String token, UserDetails userDetails) {
+  public boolean isTokenValid(String token, UserDetails userDetails) throws Exception {
     final String email = getUsernameFromToken(token);
     return email.equals(userDetails.getUsername()) &&
             !isTokenExpired(token);

@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="users", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class UserEntity implements UserDetails {
 
   @Id
@@ -40,17 +41,17 @@ public class UserEntity implements UserDetails {
   @Column(updatable = false, nullable = false)
   private LocalDateTime createdAt;
 
-  @PrePersist
-  public void onCreate(){
-    this.isDeleted = false;
-    this.isEnabled = true;
-    this.isBanned = false;
-    this.createdAt = LocalDateTime.now();
-  }
-
   @ManyToOne
   @JoinColumn(name="role_id", nullable = false)
   private Role role;
+
+  @PrePersist
+  public void onCreate(){
+    this.isDeleted = false;
+    this.isEnabled = false;
+    this.isBanned = false;
+    this.createdAt = LocalDateTime.now();
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,9 +33,13 @@ public class AuthServiceImp implements AuthService {
     return new LoginRes(token, user.getRole().getName());
   }
 
-  @Transactional
   @Override
   public UserRes regist(UserReq userReq) {
     return this.userService.create(userReq);
+  }
+
+  @Override
+  public UserEntity getAuthUser() {
+    return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
 }

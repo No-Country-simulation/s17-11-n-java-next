@@ -8,11 +8,11 @@ import jakarta.validation.constraints.Size;
 public record UserReq(
         @NotBlank
         @Size(min = 2, max = 50)
-        @Pattern(regexp = "^[a-zA-Z\\s]$", message = "Doesn't match ^[a-zA-Z\\s]$")
+        @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Doesn't match ^[a-zA-Z\\s]+$")
         String name,
         @NotBlank
         @Size(min = 4, max = 100)
-        @Pattern(regexp = "^[a-zA-Z\\s]$", message = "Doesn't match ^[a-zA-Z\\s]$")
+        @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Doesn't match ^[a-zA-Z\\s]+$")
         String lastname,
         @NotBlank
         @Pattern(regexp = "^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9-]{2,}\\.[a-zA-Z]{2,}$",
