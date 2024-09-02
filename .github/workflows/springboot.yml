@@ -1,0 +1,41 @@
+name: Spring Boot CI
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin' # Especifica la distribución del JDK
+        java-version: '17'  # Especifica la versión de Java
+
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-m2-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-m2-
+
+    - name: Build with Maven
+      run: |
+        cd retrueque
+        mvn clean install
+
+    - name: Run tests
+      run: |
+        cd retrueque
+        mvn test
