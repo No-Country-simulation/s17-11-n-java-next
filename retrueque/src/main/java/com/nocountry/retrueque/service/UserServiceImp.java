@@ -34,15 +34,13 @@ public class UserServiceImp implements UserService {
   public UserRes create(UserReq user) {
     UserEntity newUser = this.userMapper.reqToEntity(user);
     newUser.setPassword(passwordEncoder.encode(user.password()));
-    // Asignar rol por defecto ("USER")
+
     Role defaultRole = roleRepository.findByName("USER")
             .orElseThrow(() -> new RuntimeException("Rol de usuario por defecto no encontrado"));
     newUser.setRole(defaultRole);
     var savedUser = this.userRepository.save(newUser);
 
-    // Generar el token de verificación
     String token = tokenServiceImp.createVerificationToken(savedUser);
-    //Enviar email de verificación
     emailServiceImp.sendEmail(savedUser.getEmail(),token);
 
     return this.userMapper.entityToRes(savedUser);
