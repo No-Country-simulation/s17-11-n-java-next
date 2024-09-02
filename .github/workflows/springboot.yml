@@ -19,6 +19,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
+        distribution: 'temurin' # Especifica la distribución del JDK
         java-version: '17'  # Especifica la versión de Java
 
     - name: Cache Maven packages
