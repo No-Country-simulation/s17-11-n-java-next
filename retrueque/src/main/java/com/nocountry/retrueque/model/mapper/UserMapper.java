@@ -15,7 +15,7 @@ public interface UserMapper {
 
   @Mapping(target = "role", source = "roleId")
   UserEntity reqToEntity(UserReq userReq);
-  @Mapping(target = "username", expression = "java(user.getName()+ ' '+user.getLastname())")
+  @Mapping(target = "username", expression = "java(user.getName()+ ' '+user.getLast_name())")
   UserResShort entityToShort(UserEntity user);
 
   UserRes entityToRes (UserEntity user);

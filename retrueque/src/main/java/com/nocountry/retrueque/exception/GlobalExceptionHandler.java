@@ -1,43 +1,55 @@
 package com.nocountry.retrueque.exception;
 
-import com.nocountry.retrueque.controller.ApiResponse;
-import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(EntityNotFoundException.class)
-  public ResponseEntity<ApiResponse<?>> handleNotFoundException(EntityNotFoundException e, WebRequest request) {
-    var error = new ApiResponse<>(e.getMessage(), null);
-    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-  }
+    public record ErrorResponse(String message, List<String> errors,HttpStatus status) {
+        public ErrorResponse( String message,HttpStatus status) {
+            this( message, null,status);
+        }
+    }
 
-  @ExceptionHandler(NoHandlerFoundException.class)
-  public ResponseEntity handleNoHandlerFoundException(NoHandlerFoundException ex, WebRequest request) {
-    ApiResponse<String> response = new ApiResponse("Resource not found " + request.getDescription(false), null);
-    return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-  }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        List<String> errores = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .collect(Collectors.toList());
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<?> handleInvalidField(MethodArgumentNotValidException e) {
-    Map<String, String> errors = new HashMap<>();
-    e.getBindingResult().getAllErrors().forEach((err) -> {
-      String fieldName = ((FieldError) err).getField();
-      String message = err.getDefaultMessage();
-      errors.put(fieldName, message);
-    });
-    return new ResponseEntity<>(new ApiResponse<>(errors.toString(), null), HttpStatus.BAD_REQUEST);
-  }
+        ErrorResponse errorResponse = new ErrorResponse("Validación fallida", errores, HttpStatus.BAD_REQUEST );
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        String message = ex.getRootCause().getMessage();
+        ErrorResponse errorResponse = new ErrorResponse(message, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Credenciales inválidas",HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
 }
