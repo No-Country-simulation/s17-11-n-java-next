@@ -22,7 +22,7 @@ const FooterProfile: React.FC<FooterProfileProps> = ({
     } else {
       setDataActiveTab(comments);
     }
-  }, [activeTab]);
+  }, [activeTab, comments, requests]);
 
   return (
     <div className="mt-8">
