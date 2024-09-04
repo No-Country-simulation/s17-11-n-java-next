@@ -23,7 +23,7 @@ public class ServicesController {
 
   @Operation(summary = "Create a new service", description = "Available for USER role.")
   @PostMapping(consumes = "multipart/form-data")
-  public ResponseEntity<?> create(@RequestBody @Valid ServiceReq request){
+  public ResponseEntity<?> create(@ModelAttribute @Valid ServiceReq request){
     var response = this.servicesService.create(request);
     return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(response));
   }

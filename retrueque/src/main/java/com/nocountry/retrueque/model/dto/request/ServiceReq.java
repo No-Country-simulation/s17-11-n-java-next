@@ -17,7 +17,6 @@ public record ServiceReq(
         @NotBlank
         @Size(min=10)
         String rules,
-
         Set<MultipartFile> imgUrl,
         @NotNull Integer categoryId
 ) {
