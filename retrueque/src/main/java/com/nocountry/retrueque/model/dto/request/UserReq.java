@@ -19,8 +19,6 @@ public record UserReq(
                 message = "Doesn't match ^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9-]{2,}\\.[a-zA-Z]{2,}$")
         @Size(min = 10)
         String email,
-        String password,
-        @NotNull
-        Integer roleId
+        String password
 ) {
 }
