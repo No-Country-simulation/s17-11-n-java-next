@@ -23,7 +23,7 @@ const ServiceCard = () => {
         <div className="flex-1 flex flex-col justify-between">
           <div>
             <header className="flex items-center mb-2">
-              <img
+              <Image
                 className="w-12 h-12 bg-gray-300 rounded-full mr-3"
                 src="https://placehold.co/79x79/png"
                 alt="Laura Lopez"

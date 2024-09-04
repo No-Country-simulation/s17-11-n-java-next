@@ -17,6 +17,7 @@ function FooterGeneral() {
               {href:'/soporte',title:'SOPORTE',},
               {href:'/terminos',title:'TÉRMINOS Y CONDICIONES',},
             ].map((item) => (
+              // eslint-disable-next-line react/jsx-key
               <Link href={item.href} className=''>
                 {item.title}
               </Link>
