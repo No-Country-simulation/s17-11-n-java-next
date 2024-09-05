@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import {lato } from '@/font/google'
+import { lato } from "@/font/google";
 import "./globals.css";
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
@@ -15,13 +15,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   return (
     <SessionAuthProvider session={session}>
       <html lang="en">
         <body className={lato.className}>{children}</body>
       </html>
     </SessionAuthProvider>
-    
   );
 }
