@@ -27,6 +27,8 @@ const ServiceCard = () => {
                 className="w-12 h-12 bg-gray-300 rounded-full mr-3"
                 src="https://placehold.co/79x79/png"
                 alt="Laura Lopez"
+                width={79}
+                height={79}
               />
               <div>
                 <h2 className="text-[2rem] md:text-[3.1rem] font-bold">
