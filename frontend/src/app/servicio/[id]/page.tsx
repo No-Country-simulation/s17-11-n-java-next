@@ -1,8 +1,8 @@
 "use client";
 import { useParams } from "next/navigation";
 import React from "react";
-import RelatedServices from "../components/RelatedServices";
-import ServiceCard from "../components/ServiceCard";
+import RelatedServices from "../_components/RelatedServices";
+import ServiceCard from "../_components/ServiceCard";
 
 const Page = () => {
   const { id } = useParams();
