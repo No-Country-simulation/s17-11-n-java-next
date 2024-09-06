@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { lato } from "@/font/google";
+import { lato } from '@/font/google'
 import "./globals.css";
+import ProvidersTanstack from "@/context/ProvidersTanstack";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={lato.className}>{children}</body>
+      <body className={lato.className}><ProvidersTanstack>
+        {children}
+      </ProvidersTanstack></body>
     </html>
   );
 }

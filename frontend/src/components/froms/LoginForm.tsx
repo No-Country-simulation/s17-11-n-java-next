@@ -16,6 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import { Fetchlogin } from "@/services/LoginFetch";
+import { useAuthStore } from "@/store/auth";
+import { useRouter } from "next/navigation";
 
 // Definición del esquema de validación
 const formSchema = z.object({
@@ -24,7 +27,11 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+  const setToken = useAuthStore((state) => state.setToken);
+  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,9 +40,19 @@ const LoginForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Manejar los valores del formulario
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const resp = await Fetchlogin(values);
+      if (resp.success && resp.data.token) {
+        setToken(resp.data.token, resp.data.role);  // Guarda el token si existe
+        console.log("Login exitoso, token guardado:", resp.data.token);
+        router.push('/') // lo  envia al home
+      } else {
+        setErrorMessage("Error en la autenticación. Verifique sus credenciales.");
+      }
+    } catch (error) {
+      setErrorMessage("Error en la autenticación. Verifique sus credenciales.");
+    }
   }
 
   return (
