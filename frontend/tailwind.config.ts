@@ -14,6 +14,7 @@ const config = {
       lato: ['var(--font-lato)', 'sans-serif'],  // Usa la variable definida en el layout
     },
     fontSize: {
+      'xs': ['16px', '24px'],   // Lato Extra small 16/24
       'display-large': ['56px', '64px'],  // Lato Regular 56/64
       'display-medium': ['48px', '56px'],  // Lato Regular 48/56
       'display-small': ['48px', '56px'],   // Lato Regular 48/56
