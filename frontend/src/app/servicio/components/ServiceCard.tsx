@@ -24,6 +24,8 @@ const ServiceCard = () => {
           <div>
             <header className="flex items-center mb-2">
               <Image
+                width={12}
+                height={12}
                 className="w-12 h-12 bg-gray-300 rounded-full mr-3"
                 src="https://placehold.co/79x79/png"
                 alt="Laura Lopez"
@@ -91,11 +93,10 @@ const ServiceCard = () => {
               {["D", "L", "M", "M", "J", "V", "S"].map((day, index) => (
                 <li key={index}>
                   <span
-                    className={`size-[50px] rounded-full flex items-center justify-center text-black text-[20px] ${
-                      index === 1 || index === 2 || index === 3 || index === 6
+                    className={`size-[50px] rounded-full flex items-center justify-center text-black text-[20px] ${index === 1 || index === 2 || index === 3 || index === 6
                         ? "bg-yellow-500 "
                         : "border border-gray-300"
-                    }`}
+                      }`}
                   >
                     {day}
                   </span>
@@ -109,9 +110,8 @@ const ServiceCard = () => {
               {["Mañana", "Tarde", "Noche"].map((shift, index) => (
                 <li
                   key={index}
-                  className={`block px-4 py-[9px] rounded-full ${
-                    index === 0 ? "bg-[#F7C036]" : "border border-gray-300"
-                  }`}
+                  className={`block px-4 py-[9px] rounded-full ${index === 0 ? "bg-[#F7C036]" : "border border-gray-300"
+                    }`}
                 >
                   <span
                     className={`text-black size-full  font-semibold text-[20px] `}
