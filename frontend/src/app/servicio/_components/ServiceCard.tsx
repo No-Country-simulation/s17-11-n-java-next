@@ -24,8 +24,6 @@ const ServiceCard = () => {
           <div>
             <header className="flex items-center mb-2">
               <Image
-                width={12}
-                height={12}
                 className="w-12 h-12 bg-gray-300 rounded-full mr-3"
                 src="https://placehold.co/79x79/png"
                 alt="Laura Lopez"
