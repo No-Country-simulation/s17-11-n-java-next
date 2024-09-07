@@ -12,7 +12,7 @@
 4.Herramientas
 5.Links
 
-**##Descripción**
+##Descripción
 
 **ReTrueque** conecta a personas que ofrecen servicios del hogar (electricistas, albañilería, limpieza, mecánica, fotografía, clases de idioma) con usuarios que necesitan de estos servicios, según sus preferencias y disponibilidad.
 
@@ -61,8 +61,6 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 **##Equipo**
 
 | Nombre | Rol | Foto | Contacto |
-
-|————-|——|——-|————-|
 | Matias Acevedo | Backend - Frontend | !foto de Matias |  [https://www.linkedin.com/in/matias-nicolas-acevedo/] |
 
 **###Diseño UX/UI**
