@@ -6,11 +6,11 @@
 
 ## **Índice**
 
--1. Descripción
--2. Requerimientos Funcionales
--3. Equipo
--4. Herramientas
--5. Links
+1. Descripción
+2. Requerimientos Funcionales
+3. Equipo
+4. Herramientas
+5. Links
 
 ## **Descripción**
 
@@ -79,9 +79,9 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 
 ## **Herramientas Utilizadas**
 
-- ## - Figma !Figma
-- ## - Jira !Jira
-- ## - Postman !Postman
-- ## - completar por favor
+- ### Figma !Figma
+- ### Jira !Jira
+- ### Postman !Postman
+- ### completar por favor
 
 ## **Links**
