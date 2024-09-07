@@ -4,7 +4,7 @@
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f5f9322c-cb85-4fba-a2c7-d6e7cdd04682/fdc1d02d-5c6e-4771-a846-7aeb2734b6f2/image.png)
 
-**## Índice**
+##Índice
 
 1.Descripción
 2.Requerimientos Funcionales
@@ -63,9 +63,6 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 | Nombre | Rol | Foto | Contacto |
 
 |————-|——|——-|————-|
-
-**###Product manager**
-
 | Matias Acevedo | Backend - Frontend | !foto de Matias |  [https://www.linkedin.com/in/matias-nicolas-acevedo/] |
 
 **###Diseño UX/UI**
