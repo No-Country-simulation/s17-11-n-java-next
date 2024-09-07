@@ -20,7 +20,8 @@ public class CorsConfig {
                         "http://localhost:3002",
                         "http://localhost:3003",
                         "http://localhost:3004",
-                        "http://localhost:3005"
+                        "http://localhost:3005",
+                        "https://s17-11-n-java-next-urev.onrender.com/"
                         )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
