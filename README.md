@@ -1,6 +1,6 @@
 # **ReTrueque**
 
-**MVP | NO COUNTRY s17-11-n-java-next**
+**Proyecto MVP | NO COUNTRY s17-11-n-java-next**
 
 ![logo]
 
@@ -62,19 +62,19 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 
 | Nombre          | Rol                | Foto                    | Contacto         | 
 | --------------- | ------------------ | ----------------------- | --------------- | 
-| Matias Acevedo  | Backend - Frontend | !foto de Matias         | [https://www.linkedin.com/in/matias-nicolas-acevedo/] |
+| Matias Acevedo  | PM - Backend - Frontend | !foto de Matias         | [https://www.linkedin.com/in/matias-nicolas-acevedo/] |
 | Joaquín Peña    | Diseñador UX/UI    | !foto de Joaquin |
 | Malena De Arriba| Diseñadora UX/UI   | !foto de Malena  |
-| Natalia C. Toral| Diseño UX/UI       | ! foto de Natalia |  [https://www.linkedin.com/in/naticaniza/] |
-| Orlando Cardenas| Frontend           | !foto de Orlando | [[www.linkedin.com/in/orlandocardenasvillegas](https://www.linkedin.com/in/orlandocardenasvillegas)] |
+| Natalia Caniza  | Diseño UX/UI       | ! foto de Natalia |  [https://www.linkedin.com/in/naticaniza/] |
+| Orlando Cardenas| Frontend           | !foto de Orlando | [https://www.linkedin.com/in/orlandocardenasvillegas)] |
 | Pedro Núñez     | Frontend           | !foto de Pedro | |
 | Luiggi R. Pérez | rol                | !foto de Luiggi | |
 | Alexander Machicado| Fullstack       | !foto de Alexander | |
 | Edgar Camberos  | Backend            | !foto de Edgar | | 
 | Arnoldo Felce   | QA                 | !foto de Arnoldo | |
 | Benjamin Matos  | QA                 | !foto Benjamin | |
-| Gladys Ferreira | QA                 | !foto de Gladys | [https://[www.linkedin.com/in/gladys-ferreira](https://www.linkedin.com/in/gladys-ferreira)] |
-| Gisela Lago     | QA                 | !foto de Gisela |  [[https://www.linkedin.com/in/](https://www.linkedin.com/in/naticaniza/)giselalago/] |
+| Gladys Ferreira | QA                 | !foto de Gladys | [https://[www.linkedin.com/in/gladys-ferreira] |
+| Gisela Lago     | QA                 | !foto de Gisela | [https://www.linkedin.com/in/]giselalago/] |
 | Orlando Quintero| TL                 | |
 
 ## **Herramientas Utilizadas**
