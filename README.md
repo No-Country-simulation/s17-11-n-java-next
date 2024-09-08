@@ -66,14 +66,14 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 | Joaquín Peña    | Diseñador UX/UI    | !foto de Joaquin |
 | Malena De Arriba| Diseñadora UX/UI   | !foto de Malena  |
 | Natalia Caniza  | Diseño UX/UI       | ! foto de Natalia |  [https://www.linkedin.com/in/naticaniza/] |
-| Orlando Cardenas| Frontend           | !foto de Orlando | [https://www.linkedin.com/in/orlandocardenasvillegas)] |
+| Orlando Cardenas| Frontend           | !foto de Orlando | [https://www.linkedin.com/in/orlandocardenasvillegas] |
 | Pedro Núñez     | Frontend           | !foto de Pedro | |
 | Luiggi R. Pérez | rol                | !foto de Luiggi | |
 | Alexander Machicado| Fullstack       | !foto de Alexander | |
 | Edgar Camberos  | Backend            | !foto de Edgar | | 
 | Arnoldo Felce   | QA                 | !foto de Arnoldo | |
 | Benjamin Matos  | QA                 | !foto Benjamin | |
-| Gladys Ferreira | QA                 | !foto de Gladys | [https://[www.linkedin.com/in/gladys-ferreira] |
+| Gladys Ferreira | QA                 | !foto de Gladys | [https://www.linkedin.com/in/gladys-ferreira] |
 | Gisela Lago     | QA                 | !foto de Gisela | [https://www.linkedin.com/in/]giselalago/] |
 | Orlando Quintero| TL                 | |
 
