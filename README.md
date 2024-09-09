@@ -60,22 +60,22 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 
 ## **Equipo**
 
-| Nombre          | Rol                | Foto                    | Contacto         | 
+| Nombre          | Rol                | Foto                    | Contacto        | 
 | --------------- | ------------------ | ----------------------- | --------------- | 
-| Matias Acevedo  | PM - Backend - Frontend | !foto de Matias         | https://www.linkedin.com/in/matias-nicolas-acevedo |
-| Joaquín Peña    | Diseñador UX/UI    | !foto de Joaquin | https://www.linkedin.com/in/joaquín-armando-peña |
-| Malena De Arriba| Diseñadora UX/UI   | !foto de Malena  |
-| Natalia Caniza  | Diseño UX/UI       | ! foto de Natalia |  https://www.linkedin.com/in/naticaniza |
-| Orlando Cardenas| Frontend           | !foto de Orlando | https://www.linkedin.com/in/orlandocardenasvillegas |
-| Pedro Núñez     | Frontend           | !foto de Pedro | | https://www.linkedin.com/in/pedro-alejandro |
-| Luiggi R. Pérez | rol                | !foto de Luiggi | |
-| Victor Maye     | Frontend           | !foto de Victor | https://www.linkedin.com/in/victor-fullstack |
-| Alexander Machicado| Fullstack       | !foto de Alexander | |
-| Edgar Camberos  | Backend            | !foto de Edgar | | 
-| Arnoldo Felce   | QA                 | !foto de Arnoldo | https://www.linkedin.com/in/arnoldo-felce-rondón |
-| Benjamin Matos  | QA                 | !foto Benjamin | https://www.linkedin.com/in/benjaminmatosvega |
-| Gladys Ferreira | QA                 | !foto de Gladys | https://www.linkedin.com/in/gladys-ferreira |
-| Gisela Lago     | QA                 | !foto de Gisela | https://www.linkedin.com/in/giselalago/ |
+| Matias Acevedo  | PM - Backend - Frontend | !foto de Matias    | https://www.linkedin.com/in/matias-nicolas-acevedo |
+| Joaquín Peña    | Diseñador UX/UI    | !foto de Joaquin        | https://www.linkedin.com/in/joaquín-armando-peña |
+| Malena De Arriba| Diseñadora UX/UI   | !foto de Malena         | |
+| Natalia Caniza  | Diseño UX/UI       | ! foto de Natalia       |  https://www.linkedin.com/in/naticaniza |
+| Orlando Cardenas| Frontend           | !foto de Orlando        | https://www.linkedin.com/in/orlandocardenasvillegas |
+| Pedro Núñez     | Frontend           | !foto de Pedro          | https://www.linkedin.com/in/pedro-alejandro |
+| Luiggi R. Pérez | Frontend           | !foto de Luiggi         | https://www.linkedin.com/in/luiggi-rosas |
+| Victor Maye     | Frontend           | !foto de Victor         | https://www.linkedin.com/in/victor-fullstack |
+| Alexander Machicado| Fullstack       | !foto de Alexander      | |
+| Edgar Camberos  | Backend            | !foto de Edgar          | | 
+| Arnoldo Felce   | QA                 | !foto de Arnoldo        | https://www.linkedin.com/in/arnoldo-felce-rondón |
+| Benjamin Matos  | QA                 | !foto Benjamin          | https://www.linkedin.com/in/benjaminmatosvega |
+| Gladys Ferreira | QA                 | !foto de Gladys         | https://www.linkedin.com/in/gladys-ferreira |
+| Gisela Lago     | QA                 | !foto de Gisela         | https://www.linkedin.com/in/giselalago/ |
 | Orlando Quintero| TL                 | |
 
 ## **Herramientas Utilizadas**
@@ -83,6 +83,7 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 - ### Figma !Figma
 - ### Jira !Jira
 - ### Postman !Postman
+- ### Swagger
 - ### completar por favor
 
 ## **Links**
