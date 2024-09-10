@@ -15,12 +15,36 @@ import {
 import { Input } from "@/components/ui/input";
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import { Fetchregister } from "@/services/RegisterFetch";
+import { useRouter } from "next/navigation";
 
 // Definición del esquema de validación
 const formSchema = z
   .object({
-    name: z.string().min(2, "El nombre es obligatorio").max(50),
-    email: z.string().email("Introduzca un email válido").min(5).max(50),
+    name: z
+      .string()
+      .min(2, "El nombre debe tener al menos 2 caracteres")
+      .max(50, "El nombre debe tener menos de 50 caracteres")
+      .regex(
+        /^[a-zA-Z\s]+$/,
+        "El nombre solo puede contener letras y espacios"
+      ),
+    last_name: z
+      .string()
+      .min(4, "El apellido debe tener al menos 4 caracteres")
+      .max(100, "El apellido debe tener menos de 100 caracteres")
+      .regex(
+        /^[a-zA-Z\s]+$/,
+        "El apellido solo puede contener letras y espacios"
+      ),
+    email: z
+      .string()
+      .email("Introduzca un email válido")
+      .min(10, "El email debe tener al menos 10 caracteres")
+      .regex(
+        /^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9-]{2,}\.[a-zA-Z]{2,}$/,
+        "El email debe ser válido"
+      ),
     password: z
       .string()
       .min(8, {
@@ -29,14 +53,26 @@ const formSchema = z
       .max(50, {
         message: "La contraseña debe tener menos de 50 caracteres",
       })
-      .regex(/(?=.*[a-z])/, "La contraseña debe contener al menos una letra minúscula")
-      .regex(/(?=.*[A-Z])/, "La contraseña debe contener al menos una letra mayúscula")
+      .regex(
+        /(?=.*[a-z])/,
+        "La contraseña debe contener al menos una letra minúscula"
+      )
+      .regex(
+        /(?=.*[A-Z])/,
+        "La contraseña debe contener al menos una letra mayúscula"
+      )
       .regex(/(?=.*\d)/, "La contraseña debe contener al menos un número")
-      .regex(/(?=.*[@#$%^&+=])/,"La contraseña debe contener al menos un carácter especial (@, #, $, etc.)"),
+      .regex(
+        /(?=.*[@#$%^&+=])/,
+        "La contraseña debe contener al menos un carácter especial (@, #, $, etc.)"
+      ),
     confirmPassword: z
       .string()
       .min(8, "La confirmación de contraseña debe tener al menos 8 caracteres")
-      .max(50, "La confirmación de contraseña debe tener menos de 50 caracteres"),
+      .max(
+        50,
+        "La confirmación de contraseña debe tener menos de 50 caracteres"
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -44,6 +80,8 @@ const formSchema = z
   });
 
 const RegisterForm = () => {
+  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmPassword: false,
@@ -53,14 +91,24 @@ const RegisterForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      last_name: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const resp = await Fetchregister(values); // Función que debes implementar para el registro
+      if (resp.success) {
+        console.log("Registro exitoso");
+        router.push('/login')
+      } else {
+        setErrorMessage("Error en el registro. Vuelva a intentarlo.");
+      }
+    } catch (error) {
+      setErrorMessage("Error en el registro. Vuelva a intentarlo.");
+    }
   }
 
   const togglePasswordVisibility = (field: "password" | "confirmPassword") => {
@@ -82,15 +130,28 @@ const RegisterForm = () => {
         >
           <div className="flex flex-col gap-6">
             <FormItem>
-              <FormLabel className="text-white">Nombre y apellido</FormLabel>
+              <FormLabel className="text-white">Nombre</FormLabel>
               <FormControl>
                 <Input
                   {...form.register("name")}
                   className="py-5 px-4 placeholder-gray-400"
-                  placeholder="Nombre y apellido"
+                  placeholder="Nombre"
                 />
               </FormControl>
               <FormMessage>{form.formState.errors.name?.message}</FormMessage>
+            </FormItem>
+            <FormItem>
+              <FormLabel className="text-white">Apellido</FormLabel>
+              <FormControl>
+                <Input
+                  {...form.register("last_name")}
+                  className="py-5 px-4 placeholder-gray-400"
+                  placeholder="Apellido"
+                />
+              </FormControl>
+              <FormMessage>
+                {form.formState.errors.last_name?.message}
+              </FormMessage>
             </FormItem>
             <FormItem>
               <FormLabel className="text-white">Email</FormLabel>
@@ -119,7 +180,9 @@ const RegisterForm = () => {
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 mr-5"
                   onClick={() => togglePasswordVisibility("password")}
                   aria-label={
-                    showPassword.password ? "Ocultar contraseña" : "Mostrar contraseña"
+                    showPassword.password
+                      ? "Ocultar contraseña"
+                      : "Mostrar contraseña"
                   }
                 >
                   {showPassword.password ? (
@@ -153,7 +216,9 @@ const RegisterForm = () => {
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 mr-5"
                   onClick={() => togglePasswordVisibility("confirmPassword")}
                   aria-label={
-                    showPassword.confirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                    showPassword.confirmPassword
+                      ? "Ocultar contraseña"
+                      : "Mostrar contraseña"
                   }
                 >
                   {showPassword.confirmPassword ? (
