@@ -1,23 +1,19 @@
-'use client'
 import React from 'react'
 import { Button } from '../ui/button'
 import Image from 'next/image'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { FaChevronDown, FaUser } from "react-icons/fa";
 import Link from 'next/link';
-import {useAuthStore} from '@/store/auth'
-import {useRouter} from 'next/navigation'
 
-const TopbarHome = () => {
+// Topbar General para las demás interfaces de la página, no es flotante como el del home
+
+const TopbarGeneral = () => {
   const authStatus = true
   const session = {nombre:'Laura', apellido:'Lopez'}
-  const {token, clearAuth} = useAuthStore();
-  const router = useRouter()
-
   return (
-    <header className="fixed top-6 left-6 right-6 z-50 bg-transparent justify-around">
-      <div className="container w-[80%] lg:w-[95%] bg-primary mx-auto px-4">
-        <div className="flex items-center justify-between h-full px-4 ">
+    <header className="top-0 w-full z-50 bg-transparent">
+      <div className="w-full bg-primary mx-0">
+        <div className="flex items-center justify-between h-full px-4">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Image alt='logo' src="/logo.png" width={300} height={300} />
@@ -25,15 +21,12 @@ const TopbarHome = () => {
 
           {/* User Profile Button */}
           <div>
-            { !token ? ( //Si no hay sesion
-              <div className='flex gap-2 justify-around text-gray-50 items-center'>
-                <Link href='/'>
-                SOBRE NOSOTROS</Link>
-                <Link href='/'>SOPORTE</Link>
-                <Link href='/registro'>
-                Registrarse</Link>
-                
-                <Button onClick={() => router.push('/login')} variant="secondary" size="sm" className="">
+            { !authStatus ? ( //Si no hay sesion
+              <div className='flex gap-2'>
+                <Button variant="ghost" size="sm" className="text-xs">
+                  Registrarse
+                </Button>
+                <Button variant="secondary" size="sm" className="">
                   Iniciar Sesión
                 </Button>
               </div>
@@ -76,4 +69,4 @@ const TopbarHome = () => {
   )
 }
 
-export default TopbarHome
+export default TopbarGeneral

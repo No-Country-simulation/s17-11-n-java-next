@@ -16,9 +16,8 @@ function FooterGeneral() {
               {href:'/contacto',title:'CONTACTO',},
               {href:'/soporte',title:'SOPORTE',},
               {href:'/terminos',title:'TÉRMINOS Y CONDICIONES',},
-            ].map((item) => (
-              // eslint-disable-next-line react/jsx-key
-              <Link href={item.href} className=''>
+            ].map((item,i) => (
+              <Link href={item.href} className='' key={i}>
                 {item.title}
               </Link>
             ))}
