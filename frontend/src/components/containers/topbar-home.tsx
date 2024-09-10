@@ -9,17 +9,17 @@ const TopbarHome = () => {
   const authStatus = true
   const session = {nombre:'Laura', apellido:'Lopez'}
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm shadow-sm">
-      <div className="container w-[80%] lg:w-[95%] bg-primary rounded-sm mx-auto px-4">
+    <header className="fixed top-6 left-6 right-6 z-50 bg-transparent">
+      <div className="container w-[80%] lg:w-[95%] bg-primary mx-auto px-4">
         <div className="flex items-center justify-between h-full px-4">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Image alt='logo' src="/logo.png" width={150} height={150} />
+            <Image alt='logo' src="/logo.png" width={300} height={300} />
           </div>
 
           {/* User Profile Button */}
           <div>
-            { !authStatus ? (
+            { !authStatus ? ( //Si no hay sesion
               <div className='flex gap-2'>
                 <Button variant="ghost" size="sm" className="text-xs">
                   Registrarse
@@ -28,12 +28,18 @@ const TopbarHome = () => {
                   Iniciar Sesión
                 </Button>
               </div>
-            ) : (
+            ) : ( //Si hay sesion
               <div>
                 <Popover>
                   <PopoverTrigger>
-                    <div className='bg-white rounded-full p-2 flex flex-row gap-2'>
-                      <FaUser />
+                    <div className='bg-white rounded-full p-1 flex flex-row items-center gap-2'>
+                      <Image 
+                        src='/img/userimg-default.jpg'
+                        alt='usrimg'
+                        className='rounded-full'
+                        height={30}
+                        width={30}
+                      />
                       <FaChevronDown />
                     </div>
                   </PopoverTrigger>
