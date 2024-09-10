@@ -7,6 +7,9 @@ public record UserProfileRes(
         String dniBackUrl,
         String phone,
         String departamento,
-        String provincia
+        String provincia,
+        String name,
+        String lastname,
+        String email
 ) {
 }

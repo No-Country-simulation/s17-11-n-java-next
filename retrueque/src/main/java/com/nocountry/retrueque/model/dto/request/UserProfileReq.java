@@ -7,6 +7,9 @@ public record UserProfileReq(
         String dniFrontImage,
         String dniBackImage,
         String phone,
-        Long departamento_id
+        Long departamento_id,
+        String name,
+        String lastname,
+        String email
 ) {
 }
