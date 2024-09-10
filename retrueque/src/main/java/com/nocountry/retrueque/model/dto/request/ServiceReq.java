@@ -18,6 +18,8 @@ public record ServiceReq(
         @Size(min=10)
         String rules,
         Set<MultipartFile> imgUrl,
-        @NotNull Integer categoryId
+        @NotNull Integer categoryId,
+        @NotNull Set<Integer> days,
+        @NotNull Set<Integer> shiftTime
 ) {
 }

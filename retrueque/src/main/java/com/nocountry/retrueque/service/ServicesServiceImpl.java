@@ -5,6 +5,8 @@ import com.nocountry.retrueque.model.dto.request.ServiceReq;
 import com.nocountry.retrueque.model.dto.response.CustomPage;
 import com.nocountry.retrueque.model.dto.response.ServiceRes;
 import com.nocountry.retrueque.model.entity.Services;
+import com.nocountry.retrueque.model.entity.ShiftTimeByShift;
+import com.nocountry.retrueque.model.enums.ShiftTime;
 import com.nocountry.retrueque.model.mapper.PageMapper;
 import com.nocountry.retrueque.model.mapper.ServiceMapper;
 import com.nocountry.retrueque.repository.CategoryRepository;
@@ -32,10 +34,19 @@ public class ServicesServiceImpl implements ServicesService {
 
   @Override
   public ServiceRes create(ServiceReq service) {
-    var newCategory = this.serviceMapper.reqToEntity(service, categoryRepo, s3Service);
-    newCategory.setUser(this.authService.getAuthUser());
-    var categoryFound = this.serviceRepository.save(newCategory);
-    return this.serviceMapper.entityToRes(categoryFound);
+    var newService = this.serviceMapper.reqToEntity(service, categoryRepo, s3Service);
+    newService.setUser(this.authService.getAuthUser());
+    var shiftTimes = service.shiftTime()
+            .stream()
+            .map(id -> {
+              var newShiftTime = new ShiftTimeByShift();
+              newShiftTime.setShiftTime(ShiftTime.fromId(id));
+              newShiftTime.setShift(newService.getShift());
+              return newShiftTime;
+            }).toList();
+    newService.getShift().setShifts(shiftTimes);
+    var serviceFound = this.serviceRepository.save(newService);
+    return this.serviceMapper.entityToRes(serviceFound);
   }
 
   @Override
