@@ -53,7 +53,10 @@ public class UserProfileServiceImp implements UserProfileService {
         UserEntity user = userService.getByEmail(username);
         UserProfileEntity userProfile = findUserProfileByUser(user);
 
-        updateUserProfileFields(userProfile, updateReq);
+        // Actualizar campos del perfil
+        updateUserProfileFields(user ,userProfile, updateReq);
+
+        userRepository.save(user);
 
         return saveAndMapToResponse(userProfile);
     }
@@ -84,12 +87,24 @@ public class UserProfileServiceImp implements UserProfileService {
                 .orElseThrow(() -> new RuntimeException("Perfil de usuario no encontrado"));
     }
 
-    private void updateUserProfileFields(UserProfileEntity userProfile, UserProfileReq updateReq) {
+    private void updateUserProfileFields(UserEntity user,UserProfileEntity userProfile, UserProfileReq updateReq) {
         if (updateReq.profileImage() != null) userProfile.setProfile_image_url(updateReq.profileImage());
         if (updateReq.dniFrontImage() != null) userProfile.setDni_front_url(updateReq.dniFrontImage());
         if (updateReq.dniBackImage() != null) userProfile.setDni_back_url(updateReq.dniBackImage());
         if (updateReq.phone() != null) userProfile.setPhone(updateReq.phone());
         setDepartamentoIfPresent(userProfile, updateReq.departamento_id());
+
+        //Actualizar tabla Users
+        if (updateReq.name() != null && !updateReq.name().isBlank()) {
+            user.setName(updateReq.name());
+        }
+        if (updateReq.lastname() != null && !updateReq.lastname().isBlank()) {
+            user.setLast_name(updateReq.lastname());
+        }
+        //Se tiene que validar que el correo sea valido.
+        if (updateReq.email() != null && !updateReq.email().isBlank()) {
+            user.setEmail(updateReq.email());
+        }
     }
 
     private UserProfileRes saveAndMapToResponse(UserProfileEntity userProfile) {
