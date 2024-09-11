@@ -30,6 +30,7 @@ public class UserController {
     return ResponseEntity.ok("paso la prueba");
   }
 
+  @Operation(summary = "Get user with services")
   @GetMapping("/{userId}/services")
   public ResponseEntity<?> getUserWithServices(@PathVariable Long userId) {
     UserServicesRes response = userService.getUserWithServices(userId);
