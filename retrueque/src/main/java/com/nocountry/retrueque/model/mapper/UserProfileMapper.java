@@ -9,9 +9,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
 
-    @Mapping(source = "profileImage", target = "profile_image_url")
-    @Mapping(source = "dniFrontImage", target = "dni_front_url")
-    @Mapping(source = "dniBackImage", target = "dni_back_url")
+    @Mapping(source = "profileImageUrl", target = "profile_image_url")
+    @Mapping(source = "dniFrontUrl", target = "dni_front_url")
+    @Mapping(source = "dniBackUrl", target = "dni_back_url")
     @Mapping(source = "phone", target = "phone")
     UserProfileEntity toEntity(UserProfileReq userProfileReq);
 

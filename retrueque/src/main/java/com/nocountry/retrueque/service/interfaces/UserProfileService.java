@@ -10,14 +10,12 @@ import jakarta.transaction.Transactional;
 public interface UserProfileService {
 
 
-    boolean isUserProfileFilled(Long idUser);
 
-    @Transactional
-    UserProfileRes createUserProfile(String email, UserProfileReq userProfileReq);
 
-    UserProfileRes getUserProfileById(Long id);
 
-    UserProfileRes updateUserProfile(String user, UserProfileReq userProfileReq);
+    UserProfileRes getUserProfile();
+
+    UserProfileRes updateUserProfile(UserProfileReq userProfileReq);
 
 
 }

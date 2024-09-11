@@ -14,6 +14,7 @@ import com.nocountry.retrueque.service.interfaces.UserProfileService;
 import com.nocountry.retrueque.service.interfaces.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,91 +27,70 @@ public class UserProfileServiceImp implements UserProfileService {
     private final UserProfileMapper userProfileMapper;
     private final DepartamentoRepository departamentoRepository;
     private final UserService userService;
+    private final AuthenticationFacade authenticationFacade;
+    private final PasswordEncoder passwordEncoder;
+    private final S3FileUploadServiceImp s3FileUploadService;
+
 
     @Override
-    @Transactional
-    public UserProfileRes createUserProfile(String email, UserProfileReq userProfileReq) {
-        UserEntity user = userService.getByEmail(email);
-        validateUserProfileDoesNotExist(user);
+    public UserProfileRes getUserProfile() {
+        String email = authenticationFacade.getAuthenticatedUserEmail();
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + email));
 
-        UserProfileEntity userProfile = userProfileMapper.toEntity(userProfileReq);
-        userProfile.setUser(user);
-
-        setDepartamentoIfPresent(userProfile, userProfileReq.departamento_id());
-        return saveAndMapToResponse(userProfile);
-    }
-
-    @Override
-    public UserProfileRes getUserProfileById(Long id) {
-        return userProfileRepository.findById(id)
+        return userProfileRepository.findById(user.getId())
                 .map(userProfileMapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("Perfil de usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Perfil de usuario no encontrado para el usuario con id: " + user.getId()));
     }
 
     @Override
     @Transactional
-    public UserProfileRes updateUserProfile(String username, UserProfileReq updateReq) {
-        UserEntity user = userService.getByEmail(username);
-        UserProfileEntity userProfile = findUserProfileByUser(user);
+    public UserProfileRes updateUserProfile(UserProfileReq updateReq) {
+        String email = authenticationFacade.getAuthenticatedUserEmail();
+        UserProfileEntity userProfile = userProfileRepository.findByUserEmail(email)
+                .orElseThrow(() -> new RuntimeException("Perfil de usuario no encontrado para el email: " + email));
 
-        // Actualizar campos del perfil
-        updateUserProfileFields(user ,userProfile, updateReq);
+        updateUserProfileFields(userProfile,updateReq);
 
-        userRepository.save(user);
-
-        return saveAndMapToResponse(userProfile);
-    }
-
-    @Override
-    public boolean isUserProfileFilled(Long idUser) {
-        // Implementación según requisitos
-        return false;
-    }
-
-
-    private void validateUserProfileDoesNotExist(UserEntity user) {
-        if (user.getProfile() != null) {
-            throw new RuntimeException("El usuario ya tiene un perfil creado");
-        }
-    }
-
-    private void setDepartamentoIfPresent(UserProfileEntity userProfile, Long departamentoId) {
-        if (departamentoId != null) {
-            DepartamentoEntity departamento = departamentoRepository.findById(departamentoId)
-                    .orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
-            userProfile.setDepartamento(departamento);
-        }
-    }
-
-    private UserProfileEntity findUserProfileByUser(UserEntity user) {
-        return userProfileRepository.findByUser(user)
-                .orElseThrow(() -> new RuntimeException("Perfil de usuario no encontrado"));
-    }
-
-    private void updateUserProfileFields(UserEntity user,UserProfileEntity userProfile, UserProfileReq updateReq) {
-        if (updateReq.profileImage() != null) userProfile.setProfile_image_url(updateReq.profileImage());
-        if (updateReq.dniFrontImage() != null) userProfile.setDni_front_url(updateReq.dniFrontImage());
-        if (updateReq.dniBackImage() != null) userProfile.setDni_back_url(updateReq.dniBackImage());
-        if (updateReq.phone() != null) userProfile.setPhone(updateReq.phone());
-        setDepartamentoIfPresent(userProfile, updateReq.departamento_id());
-
-        //Actualizar tabla Users
-        if (updateReq.name() != null && !updateReq.name().isBlank()) {
-            user.setName(updateReq.name());
-        }
-        if (updateReq.lastname() != null && !updateReq.lastname().isBlank()) {
-            user.setLast_name(updateReq.lastname());
-        }
-        //Se tiene que validar que el correo sea valido.
-        if (updateReq.email() != null && !updateReq.email().isBlank()) {
-            user.setEmail(updateReq.email());
-        }
-    }
-
-    private UserProfileRes saveAndMapToResponse(UserProfileEntity userProfile) {
         UserProfileEntity savedProfile = userProfileRepository.save(userProfile);
         return userProfileMapper.toResponse(savedProfile);
     }
+
+
+    private void updateUserProfileFields(UserProfileEntity userProfile, UserProfileReq updateReq) {
+        if (updateReq.profileImage() != null) {
+            userProfile.setProfile_image_url(s3FileUploadService.uploadFile(updateReq.profileImage()));
+        }
+        if (updateReq.dniFrontImage() != null) {
+            userProfile.setDni_front_url(s3FileUploadService.uploadFile(updateReq.dniFrontImage()));
+        }
+        if (updateReq.dniBackImage() != null) {
+            userProfile.setDni_back_url(s3FileUploadService.uploadFile(updateReq.dniBackImage()));
+        }
+        if (updateReq.phone() != null && !updateReq.phone().isBlank()) {
+            userProfile.setPhone(updateReq.phone());
+        }
+
+        DepartamentoEntity departamento = departamentoRepository.findById(updateReq.departamento_id())
+                .orElseThrow(() -> new RuntimeException("Departamento no encontrado con id: " + updateReq.departamento_id()));
+        userProfile.setDepartamento(departamento);
+
+        // Actualizar campos de UserEntity
+        if (updateReq.name() != null && !updateReq.name().isBlank()) {
+            userProfile.getUser().setName(updateReq.name());
+        }
+        if (updateReq.lastname() != null && !updateReq.lastname().isBlank()) {
+            userProfile.getUser().setLast_name(updateReq.lastname());
+        }
+        if (updateReq.email() != null && !updateReq.email().isBlank()) {
+            // Podrías añadir aquí una validación de email existente
+            userProfile.getUser().setEmail(updateReq.email());
+        }
+        if (updateReq.password() != null && !updateReq.password().isBlank()) {
+            userProfile.getUser().setPassword(passwordEncoder.encode(updateReq.password()));
+        }
+    }
+
 
 
 }

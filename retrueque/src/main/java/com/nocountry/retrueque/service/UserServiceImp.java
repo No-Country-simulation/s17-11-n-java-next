@@ -5,13 +5,16 @@ import com.nocountry.retrueque.model.dto.request.UserReq;
 import com.nocountry.retrueque.model.dto.response.UserRes;
 import com.nocountry.retrueque.model.entity.Role;
 import com.nocountry.retrueque.model.entity.UserEntity;
+import com.nocountry.retrueque.model.entity.UserProfileEntity;
 import com.nocountry.retrueque.model.mapper.UserMapper;
 import com.nocountry.retrueque.repository.RoleRepository;
+import com.nocountry.retrueque.repository.UserProfileRepository;
 import com.nocountry.retrueque.repository.UserRepository;
 import com.nocountry.retrueque.service.interfaces.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,10 @@ public class UserServiceImp implements UserService {
   private final TokenServiceImp tokenServiceImp;
   private final EmailServiceImp emailServiceImp;
   private final RoleRepository roleRepository;
+  private final UserProfileRepository userProfileRepository;
+
+  @Value("${email.link.confirmation}")
+  private String linkConfirmation;
 
   @Override
   @Transactional
@@ -41,7 +48,10 @@ public class UserServiceImp implements UserService {
     var savedUser = this.userRepository.save(newUser);
 
     String token = tokenServiceImp.createVerificationToken(savedUser);
-    emailServiceImp.sendEmail(savedUser.getEmail(),token);
+    emailServiceImp.sendEmail(savedUser.getEmail(),"Confirma tu cuenta","Para confirmar tu cuenta, haz clic en el siguiente enlace: " + linkConfirmation+token);
+    UserProfileEntity profile = new UserProfileEntity();
+    profile.setUser(savedUser);
+    userProfileRepository.save(profile);
 
     return this.userMapper.entityToRes(savedUser);
   }
