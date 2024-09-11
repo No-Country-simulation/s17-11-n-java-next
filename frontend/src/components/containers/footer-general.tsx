@@ -9,15 +9,15 @@ function FooterGeneral() {
       <div className='flex flex-col'>
         <div className='flex flex-row'>
           <Image src={logort} alt='RT' width={175} height={175} />
-          <div className="ml-auto text-white flex flex-row gap-16">
+          <div className="ml-auto text-white flex flex-row gap-16 md:gap-8 sm:gap-2 sm:text-xs overflow-ellipsis">
             {[
               {href:'/',title:'INICIO',},
-              {href:'/nosotros',title:'SOBRE NOSOTROS',},
-              {href:'/contacto',title:'CONTACTO',},
+              {href:'/nosotros',title:'SOBRE NOSOTROS',},/*PENDIENTE*/
+              {href:'/contacto',title:'CONTACTO',}, /*PENDIENTE*/
               {href:'/soporte',title:'SOPORTE',},
-              {href:'/terminos',title:'TÉRMINOS Y CONDICIONES',},
+              {href:'/terminos',title:'TÉRMINOS Y CONDICIONES',}, /*PENDIENTE*/
             ].map((item,i) => (
-              <Link href={item.href} className='' key={i}>
+              <Link href={item.href} className='h-2' key={i}>
                 {item.title}
               </Link>
             ))}
@@ -27,12 +27,15 @@ function FooterGeneral() {
         <div className="ml-auto mt-2">
           <h3 className='text-xs text-white'>
             © 2024 Retrueque - Todos los derechos reservados &nbsp;/&nbsp; 
+            {/* PENDIENTE */}
             <Link href='/legal' className='mr-2 hover:underline hover:font-bold'>
               Aviso Legal
             </Link> - 
+            {/* PENDIENTE */}
             <Link href='/equipo' className='mx-2 hover:underline hover:font-bold'>
               Equipo de Desarrollo
             </Link> - 
+            {/* PENDIENTE */}
             <Link href='/privacidad' className='mx-2 hover:underline hover:font-bold'>
               Política de Privacidad
             </Link>

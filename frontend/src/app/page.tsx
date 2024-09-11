@@ -42,17 +42,17 @@ export default function Home() {
       {/* Mejor Calificados */}
       <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Mejor Calificados</h1>
-        <CardServicio dataResultados={srvTemp.mcalif.dataResultados} servicio={srvTemp.mcalif.servicio} key={1} />
+        <CardServicio dataResultados={srvTemp.mcalif.dataResultados} servicio={''} key={1} />
       </section>
       {/* Más Buscados */}
       <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Más Buscados</h1>
-        <CardServicio dataResultados={srvTemp.mbuscados.dataResultados} servicio={srvTemp.mbuscados.servicio} key={1} />
+        <CardServicio dataResultados={srvTemp.mbuscados.dataResultados} servicio={''} key={1} />
       </section>
       {/* Cercanos a Ti */}
       <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Cercanos a Ti</h1>
-        <CardServicio dataResultados={srvTemp.cercanos.dataResultados} servicio={srvTemp.cercanos.servicio} key={1} />
+        <CardServicio dataResultados={srvTemp.cercanos.dataResultados} servicio={''} key={1} />
       </section>
     </main>
   );

@@ -9,9 +9,9 @@ const TopbarHome = () => {
   const authStatus = true
   const session = {nombre:'Laura', apellido:'Lopez'}
   return (
-    <header className="fixed top-6 left-6 right-6 z-50 bg-transparent">
+    <header className="absolute top-6 left-6 right-6 z-50 bg-transparent">
       <div className="container w-[80%] lg:w-[95%] bg-primary mx-auto px-4">
-        <div className="flex items-center justify-between h-full px-4">
+        <div className="z-50 flex items-center justify-between h-full px-4">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Image alt='logo' src="/logo.png" width={300} height={300} />
