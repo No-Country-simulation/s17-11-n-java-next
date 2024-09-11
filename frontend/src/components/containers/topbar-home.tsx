@@ -22,18 +22,23 @@ const TopbarHome = () => {
           <div className="flex-shrink-0">
             <Image alt='logo' src="/logo.png" width={300} height={300} />
           </div>
+          <div className="h-10 justify-start items-center gap-6 inline-flex">
+            <div className="w-[184px] justify-center items-center flex text-center text-[#fcfcfc] hover:text-black text-base font-bold leading-normal tracking-tight">
+              <Link href='/public/nosotros' >SOBRE NOSOTROS</Link>
+            </div>
+            <div className="w-[184px] justify-center items-center flex text-center text-[#fcfcfc] hover:text-black text-base font-bold leading-normal tracking-tight">
+              <Link href='/public/soporte' className="">SOPORTE</Link>
+            </div>
+          </div>
 
           {/* User Profile Button */}
           <div>
             { !token ? ( //Si no hay sesion
-              <div className='flex gap-2 justify-around text-gray-50 items-center'>
-                <Link href='/'>
-                SOBRE NOSOTROS</Link>
-                <Link href='/'>SOPORTE</Link>
-                <Link href='/registro'>
+              <div className='flex gap-6 justify-around text-black hover:text-gray-50 items-center'>
+                <Link href='/auth/registro'>
                 Registrarse</Link>
                 
-                <Button onClick={() => router.push('/login')} variant="secondary" size="sm" className="">
+                <Button onClick={() => router.push('/auth/login')} variant="secondary" size="sm" className="">
                   Iniciar Sesión
                 </Button>
               </div>
@@ -58,7 +63,7 @@ const TopbarHome = () => {
                         {`${session.nombre} ${session.apellido}`}
                         <hr className='border-white w-full' />
                       </div>
-                      <Link href={'/perfil'} className='font-bold'>
+                      <Link href={'/dashboard/perfil'} className='font-bold'>
                         Mi Perfil
                       </Link>
                       <Button variant='ghost' className='font-bold hover:bg-transparent'>
