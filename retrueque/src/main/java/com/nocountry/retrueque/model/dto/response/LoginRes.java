@@ -2,6 +2,7 @@ package com.nocountry.retrueque.model.dto.response;
 
 public record LoginRes(
         String token,
-        String role
+        String role,
+        Long id
 ) {
 }

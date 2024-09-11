@@ -14,6 +14,7 @@ import com.nocountry.retrueque.repository.ServiceRepository;
 import com.nocountry.retrueque.service.interfaces.AuthService;
 import com.nocountry.retrueque.service.interfaces.S3FileUploadService;
 import com.nocountry.retrueque.service.interfaces.ServicesService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,9 +34,11 @@ public class ServicesServiceImpl implements ServicesService {
 
 
   @Override
+  @Transactional
   public ServiceRes create(ServiceReq service) {
     var newService = this.serviceMapper.reqToEntity(service, categoryRepo, s3Service);
     newService.setUser(this.authService.getAuthUser());
+    newService.setDepartamento(newService.getUser().getProfile().getDepartamento());
     var shiftTimes = service.shiftTime()
             .stream()
             .map(id -> {
@@ -50,8 +53,12 @@ public class ServicesServiceImpl implements ServicesService {
   }
 
   @Override
-  public CustomPage<ServiceRes> getAll(Pageable pageable) {
-    Page<Services> pageResult = this.serviceRepository.findAll(pageable);
+  public CustomPage<ServiceRes> getAll(Pageable pageable,
+                                       Integer departamentoId,
+                                       Integer provinciaId,
+                                       Integer categoryId) {
+    Page<Services> pageResult = this.serviceRepository.findAllByFilter(pageable,
+            departamentoId, provinciaId, categoryId);
     Page<ServiceRes> pageResultDto = pageResult.map(this.serviceMapper::entityToRes);
     return this.pageMapper.pageService(pageResultDto);
   }

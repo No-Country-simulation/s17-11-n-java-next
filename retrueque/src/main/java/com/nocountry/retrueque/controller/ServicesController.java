@@ -17,21 +17,25 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("${api.base}/service")
 @Tag(name = "Services")
-@SecurityRequirement(name = "bearer-key")
 public class ServicesController {
   private final ServicesService servicesService;
 
   @Operation(summary = "Create a new service", description = "Available for USER role.")
+  @SecurityRequirement(name = "bearer-key")
   @PostMapping(consumes = "multipart/form-data")
   public ResponseEntity<?> create(@ModelAttribute @Valid ServiceReq request){
     var response = this.servicesService.create(request);
     return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(response));
   }
 
-  @Operation(summary = "Get all services")
+  @Operation(summary = "Get all services", description = "Use a filter by departamento, provincia and category")
   @GetMapping
-  public ResponseEntity<?> getAll(Pageable pageable){
-    var response = this.servicesService.getAll(pageable);
+  public ResponseEntity<?> getAll(Pageable pageable,
+                                  @RequestParam(value = "departamentoId", required = false) Integer departamentoId,
+                                  @RequestParam(value = "provinciaId", required = false) Integer provinciaId,
+                                  @RequestParam(value = "categoryId", required = false) Integer categoryId
+                                  ){
+    var response = this.servicesService.getAll(pageable, departamentoId, provinciaId, categoryId);
     return ResponseEntity.ok(new ApiResponse<>(response));
   }
 
@@ -43,6 +47,7 @@ public class ServicesController {
   }
 
   @Operation(summary = "Update service", description = "Update using body and path, only available by authenticated user.")
+  @SecurityRequirement(name = "bearer-key")
   @PutMapping("/{id}")
   public ResponseEntity<?> updateById(@RequestBody @Valid ServiceReq request, @PathVariable long id){
     var response = this.servicesService.updateById(request, id);
@@ -50,6 +55,7 @@ public class ServicesController {
   }
 
   @Operation(summary = "Delete service", description = "Verification of the authenticated user against service-user.")
+  @SecurityRequirement(name = "bearer-key")
   @DeleteMapping("/{id}")
   public ResponseEntity<?> deleteById(@PathVariable long id){
     var response = this.servicesService.deleteById(id);

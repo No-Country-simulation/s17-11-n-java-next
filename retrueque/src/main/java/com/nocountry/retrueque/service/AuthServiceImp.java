@@ -30,7 +30,7 @@ public class AuthServiceImp implements AuthService {
             new UsernamePasswordAuthenticationToken(loginReq.email(), loginReq.password()));
     UserEntity user = userService.getByEmail(loginReq.email());
     String token = this.jwtUtils.generateSessionToken(user);
-    return new LoginRes(token, user.getRole().getName());
+    return new LoginRes(token, user.getRole().getName(), user.getId());
   }
 
   @Override

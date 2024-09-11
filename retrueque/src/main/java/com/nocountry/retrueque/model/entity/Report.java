@@ -31,5 +31,6 @@ public class Report {
   @PrePersist
   public void onCreate(){
     this.date = LocalDate.now();
+    this.reportStatus = ReportStatus.PENDING;
   }
 }

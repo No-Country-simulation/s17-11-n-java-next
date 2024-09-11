@@ -17,8 +17,6 @@ import org.mapstruct.Mapping;
 })
 public interface ReportMapper {
 
-  @Mapping(target = "reportStatus", source = "reportStatus")
-  @Mapping(target = "service", source = "serviceId")
   Report reqToEntity(ReportReq req, @Context ServiceRepository serviceRepository);
 
   @Mapping(target = "user", source = "user")

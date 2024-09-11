@@ -8,7 +8,11 @@ import org.springframework.data.domain.Pageable;
 
 public interface ServicesService {
   ServiceRes create (ServiceReq service);
-  CustomPage<ServiceRes> getAll(Pageable pageable);
+  CustomPage<ServiceRes> getAll(Pageable pageable,
+                                Integer departamentoId,
+                                Integer provinciaId,
+                                Integer categoryId);
+
   ServiceRes getById(long id);
   ServiceRes updateById(ServiceReq service, long id);
   String deleteById(long id);

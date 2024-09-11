@@ -25,6 +25,10 @@ public class Services {
   @JoinColumn(name = "category_id", nullable = false)
   private Category category;
 
+  @ManyToOne
+  @JoinColumn(name="departamento_id")
+  private DepartamentoEntity departamento;
+
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "shift_id")
   private Shift shift;
