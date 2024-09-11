@@ -50,6 +50,9 @@ public class UserEntity implements UserDetails {
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private UserProfileEntity profile;
 
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private List<Services> services;
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+role.getName());

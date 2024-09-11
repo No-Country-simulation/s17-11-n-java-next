@@ -2,6 +2,7 @@ package com.nocountry.retrueque.service.interfaces;
 
 import com.nocountry.retrueque.model.dto.request.UserReq;
 import com.nocountry.retrueque.model.dto.response.UserRes;
+import com.nocountry.retrueque.model.dto.response.UserServicesRes;
 import com.nocountry.retrueque.model.entity.UserEntity;
 
 public interface UserService {
@@ -11,4 +12,6 @@ public interface UserService {
   String softDeleteById(long id);
 
   UserEntity getByEmail(String email);
+
+  UserServicesRes getUserWithServices(Long userId);
 }

@@ -3,10 +3,12 @@ package com.nocountry.retrueque.service;
 import com.nocountry.retrueque.exception.UserNotFoundException;
 import com.nocountry.retrueque.model.dto.request.UserReq;
 import com.nocountry.retrueque.model.dto.response.UserRes;
+import com.nocountry.retrueque.model.dto.response.UserServicesRes;
 import com.nocountry.retrueque.model.entity.Role;
 import com.nocountry.retrueque.model.entity.UserEntity;
 import com.nocountry.retrueque.model.entity.UserProfileEntity;
 import com.nocountry.retrueque.model.mapper.UserMapper;
+import com.nocountry.retrueque.model.mapper.UserServicesMapper;
 import com.nocountry.retrueque.repository.RoleRepository;
 import com.nocountry.retrueque.repository.UserProfileRepository;
 import com.nocountry.retrueque.repository.UserRepository;
@@ -32,6 +34,7 @@ public class UserServiceImp implements UserService {
   private final EmailServiceImp emailServiceImp;
   private final RoleRepository roleRepository;
   private final UserProfileRepository userProfileRepository;
+  private final UserServicesMapper userServicesMapper;
 
   @Value("${email.link.confirmation}")
   private String linkConfirmation;
@@ -84,6 +87,13 @@ public class UserServiceImp implements UserService {
     return this.userRepository.findByEmail(email)
             .orElseThrow(()->new UserNotFoundException(email));
 
+  }
+
+  @Override
+  public UserServicesRes getUserWithServices(Long userId) {
+    UserEntity user = this.userRepository.findById(userId)
+             .orElseThrow(()-> new UserNotFoundException(String.valueOf(userId)));
+    return this.userServicesMapper.toResponse(user);
   }
 
   private void verifyIsExist(long id){
