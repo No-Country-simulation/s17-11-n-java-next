@@ -46,6 +46,13 @@ public class ServicesController {
     return ResponseEntity.ok(new ApiResponse<>(response));
   }
 
+  @Operation(summary = "Get all Service by user id")
+  @GetMapping("/user/{id}")
+  public ResponseEntity<?> getByUserId(@PathVariable long id){
+    var response = this.servicesService.getAllByUserId(id);
+    return ResponseEntity.ok(new ApiResponse<>(response));
+  }
+
   @Operation(summary = "Update service", description = "Update using body and path, only available by authenticated user.")
   @SecurityRequirement(name = "bearer-key")
   @PutMapping("/{id}")

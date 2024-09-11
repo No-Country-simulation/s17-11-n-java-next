@@ -13,9 +13,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface ServiceRepository extends JpaRepository<Services, Long>, JpaSpecificationExecutor<Services> {
+  Set<Services> findByUserId(Long userId);
+
   default Page<Services> findAllByFilter(
           Pageable page,
           Integer departamento,

@@ -21,6 +21,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -50,6 +53,14 @@ public class ServicesServiceImpl implements ServicesService {
     newService.getShift().setShifts(shiftTimes);
     var serviceFound = this.serviceRepository.save(newService);
     return this.serviceMapper.entityToRes(serviceFound);
+  }
+
+  @Override
+  public Set<ServiceRes> getAllByUserId(Long id) {
+    return this.serviceRepository.findByUserId(id)
+            .stream()
+            .map(this.serviceMapper::entityToRes)
+            .collect(Collectors.toSet());
   }
 
   @Override
