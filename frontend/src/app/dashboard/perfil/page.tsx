@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderProfile from "./components/HeaderProfile";
 import FooterProfile from "./components/FooterProfile";
+import TopbarGeneral from "@/components/containers/topbar-general";
 const user = {
   name: "John Doe",
   avatar: "https://placehold.co/64x64/png",
@@ -70,6 +71,8 @@ const requests = [
 const UserProfile = ({}) => {
   const authUser = true;
   return (
+    <>
+    <TopbarGeneral/>
     <section className="user-profile w-full max-w-[1232px] mx-auto my-10">
       <HeaderProfile user={user} products={products} authUser={authUser} />
       <FooterProfile
@@ -77,7 +80,7 @@ const UserProfile = ({}) => {
         requests={requests}
         authUser={authUser}
       />
-    </section>
+    </section></>
   );
 };
 

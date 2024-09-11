@@ -1,32 +1,46 @@
+'use client'
 import React from 'react'
 import { Button } from '../ui/button'
 import Image from 'next/image'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { FaChevronDown, FaUser } from "react-icons/fa";
 import Link from 'next/link';
+import { useAuthStore } from '@/store/auth'
+import { useRouter } from 'next/navigation'
 
 // Topbar General para las demás interfaces de la página, no es flotante como el del home
 
 const TopbarGeneral = () => {
   const authStatus = true
-  const session = {nombre:'Laura', apellido:'Lopez'}
+  const session = { nombre: 'Laura', apellido: 'Lopez' };
+  const { token, clearAuth } = useAuthStore();
+  const router = useRouter()
+
   return (
-    <header className="top-0 w-full z-50 bg-transparent">
+    <header className="w-full items-center justify-items-center text-justify">
       <div className="w-full bg-primary mx-0">
-        <div className="flex items-center justify-between h-full px-4">
+        <div className="flex items-center  h-full px-4">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 text-gray-50">
             <Image alt='logo' src="/logo.png" width={300} height={300} />
           </div>
-
+          <div className="h-10 justify-start items-center gap-6 inline-flex">
+            <div className="w-[184px] justify-center items-center flex text-center hover:text-black text-[#fcfcfc] text-base font-bold leading-normal tracking-tight">
+              <Link href='/public/nosotros' >SOBRE NOSOTROS</Link>
+            </div>
+            <div className="w-[184px] justify-center items-center flex text-center hover:text-black text-[#fcfcfc] text-base font-bold leading-normal tracking-tight">
+              <Link href='/public/soporte' className="">SOPORTE</Link>
+            </div>
+          </div>
           {/* User Profile Button */}
-          <div>
-            { !authStatus ? ( //Si no hay sesion
-              <div className='flex gap-2'>
-                <Button variant="ghost" size="sm" className="text-xs">
-                  Registrarse
-                </Button>
-                <Button variant="secondary" size="sm" className="">
+          <div className="ml-auto flex items-center">
+            {!token ? ( //Si no hay sesion
+              <div className='flex gap-6 text-black hover:text-gray-50 items-center justify-items-end'>
+
+                <Link href='/auth/registro'>
+                  Registrarse</Link>
+
+                <Button onClick={() => router.push('/auth/login')} variant="secondary" size="sm" className="">
                   Iniciar Sesión
                 </Button>
               </div>
@@ -35,7 +49,7 @@ const TopbarGeneral = () => {
                 <Popover>
                   <PopoverTrigger>
                     <div className='bg-white rounded-full p-1 flex flex-row items-center gap-2'>
-                      <Image 
+                      <Image
                         src='/img/userimg-default.jpg'
                         alt='usrimg'
                         className='rounded-full'
@@ -51,7 +65,7 @@ const TopbarGeneral = () => {
                         {`${session.nombre} ${session.apellido}`}
                         <hr className='border-white w-full' />
                       </div>
-                      <Link href={'/perfil'} className='font-bold'>
+                      <Link href={'/dashboard/perfil'} className='font-bold'>
                         Mi Perfil
                       </Link>
                       <Button variant='ghost' className='font-bold hover:bg-transparent'>

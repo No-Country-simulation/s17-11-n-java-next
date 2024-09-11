@@ -50,7 +50,7 @@ export default function CardServicio({ dataResultados, servicio }: CardServicioP
                   <span className='text-[9px]'>{resultado.ubicacion}</span>
                 </div>
                 <Link
-                  href={`/servicios/${resultado.id}`}
+                  href={`public/servicio/${resultado.id}`}
                   className="bg-yellow-500 p-2 rounded-full hover:bg-yellow-600 transition duration-300 w-[132px] text-center text-black text-[12px] font-normal leading-none tracking-wide block"
                 >
                   Ver publicación

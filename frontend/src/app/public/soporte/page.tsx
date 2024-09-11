@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Search, ChevronDown, ChevronUp } from "lucide-react";
+import TopbarGeneral from '@/components/containers/topbar-general'
 
 interface FAQItemProps {
   question: string;
@@ -80,8 +81,10 @@ const FAQComponent = () => {
   ];
 
   return (
+    <>
+    <TopbarGeneral/>
     <Card className="border-none rounded-none shadow-none">
-      <CardHeader className="bg-[#74ACDF] text-white">
+      <CardHeader className="bg-[#74ACDF] text-whit">
         <div className="w-full max-w-2xl mx-auto">
           <CardTitle className="text-[36px] font-bold text-black">
             PREGUNTAS FRECUENTES
@@ -119,7 +122,7 @@ const FAQComponent = () => {
           Contáctanos
         </Button>
       </CardFooter>
-    </Card>
+    </Card></>
   );
 };
 
