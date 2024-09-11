@@ -3,6 +3,7 @@ package com.nocountry.retrueque.model.mapper;
 import com.nocountry.retrueque.exception.CategoryNotFoundException;
 import com.nocountry.retrueque.model.dto.request.ServiceReq;
 import com.nocountry.retrueque.model.dto.response.ServiceRes;
+import com.nocountry.retrueque.model.dto.response.ServiceResShort;
 import com.nocountry.retrueque.model.entity.Category;
 import com.nocountry.retrueque.model.entity.Services;
 import com.nocountry.retrueque.model.entity.Shift;
@@ -39,6 +40,8 @@ public interface ServiceMapper {
     return categoryRepository.findById(id.longValue())
             .orElseThrow(()->new CategoryNotFoundException(id));
   }
+
+  ServiceResShort entityToShort(Services service);
 
   default String map(Set<MultipartFile> images, @Context S3FileUploadService s3FileUploadService){
     return images.stream()
