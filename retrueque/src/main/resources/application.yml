@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: retrueque
+  datasource:
+    url: ${DATABASE}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web.authentication: DEBUG
+    org.springframework.security.web.access: DEBUG
+jwt:
+  time:
+    expiration: ${JWT_EXPIRATION}
+  secret:
+    key: ${JWT_SECRETKEY}
+api:
+  base: api/v1
+email:
+  token:
+    time:
+      expiration: ${EMAIL_TOKEN_EXPIRATION}
+  link:
+    confirmation: ${LINK_CONFIRMATION}
+aws:
+  s3:
+    bucketName: ${AWS_BUCKET_NAME}
+    accessKeyId: ${AWS_KEY_ID}
+    secretAccessKey: ${AWS_SECRET_ACCES_KEY}
+    region: ${AWS_REGION}
