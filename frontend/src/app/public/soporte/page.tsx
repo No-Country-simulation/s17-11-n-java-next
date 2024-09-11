@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Search, ChevronDown, ChevronUp } from "lucide-react";
-import TopbarGeneral from '@/components/containers/topbar-general'
+import TopbarGeneral from "@/components/containers/topbar-general";
 
 interface FAQItemProps {
   question: string;
@@ -41,7 +41,7 @@ const FAQItem: React.FC<FAQItemProps> = ({
       )}
     </button>
     {isOpen && (
-      <div className="px-4 text-gray-600 border-lg border-[2px] border-[#BAD6EF] rounded-lg">
+      <div className="px-4 pt-4 pb-16 text-gray-600 border-lg border-[2px] border-[#BAD6EF] rounded-lg">
         {answer}
       </div>
     )}
@@ -82,47 +82,48 @@ const FAQComponent = () => {
 
   return (
     <>
-    <TopbarGeneral/>
-    <Card className="border-none rounded-none shadow-none">
-      <CardHeader className="bg-[#74ACDF] text-whit">
-        <div className="w-full max-w-2xl mx-auto">
-          <CardTitle className="text-[36px] font-bold text-black">
-            PREGUNTAS FRECUENTES
-          </CardTitle>
-          <div className="relative mt-4">
-            <Input
-              placeholder="Buscador"
-              className="pr-10 pl-4 py-6 w-full rounded-md text-gray-900"
-            />
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+      <TopbarGeneral />
+      <Card className="border-none rounded-none shadow-none">
+        <CardHeader className="bg-[#74ACDF] text-whit">
+          <div className="w-full max-w-2xl mx-auto">
+            <CardTitle className="text-[36px] font-bold text-black">
+              PREGUNTAS FRECUENTES
+            </CardTitle>
+            <div className="relative mt-4">
+              <Input
+                placeholder="Buscador"
+                className="pr-10 pl-4 py-6 w-full rounded-md text-gray-900"
+              />
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            </div>
           </div>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-6 w-full max-w-[1232px] mx-auto">
-        {faqs.map((faq, index) => (
-          <FAQItem
-            key={index}
-            index={index}
-            question={faq.question}
-            answer={faq.answer}
-            isOpen={index === openIndex}
-            toggle={() => setOpenIndex(index === openIndex ? -1 : index)}
-          />
-        ))}
-      </CardContent>
-      <CardFooter className="flex flex-col items-center mt-6">
-        <h3 className="text-[36px] font-semibold mb-2">
-          ¿Te quedaste con la duda?
-        </h3>
-        <p className="text-center mb-4">
-          ¡No dudes en contactarnos para resolver cualquier consulta y sumarla a
-          la comunidad!
-        </p>
-        <Button className="bg-[#F6B40E] hover:bg-[#ffc32c] text-black text-[20px] py-4 px-4 lg:px-20">
-          Contáctanos
-        </Button>
-      </CardFooter>
-    </Card></>
+        </CardHeader>
+        <CardContent className="pt-6 w-full max-w-[1232px] mx-auto">
+          {faqs.map((faq, index) => (
+            <FAQItem
+              key={index}
+              index={index}
+              question={faq.question}
+              answer={faq.answer}
+              isOpen={index === openIndex}
+              toggle={() => setOpenIndex(index === openIndex ? -1 : index)}
+            />
+          ))}
+        </CardContent>
+        <CardFooter className="flex flex-col items-center mt-6">
+          <h3 className="text-[36px] font-semibold mb-2">
+            ¿Te quedaste con la duda?
+          </h3>
+          <p className="text-center mb-4">
+            ¡No dudes en contactarnos para resolver cualquier consulta y sumarla
+            a la comunidad!
+          </p>
+          <Button className="bg-[#F6B40E] hover:bg-[#ffc32c] text-black text-[20px] py-4 px-4 lg:px-20">
+            Contáctanos
+          </Button>
+        </CardFooter>
+      </Card>
+    </>
   );
 };
 
