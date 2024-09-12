@@ -34,29 +34,9 @@ const ProductExchangeForm = () => {
                     </div>
                 </Card>
                 <Card className="w-full max-w-3xl mx-auto rounded-3xl bg-[#74ACDF] px-4 lg:px-24 py-2 lg:py-14">
-                    <CardHeader>
-                        <CardTitle className="text-[24px] font-bold text-white">
-                            ¿Qué te interesa a cambio?
-                        </CardTitle>
-                    </CardHeader>
                     <CardContent>
                         <form>
                             <div className="space-y-4">
-                                <div>
-                                    <Label
-                                        htmlFor="interest"
-                                        className="text-white font-semibold text-[1.2rem] my-4"
-                                    >
-                                        Servicios o productos que aceptas a
-                                        cambio
-                                    </Label>
-                                    <Textarea
-                                        id="interest"
-                                        placeholder="Input"
-                                        className="mt-1"
-                                    />
-                                </div>
-
                                 <div>
                                     <Label
                                         htmlFor="category"
