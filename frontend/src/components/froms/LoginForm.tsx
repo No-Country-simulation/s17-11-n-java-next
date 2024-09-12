@@ -49,10 +49,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, extraDiv }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const resp = await Fetchlogin(values);
-      if (resp.success && resp.data.token) {
-        setToken(resp.data.token, resp.data.role);  // Guarda el token si existe
+      if (resp.success && resp.data?.token && resp.data?.role && resp.data?.id) {
+        setToken(resp.data.token, resp.data.role, resp.data.id);  // Guarda el token si existe
         console.log("Login exitoso, token guardado:", resp.data.token);
-        router.push('/') // lo  envia al home
+        router.push('/') // lo envia al home
       } else {
         setErrorMessage("Error en la autenticación. Verifique sus credenciales.");
       }
