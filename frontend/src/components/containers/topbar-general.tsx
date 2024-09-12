@@ -16,6 +16,12 @@ const TopbarGeneral = () => {
   const { token, clearAuth } = useAuthStore();
   const router = useRouter()
 
+  // Función para manejar el cierre de sesión
+  const handleLogout = () => {
+    clearAuth(); // Limpiar el estado de autenticación
+    router.push('/'); // Redireccionar a la página de login o a la de inicio
+  };
+
   return (
     <header className="w-full items-center justify-items-center text-justify">
       <div className="w-full bg-primary mx-0">
@@ -68,7 +74,7 @@ const TopbarGeneral = () => {
                       <Link href={'/dashboard/perfil'} className='font-bold'>
                         Mi Perfil
                       </Link>
-                      <Button variant='ghost' className='font-bold hover:bg-transparent'>
+                      <Button variant='ghost' className='font-bold hover:bg-transparent' onClick={handleLogout}>
                         Cerrar Sesión
                       </Button>
                     </div>

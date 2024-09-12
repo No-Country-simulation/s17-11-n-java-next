@@ -26,7 +26,13 @@ const formSchema = z.object({
   password: z.string().min(8).max(50),
 });
 
-const LoginForm = () => {
+// 
+interface LoginFormProps {
+  title:string;
+  extraDiv?:React.ReactNode;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ title, extraDiv }) => {
   const setToken = useAuthStore((state) => state.setToken);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -43,10 +49,10 @@ const LoginForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const resp = await Fetchlogin(values);
-      if (resp.success && resp.data.token) {
-        setToken(resp.data.token, resp.data.role);  // Guarda el token si existe
+      if (resp.success && resp.data?.token && resp.data?.role && resp.data?.id) {
+        setToken(resp.data.token, resp.data.role, resp.data.id);  // Guarda el token si existe
         console.log("Login exitoso, token guardado:", resp.data.token);
-        router.push('/') // lo  envia al home
+        router.push('/') // lo envia al home
       } else {
         setErrorMessage("Error en la autenticación. Verifique sus credenciales.");
       }
@@ -59,8 +65,9 @@ const LoginForm = () => {
     <div className="flex flex-col items-center drop-shadow-lg shadow-accent-foreground my-14">
       <Form {...form}>
         <h1 className="text-display-small-bold font-bold text-center bg-white p-2 mb-5 rounded-md drop-shadow-lg">
-          ¡BIENVENIDO DE NUEVO!
+{title}
         </h1>
+        {extraDiv}
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="bg-[#74ACDF] px-28 py-16 rounded-md flex flex-col gap-10 w-[600px] max-w-full"

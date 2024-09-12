@@ -1,41 +1,77 @@
 export type LoginResponse = {
     message: string
     data: {
-        token?: string
-        role: string
-    }
+        token?: string;
+        role: string;
+        id: number;
+    },
     success: boolean
-}
+};
 
 export type RegisterResponse = {
-    message: string
+    message: string;
     data: {
-        id?: number
-        name?: string
-        last_name?: string
-        email?: string
-        createdAt?: string
+        id?: number;
+        name?: string;
+        last_name?: string;
+        email?: string;
+        createdAt?: string;
         role: {
-            id?: number
-            name?: string
-        }
-    }
-    success: boolean
+            id?: number;
+            name?: string;
+        };
+    };
+    success: boolean;
+};
+
+
+export type ResendEmailResponse = {
+
+    message: string,
+    data: {
+        email: string,
+        message: string
+    },
+    success: true
 }
 
-export interface ProfileResponse {
+// verificar token
+export type VerifyTokenResponse = {
     message: string
     data: {
-        id: number
-        profileImageUrl: string
-        dniFrontUrl: string
-        dniBackUrl: string
-        phone: string
-        departamento: string
-        provincia: string
-        name: string
-        lastname: string
         email: string
-    }
-    success: boolean
+        isVerified: boolean
+    },
+    success: true
 }
+
+//
+// Provincias
+
+export type ProvinciasResponse = {
+    message: string;
+    data: {
+        id: number;
+        name: string;
+    }[];
+    success: boolean;
+};
+
+
+// Categorias
+
+export type CategorysResponse = {
+    message: string;
+    data:{
+        id:number;
+        name:string;
+    }[];
+    success: boolean;
+}
+
+//Departamento
+
+export type DepartamentsResponse = {
+    id: number;
+    name: string;
+}[];
