@@ -31,7 +31,7 @@ function CarouselHome() {
           <CarouselContent>
             {['banner1psd 4.jpg','banner2psd 2.jpg','banner3psd 2.jpg',].map((item,index) => (
               <CarouselItem key={index} className='w-auto'>
-                <div className='w-auto h-[60vh] relative'>
+                <div className='w-auto h-[67vh] relative'>
                   <Image
                     src={`/img/${item}`}
                     alt={`HeroImg ${index+1}`}
@@ -50,6 +50,7 @@ function CarouselHome() {
               </Dialog.Trigger>
               <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 bg-black/50 z-40' />
+                <Dialog.Title>Aviso Requiere Loguearse</Dialog.Title>
                 <Dialog.Content className='fixed z-50 left-1/2 top-1/2 rounded-md bg-white p-8 textgray9 shadow -translate-x-1/2 -translate-y-1/2'>
                   <div className="flex flex-col items-center gap-3">
                     <div>

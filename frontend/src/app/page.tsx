@@ -22,11 +22,11 @@ export default function Home() {
       </section>
       <section className="bg-primary flex items-center justify-center">
         {/* Filtros Home */}
-        <section className="absolute w-full -translate-y-[8.5rem] z-10">
+        <section className="absolute w-full -translate-y-[11rem] z-10">
           <FormHome />
         </section>
         {/* Nuestros Números */}
-        <div className="flex flex-row items-center justify-center gap-32 p-12 mt-16 mb-8">
+        <div className="flex flex-row items-center justify-center gap-32 p-12 mt-8 mb-8">
           <h3 className="text-md max-w-[16rem]">
             Nuestros Números hablan por sí solos
           </h3>
