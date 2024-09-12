@@ -6,27 +6,23 @@ import { useEffect, useState } from 'react'
 import ListUserCards from './ListUserCards'
 interface FooterProfileProps {
     comments: { name: string; content: string }[]
+    requests: { name: string; content: string }[]
     authUser: boolean
-    receivedRequests: { name: string; content: string }[]
-    sentRequests: { name: string; content: string }[]
 }
 const FooterProfile: React.FC<FooterProfileProps> = ({
     comments,
-    authUser,
-    receivedRequests,
-    sentRequests
+    requests,
+    authUser
 }) => {
     const [activeTab, setActiveTab] = useState('comentarios')
-    const [dataActiveTab, setDataActiveTab] = useState(comments)
+    const [dataActiveTab, setDataActiveTab] = useState(requests)
     useEffect(() => {
-        if (activeTab === 'comentarios') {
+        if (activeTab === 'solicitudes') {
+            setDataActiveTab(requests)
+        } else {
             setDataActiveTab(comments)
-        } else if (activeTab === 'sendSolicitudes') {
-            setDataActiveTab(sentRequests)
-        } else if (activeTab === 'receivedSolicitudes') {
-            setDataActiveTab(receivedRequests)
         }
-    }, [activeTab, comments, receivedRequests, sentRequests])
+    }, [activeTab, comments, requests])
 
     return (
         <div className="mt-8">
@@ -35,23 +31,23 @@ const FooterProfile: React.FC<FooterProfileProps> = ({
                     <>
                         <Button
                             variant="ghost"
-                            className={`hover:bg-[#F7C036] border border-black font-bold flex-1 rounded-none ${
-                                activeTab === 'sendSolicitudes'
+                            className={`hover:bg-[#F7C036] font-bold flex-1 rounded-none ${
+                                activeTab === 'solicitudes'
                                     ? 'bg-[#F7C036]'
                                     : 'bg-[#D2D2D2]'
                             }`}
-                            onClick={() => setActiveTab('sendSolicitudes')}
+                            onClick={() => setActiveTab('solicitudes')}
                         >
                             SOLICITUDES ENVIADAS
                         </Button>
                         <Button
                             variant="ghost"
-                            className={`hover:bg-[#F7C036] border border-black font-bold flex-1 rounded-none ${
-                                activeTab === 'receivedSolicitudes'
+                            className={`hover:bg-[#F7C036] font-bold flex-1 rounded-none ${
+                                activeTab === 'solicitudes'
                                     ? 'bg-[#F7C036]'
                                     : 'bg-[#D2D2D2]'
                             }`}
-                            onClick={() => setActiveTab('receivedSolicitudes')}
+                            onClick={() => setActiveTab('solicitudes')}
                         >
                             SOLICITUDES RECIBIDAS
                         </Button>
@@ -59,7 +55,7 @@ const FooterProfile: React.FC<FooterProfileProps> = ({
                 )}
                 <Button
                     variant="ghost"
-                    className={`hover:bg-[#F7C036] border border-black font-bold flex-1 rounded-none ${
+                    className={`hover:bg-[#F7C036] font-bold flex-1 rounded-none ${
                         activeTab === 'comentarios'
                             ? 'bg-[#F7C036]'
                             : 'bg-[#D2D2D2]'

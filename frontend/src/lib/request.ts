@@ -1,6 +1,6 @@
 export interface DataLogin {
-    email:string
-    password:string
+    email: string
+    password: string
 }
 
 export interface DataRegister {
@@ -9,7 +9,10 @@ export interface DataRegister {
     email: string
     password: string
 }
+<<<<<<< fearture/verifyEmail
 
 export interface DataVerifyToken {
     token: string
 }
+=======
+>>>>>>> frontend
