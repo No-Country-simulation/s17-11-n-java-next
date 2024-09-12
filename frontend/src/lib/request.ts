@@ -9,10 +9,7 @@ export interface DataRegister {
     email: string
     password: string
 }
-<<<<<<< fearture/verifyEmail
 
 export interface DataVerifyToken {
     token: string
 }
-=======
->>>>>>> frontend
