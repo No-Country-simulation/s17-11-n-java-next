@@ -1,7 +1,11 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import HeaderProfile from './components/HeaderProfile'
 import FooterProfile from './components/FooterProfile'
 import TopbarGeneral from '@/components/containers/topbar-general'
+import { useAuthStore } from '@/store/auth'
+import { useRouter } from 'next/navigation'
+
 const user = {
     name: 'John Doe',
     avatar: 'https://placehold.co/64x64/png',
@@ -96,8 +100,27 @@ const sentRequests = [
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     }
 ]
-const UserProfile = ({}) => {
+const UserProfile = ({ }) => {
+    const { token, role, id } = useAuthStore();
+    const router = useRouter()
     const authUser = true
+
+    useEffect(() => {
+        if (!token) {
+            // Si no hay token, redirige al login
+            router.push('/auth/login');
+        }
+    }, [token, router]);
+
+    // Mientras se verifica el token, muestra un loading o nada
+    if (!token) {
+        return <>
+            <TopbarGeneral />
+            <div className='w-full h-screen flex justify-center items-center'>
+                Cargando ...</div></>;
+    }
+
+
     return (
         <>
             <TopbarGeneral />

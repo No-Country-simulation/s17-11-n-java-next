@@ -12,5 +12,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
-// placehold.co
