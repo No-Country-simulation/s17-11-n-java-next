@@ -1,15 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { rubikOne, rubikPuddles } from '@/font/google'
+import TopbarGeneral from '@/components/containers/topbar-general'
 
 export default function NotFound() {
     return (
         <>
-            <div className="bg-[#74acdf] w-screen h-[120px]">Reemplazar por el Header Original</div>
+        <TopbarGeneral/>
             <main className="text-center bg-[#fcfcfc] h-auto w-screen flex flex-col justify-center items-center relative">
                 {/* Contenedor principal con imagen de fondo */}
                 <div className="flex flex-col justify-center items-center w-[912px] h-[613px] bg-cover bg-center relative mt-0 mb-0"
-                    style={{ backgroundImage: "url('/404/splash2.png')" }}>
+                    style={{ backgroundImage: "url('/404/2.png')" }}>
                     {/* Texto grande de 404 */}
                     <div className="relative top-[120px] flex items-center justify-center w-[461px] h-[317px] gap-2">
                         {/* Letra 4 */}
@@ -59,21 +60,12 @@ export default function NotFound() {
                 <Link href="/" className="mb-30 bottom-10 w-[290px] h-[50px] px-[18px] py-[13px] bg-[#f6b40e] hover:bg-[#dda10d] rounded-lg shadow-lg flex justify-center items-center z-20 mt-28 mb-10">
                     <span className="text-black text-base font-bold">Volver al inicio</span>
                 </Link>
-                {/* Splash images positioning */}
-                <div className="relative w-full h-[350px]"> {/* Add this div to wrap the splash images */}
-                    <div className="absolute w-[91.63px] h-[96.33px] left-[10%] top-[100px] transform rotate-[2.11deg]">
-                        <Image src={'/404/splash.png'} width={91} height={96} alt='splash'/>
-                    </div>
-                    <div className="absolute w-[91.63px] h-[96.33px] right-[5%] top-[80px] transform rotate-[100deg]">
-                        <Image src={'/404/splash.png'} width={91} height={96} alt='splash'/>
-                    </div>
-                </div>
+
                 {/* Imagen del logo al fondo */}
-                <div className="bg-image404 w-screen h-[300px] absolute bottom-0 bg-no-repeat"
+                <div className="bg-image404 w-screen h-[410px] bottom-0 bg-no-repeat bg-cover"
                 >
                 </div>
             </main>
-            <div className="bg-[#74acdf] w-screen h-[300px]">Reemplazar por el foother original</div>
         </>
     );
 }

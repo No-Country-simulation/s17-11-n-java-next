@@ -30,7 +30,7 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        "image404":"url('/404/2.png')"
+        "image404":"url('/404/down.png')"
       },
       colors: {
         border: 'hsl(var(--border) / <alpha-value>)',
