@@ -8,6 +8,11 @@ import { srvTemp } from "@/lib/data/servicios";
 
 
 export default function Home() {
+  // Partir los 12 Servicios (Esta parte se implementa temporalmente, se modificará cuando se tenga el endpoint)
+    let srv = []
+    srv.push(srvTemp.slice(0,4))
+    srv.push(srvTemp.slice(4,8))
+    srv.push(srvTemp.slice(8,12))
   return (
     <main className="w-full">
       {/* Hero */}
@@ -17,12 +22,12 @@ export default function Home() {
       </section>
       <section className="bg-primary flex items-center justify-center">
         {/* Filtros Home */}
-        <section className="absolute w-full -translate-y-[7.3rem] z-10">
+        <section className="absolute w-full -translate-y-[8.5rem] z-10">
           <FormHome />
         </section>
         {/* Nuestros Números */}
-        <div className="flex flex-row gap-8 items-center justify-center p-8 mt-16 mb-8">
-          <h3 className="text-xs max-w-[8.5rem]">
+        <div className="flex flex-row items-center justify-center gap-32 p-12 mt-16 mb-8">
+          <h3 className="text-md max-w-[16rem]">
             Nuestros Números hablan por sí solos
           </h3>
           <div className="flex flex-col items-center">
@@ -42,17 +47,17 @@ export default function Home() {
       {/* Mejor Calificados */}
       <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Mejor Calificados</h1>
-        <CardServicio dataResultados={srvTemp.mcalif.dataResultados} servicio={''} key={1} />
+        <CardServicio dataResultados={srv[0]} servicio={''} key={1} />
       </section>
       {/* Más Buscados */}
       <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Más Buscados</h1>
-        <CardServicio dataResultados={srvTemp.mbuscados.dataResultados} servicio={''} key={1} />
+        <CardServicio dataResultados={srv[1]} servicio={''} key={1} />
       </section>
       {/* Cercanos a Ti */}
       <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Cercanos a Ti</h1>
-        <CardServicio dataResultados={srvTemp.cercanos.dataResultados} servicio={''} key={1} />
+        <CardServicio dataResultados={srv[2]} servicio={''} key={1} />
       </section>
     </main>
   );

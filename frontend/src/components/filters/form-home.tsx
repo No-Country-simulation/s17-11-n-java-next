@@ -38,7 +38,7 @@ function FormHome() {
     }
   })
   return (
-    <div className="relative flex flex-row items-center justify-center p-8 bg-secondary rounded-lg container w-[65%] gap-4">
+    <div className="relative flex flex-row items-center justify-center p-10 bg-secondary rounded-lg container w-[65%] gap-4">
       <Form {...form}>
         <FormField
           name="provincia"
@@ -51,9 +51,9 @@ function FormHome() {
                     <SelectValue placeholder="Provincia" />
                   </SelectTrigger>
                   <SelectContent>
-                    {provinciasConDepartamentos.map((prov) => (
+                    {provinciasConDepartamentos.map((prov,index) => (
                       <SelectItem
-                        key={prov.provincia}
+                        key={index}
                         value={prov.provincia}
                       >
                         {prov.provincia}
@@ -120,7 +120,7 @@ function FormHome() {
         <Button
           type="submit"
           variant="default"
-          className="text-black text-base font-bold leading-normal tracking-tight bg-primary shadow-md shadow-gray-600 rounded-lg"
+          className="text-black text-base font-bold leading-normal tracking-tight bg-primary shadow-md shadow-gray-600 rounded-lg px-14"
         >
           Buscar
         </Button>

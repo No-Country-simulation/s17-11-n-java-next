@@ -29,104 +29,89 @@ export const servicios = [
   "Yoga y Meditación",
 ];
 
-export const srvTemp = {
-  mcalif: {
-    dataResultados:[
-      {
-        id: "1",
-        imag: "",
-        titulo: "SRV1",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "2",
-        imag: "",
-        titulo: "SRV2",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "3",
-        imag: "",
-        titulo: "SRV3",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "4",
-        imag: "",
-        titulo: "SRV4",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-    ],
-    servicio: "Mejor Calificados"
+export const srvTemp = [
+  {
+    id: "1",
+    imag: "",
+    titulo: "SRV1",
+    descripcion: "SRV",
+    ubicacion: "ubi",
   },
-  mbuscados: {
-    dataResultados:[
-      {
-        id: "1",
-        imag: "",
-        titulo: "SRV1",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "2",
-        imag: "",
-        titulo: "SRV2",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "3",
-        imag: "",
-        titulo: "SRV3",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "4",
-        imag: "",
-        titulo: "SRV4",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-    ],
-    servicio: "Más Buscados"
+  {
+    id: "2",
+    imag: "",
+    titulo: "SRV2",
+    descripcion: "SRV",
+    ubicacion: "ubi",
   },
-  cercanos: {
-    dataResultados:[
-      {
-        id: "1",
-        imag: "",
-        titulo: "SRV1",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "2",
-        imag: "",
-        titulo: "SRV2",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "3",
-        imag: "",
-        titulo: "SRV3",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-      {
-        id: "4",
-        imag: "",
-        titulo: "SRV4",
-        descripcion: "SRV",
-        ubicacion: "ubi",
-      },
-    ],
-    servicio: "Cercanos a Ti"
-  }
-}
+  {
+    id: "3",
+    imag: "",
+    titulo: "SRV3",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "4",
+    imag: "",
+    titulo: "SRV4",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "5",
+    imag: "",
+    titulo: "SRV5",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "6",
+    imag: "",
+    titulo: "SRV6",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "7",
+    imag: "",
+    titulo: "SRV7",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "8",
+    imag: "",
+    titulo: "SRV8",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "9",
+    imag: "",
+    titulo: "SRV9",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "10",
+    imag: "",
+    titulo: "SRV10",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "11",
+    imag: "",
+    titulo: "SRV11",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+  {
+    id: "12",
+    imag: "",
+    titulo: "SRV12",
+    descripcion: "SRV",
+    ubicacion: "ubi",
+  },
+]

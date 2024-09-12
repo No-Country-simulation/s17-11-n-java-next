@@ -15,6 +15,7 @@ const config = {
     },
     fontSize: {
       'xs': ['16px', '24px'],   // Lato Extra small 16/24
+      'md': ['24px', '32px'],   // Lato Medium 24/32
       'display-large': ['56px', '64px'],  // Lato Regular 56/64
       'display-medium': ['48px', '56px'],  // Lato Regular 48/56
       'display-small': ['48px', '56px'],   // Lato Regular 48/56
