@@ -17,7 +17,7 @@ function FooterGeneral() {
               {href:'/public/soporte',title:'SOPORTE',},
               {href:'/public/terminos',title:'TÉRMINOS Y CONDICIONES',}, /*PENDIENTE*/
             ].map((item,i) => (
-              <Link href={item.href} className='h-2' key={i}>
+              <Link href={item.href} className='h-2 font-bold hover:text-black duration-500' key={i}>
                 {item.title}
               </Link>
             ))}
