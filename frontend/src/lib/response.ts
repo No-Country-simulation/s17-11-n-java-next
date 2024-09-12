@@ -22,3 +22,20 @@ export type RegisterResponse = {
     };
     success: boolean;
 };
+
+
+export type ResendEmailResponse = {
+
+        message: string,
+        data: {
+            email: string,
+            message: string
+        },
+        success: true
+}
+
+// verificar token
+export type VerifyTokenResponse = {
+    message:string
+    
+}

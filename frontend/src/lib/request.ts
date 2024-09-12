@@ -9,3 +9,7 @@ export interface DataRegister {
     email: string
     password: string
 }
+
+export interface DataVerifyToken {
+    token: string
+}
