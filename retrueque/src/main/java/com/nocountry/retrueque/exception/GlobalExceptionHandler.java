@@ -2,6 +2,7 @@ package com.nocountry.retrueque.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,4 +53,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, errorResponse.status());
     }
 
+    @ExceptionHandler(InvalidPaginationParameterException.class)
+    public ResponseEntity<?> handleInvalidPaginationParameter( InvalidPaginationParameterException e){
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+    @ExceptionHandler(PropertyReferenceException.class)
+    public ResponseEntity<?> handlePropertyReferenceException(PropertyReferenceException ex) {
+        ErrorResponse apiResponse = new ErrorResponse("Invalid parameter: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
 }

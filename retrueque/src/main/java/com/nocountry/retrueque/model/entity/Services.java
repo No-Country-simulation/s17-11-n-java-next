@@ -25,7 +25,7 @@ public class Services {
   @JoinColumn(name = "category_id", nullable = false)
   private Category category;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name="departamento_id")
   private DepartamentoEntity departamento;
 

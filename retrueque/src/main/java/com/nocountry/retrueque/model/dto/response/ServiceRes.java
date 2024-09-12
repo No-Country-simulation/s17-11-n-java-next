@@ -10,6 +10,8 @@ public record ServiceRes(
         String rules,
         String imgUrl,
         UserResShort user,
+        DepartamentoRes departamento,
+        ProvinciaRes provincia,
         CategoryRes category,
         List<Integer> days,
         List<Integer> shiftTime
