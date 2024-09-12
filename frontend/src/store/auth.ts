@@ -35,7 +35,7 @@ export const useAuthStore = create(
         });
 
         // Guarda el ID de usuario en una cookie
-        setCookie(null, 'auth-userId', id.toString(), {
+        setCookie(null, 'auth-id', id.toString(), {
           maxAge: 30 * 24 * 60 * 60, // 30 días de duración
           path: '/',
         });
@@ -51,7 +51,7 @@ export const useAuthStore = create(
         destroyCookie(null, 'auth-role');
 
         // Elimina la cookie del ID de usuario
-        destroyCookie(null, 'auth-userId');
+        destroyCookie(null, 'auth-id');
       },
     }),
     {
