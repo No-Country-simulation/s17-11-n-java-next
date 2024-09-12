@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("${api.base}/category")
 @RequiredArgsConstructor
 @Tag(name = "Categories")
-@SecurityRequirement(name = "bearer-key")
 public class CategoryController {
   private final CategoryService categoryService;
 
   @Operation(summary = "Create a category", description = "Temporarily Available  for the role USER.")
+  @SecurityRequirement(name = "bearer-key")
   @PostMapping
   public ResponseEntity<?> create(@RequestBody @Valid CategoryReq categoryReq){
     var response = this.categoryService.create(categoryReq);
@@ -43,12 +43,14 @@ public class CategoryController {
 
   @Operation(summary = "Delete category by id", description = "Temporarily Available  for the role USER.")
   @DeleteMapping("/{id}")
+  @SecurityRequirement(name = "bearer-key")
   public ResponseEntity<?> deleteById(@PathVariable long id){
     var response = this.categoryService.deleteById(id);
     return ResponseEntity.ok(new ApiResponse<>(response));
   }
 
   @Operation(summary = "Update category by id", description = " Temporarily Available  for the role USER.")
+  @SecurityRequirement(name = "bearer-key")
   @PutMapping("/{id}")
   public ResponseEntity<?> updateById(@RequestBody @Valid CategoryReq categoryReq,
                                       @PathVariable long id){

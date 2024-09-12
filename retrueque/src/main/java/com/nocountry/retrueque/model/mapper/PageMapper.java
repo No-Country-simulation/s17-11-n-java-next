@@ -2,6 +2,7 @@ package com.nocountry.retrueque.model.mapper;
 
 import com.nocountry.retrueque.model.dto.response.CustomPage;
 import com.nocountry.retrueque.model.dto.response.ServiceRes;
+import com.nocountry.retrueque.model.dto.response.ShiftRes;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
@@ -14,4 +15,10 @@ public interface PageMapper {
   @Mapping(target = "isFirst", source = "first")
   @Mapping(target = "isLast", source = "last")
   CustomPage<ServiceRes> pageService(Page<ServiceRes> page);
+
+  @Mapping(target = "currentPage", source = "number")
+  @Mapping(target = "pageSize", source = "size")
+  @Mapping(target = "isFirst", source = "first")
+  @Mapping(target = "isLast", source = "last")
+  CustomPage<ShiftRes> pageShift(Page<ShiftRes> page);
 }

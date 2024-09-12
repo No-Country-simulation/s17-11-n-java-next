@@ -31,8 +31,11 @@ public class SecurityConfig {
                             "api/v1/auth/**",
                             "/swagger-ui/**",
                             "/v3/api-docs/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "api/v1/category").hasRole("USER")
-                    .anyRequest().permitAll()
+                    .requestMatchers(HttpMethod.GET, "api/v1/category/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "api/v1/service/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "api/v1/provincias/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "api/v1/departamentos/**").permitAll()
+                    .anyRequest().authenticated()
             ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

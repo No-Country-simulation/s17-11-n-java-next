@@ -5,6 +5,8 @@ import com.nocountry.retrueque.model.dto.request.ServiceReq;
 import com.nocountry.retrueque.model.dto.response.CustomPage;
 import com.nocountry.retrueque.model.dto.response.ServiceRes;
 import com.nocountry.retrueque.model.entity.Services;
+import com.nocountry.retrueque.model.entity.ShiftTimeByShift;
+import com.nocountry.retrueque.model.enums.ShiftTime;
 import com.nocountry.retrueque.model.mapper.PageMapper;
 import com.nocountry.retrueque.model.mapper.ServiceMapper;
 import com.nocountry.retrueque.repository.CategoryRepository;
@@ -12,11 +14,15 @@ import com.nocountry.retrueque.repository.ServiceRepository;
 import com.nocountry.retrueque.service.interfaces.AuthService;
 import com.nocountry.retrueque.service.interfaces.S3FileUploadService;
 import com.nocountry.retrueque.service.interfaces.ServicesService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,16 +37,39 @@ public class ServicesServiceImpl implements ServicesService {
 
 
   @Override
+  @Transactional
   public ServiceRes create(ServiceReq service) {
-    var newCategory = this.serviceMapper.reqToEntity(service, categoryRepo, s3Service);
-    newCategory.setUser(this.authService.getAuthUser());
-    var categoryFound = this.serviceRepository.save(newCategory);
-    return this.serviceMapper.entityToRes(categoryFound);
+    var newService = this.serviceMapper.reqToEntity(service, categoryRepo, s3Service);
+    newService.setUser(this.authService.getAuthUser());
+    newService.setDepartamento(newService.getUser().getProfile().getDepartamento());
+    var shiftTimes = service.shiftTime()
+            .stream()
+            .map(id -> {
+              var newShiftTime = new ShiftTimeByShift();
+              newShiftTime.setShiftTime(ShiftTime.fromId(id));
+              newShiftTime.setShift(newService.getShift());
+              return newShiftTime;
+            }).toList();
+    newService.getShift().setShifts(shiftTimes);
+    var serviceFound = this.serviceRepository.save(newService);
+    return this.serviceMapper.entityToRes(serviceFound);
   }
 
   @Override
-  public CustomPage<ServiceRes> getAll(Pageable pageable) {
-    Page<Services> pageResult = this.serviceRepository.findAll(pageable);
+  public Set<ServiceRes> getAllByUserId(Long id) {
+    return this.serviceRepository.findByUserId(id)
+            .stream()
+            .map(this.serviceMapper::entityToRes)
+            .collect(Collectors.toSet());
+  }
+
+  @Override
+  public CustomPage<ServiceRes> getAll(Pageable pageable,
+                                       Integer departamentoId,
+                                       Integer provinciaId,
+                                       Integer categoryId) {
+    Page<Services> pageResult = this.serviceRepository.findAllByFilter(pageable,
+            departamentoId, provinciaId, categoryId);
     Page<ServiceRes> pageResultDto = pageResult.map(this.serviceMapper::entityToRes);
     return this.pageMapper.pageService(pageResultDto);
   }
