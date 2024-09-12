@@ -1,9 +1,9 @@
 export type LoginResponse = {
     message: string
     data: {
-        token?: string
-        role: string
-        id: number
+        token?: string;
+        role: string;
+        id: number;
     },
     success: boolean
 };
