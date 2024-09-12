@@ -17,6 +17,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Fetchregister } from "@/services/RegisterFetch";
 import { useRouter } from "next/navigation";
+import { DialogRegistroExitoso } from "@/components/dialog/DialogRegistroExitoso";
+//
 
 // Definición del esquema de validación
 const formSchema = z
@@ -80,13 +82,15 @@ const formSchema = z
   });
 
 const RegisterForm = () => {
+  //
+  const [dialogOpen, setDialogOpen] = useState(false);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmPassword: false,
   });
-
+  //
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -102,7 +106,8 @@ const RegisterForm = () => {
       const resp = await Fetchregister(values); // Función que debes implementar para el registro
       if (resp.success) {
         console.log("Registro exitoso");
-        router.push('/login')
+        setDialogOpen(true);
+        // router.push('/login')
       } else {
         setErrorMessage("Error en el registro. Vuelva a intentarlo.");
       }
@@ -250,6 +255,8 @@ const RegisterForm = () => {
           </div>
         </form>
       </Form>
+      {/* Importar y mostrar el diálogo */}
+      <DialogRegistroExitoso open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 };

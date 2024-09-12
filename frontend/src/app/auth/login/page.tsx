@@ -7,7 +7,7 @@ const LoginPage = () => {
     <>
       <TopbarGeneral />
       <section className="flex items-center justify-center min-h-screen bg-[url('/img/bg_lr.png')] bg-cover bg-center">
-        <LoginForm />
+        <LoginForm title="!BIENVENIDO DE NUEVO"/>
       </section></>
   );
 };
