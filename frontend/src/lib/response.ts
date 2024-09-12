@@ -46,3 +46,32 @@ export type VerifyTokenResponse = {
 }
 
 //
+// Provincias
+
+export type ProvinciasResponse = {
+    message: string;
+    data: {
+        id: number;
+        name: string;
+    }[];
+    success: boolean;
+};
+
+
+// Categorias
+
+export type CategorysResponse = {
+    message: string;
+    data:{
+        id:number;
+        name:string;
+    }[];
+    success: boolean;
+}
+
+//Departamento
+
+export type DepartamentsResponse = {
+    id: number;
+    name: string;
+}[];

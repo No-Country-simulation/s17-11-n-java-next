@@ -13,3 +13,8 @@ export interface DataRegister {
 export interface DataVerifyToken {
     token: string
 }
+
+
+export interface DepartamentsRequest {
+    id?:number
+}
