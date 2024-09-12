@@ -45,12 +45,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       <h3 className="text-[24px] font-semibold mb-2">{title}</h3>
       <p className="text-sm text-gray-600 mb-8 flex-grow">{description}</p>
       <hr className="border-[#618FBA] border-2 my-4" />
-      <div className="mt-auto flex justify-between">
-        <div className="flex items-center text-sm text-gray-500 mb-2">
+      <div className="mt-auto flex justify-between items-center">
+        <div className="flex items-center text-sm text-black">
           <MapPin size={16} className="mr-1" />
           <span>{location}</span>
         </div>
-        <button className="bg-yellow-500 text-white text-sm py-1 px-3 rounded-full hover:bg-yellow-600 transition duration-300">
+        <button className="bg-[#F6B40E] text-black text-sm py-2 px-4 rounded-[8px] hover:bg-yellow-400 transition duration-300">
           Ver publicación
         </button>
       </div>

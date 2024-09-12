@@ -1,6 +1,6 @@
 import React from 'react'
-import HeaderProfile from './components/HeaderProfile'
-import FooterProfile from './components/FooterProfile'
+import HeaderProfile from '../components/HeaderProfile'
+import FooterProfile from '../components/FooterProfile'
 import TopbarGeneral from '@/components/containers/topbar-general'
 const user = {
     name: 'John Doe',
@@ -56,48 +56,20 @@ const products = [
 ]
 const requests = [
     {
-        name: 'Jane Doe',
+        name: 'Mario Diaz',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     },
     {
-        name: 'Jane Doe',
+        name: 'Mario Diaz',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     },
     {
-        name: 'Jane Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    }
-]
-const receivedRequests = [
-    {
-        name: 'Jane Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        name: 'Jane Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        name: 'Jane Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    }
-]
-const sentRequests = [
-    {
-        name: 'Luis Mario',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        name: 'Luis Mario',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        name: 'Luis Mario',
+        name: 'Mario Diaz',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     }
 ]
 const UserProfile = ({}) => {
-    const authUser = true
+    const authUser = false
     return (
         <>
             <TopbarGeneral />
@@ -109,9 +81,8 @@ const UserProfile = ({}) => {
                 />
                 <FooterProfile
                     comments={comments}
+                    requests={requests}
                     authUser={authUser}
-                    receivedRequests={receivedRequests}
-                    sentRequests={sentRequests}
                 />
             </section>
         </>
