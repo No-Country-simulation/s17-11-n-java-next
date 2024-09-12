@@ -3,6 +3,7 @@ export type LoginResponse = {
     data: {
         token?: string
         role: string
+        id: number
     },
     success: boolean
 };
@@ -26,16 +27,22 @@ export type RegisterResponse = {
 
 export type ResendEmailResponse = {
 
-        message: string,
-        data: {
-            email: string,
-            message: string
-        },
-        success: true
+    message: string,
+    data: {
+        email: string,
+        message: string
+    },
+    success: true
 }
 
 // verificar token
 export type VerifyTokenResponse = {
-    message:string
-    
+    message: string
+    data: {
+        email: string
+        isVerified: boolean
+    },
+    success: true
 }
+
+//

@@ -1,6 +1,7 @@
 import type { DataLogin } from '@/lib/request'; // Importa el tipo de datos para el login
 import type { LoginResponse } from '@/lib/response'; // Importa el tipo de respuesta del login
 import { useAuthStore } from '@/store/auth'; // Importa el store para autentificación
+import { number } from 'zod';
 
 const API = process.env.NEXT_PUBLIC_BACKEND_URL as string; // Obtén la URL del backend desde las variables de entorno
 
@@ -53,6 +54,7 @@ export const Fetchlogin = async (data: DataLogin): Promise<LoginResponse> => {
       data: {
         token: result.data.token,  // Asegúrate de que el backend devuelva 'token'
         role: result.data.role,    // Asegúrate de que el backend devuelva 'role'
+        id: result.data.userId, // Asegúrate de que el backend devuelva 'userId'
       },
       success: result.success,
     };
@@ -62,8 +64,9 @@ export const Fetchlogin = async (data: DataLogin): Promise<LoginResponse> => {
     return {
       message: 'Error en la autenticación',
       data: {
-        token: undefined,
+        token: '',
         role: '',
+        id: 0
       },
       success: false,
     };
