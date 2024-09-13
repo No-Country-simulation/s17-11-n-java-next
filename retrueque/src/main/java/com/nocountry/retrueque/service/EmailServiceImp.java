@@ -17,20 +17,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailServiceImp implements EmailService {
 
-    @Value("${email.link.confirmation}")
-    private String linkConfirmation;
+
 
     private final JavaMailSender javaMailSender;
     private final TokenService tokenService;
     private final ResendTokenEmailMapper resendTokenEmailMapper;
     private final UserRepository userRepository;
 
+    @Value("${email.link.confirmation}")
+    private String linkConfirmation;
+
     @Override
-    public void sendEmail(String email, String token) {
+    public void sendEmail(String email, String asunto,String descripcion) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
-        message.setSubject("Confirma tu cuenta");
-        message.setText("Para confirmar tu cuenta, haz clic en el siguiente enlace: " + linkConfirmation+token);
+        message.setSubject(asunto);
+        message.setText(descripcion);
         javaMailSender.send(message);
     }
 
@@ -43,7 +45,8 @@ public class EmailServiceImp implements EmailService {
             throw new IllegalArgumentException("User is already verified.");
         }
         String token = tokenService.createVerificationToken(user);
-        sendEmail(user.getEmail(), token);
+        sendEmail(user.getEmail(),"Confirma tu cuenta","Para confirmar tu cuenta, haz clic en el siguiente enlace: " + linkConfirmation+token);
+
         return resendTokenEmailMapper.toResendTokenEmailRes(user.getEmail(), "Verification token has been resent to your email.");
     }
 }

@@ -1,5 +1,6 @@
 package com.nocountry.retrueque.controller;
 
+import com.nocountry.retrueque.model.dto.response.UserServicesRes;
 import com.nocountry.retrueque.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -27,6 +28,13 @@ public class UserController {
   @GetMapping
   public ResponseEntity<?> getAll(){
     return ResponseEntity.ok("paso la prueba");
+  }
+
+  @Operation(summary = "Get user with services")
+  @GetMapping("/{userId}/services")
+  public ResponseEntity<?> getUserWithServices(@PathVariable Long userId) {
+    UserServicesRes response = userService.getUserWithServices(userId);
+    return ResponseEntity.ok(new ApiResponse<>(response));
   }
 
 }
