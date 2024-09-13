@@ -4,10 +4,7 @@ import com.nocountry.retrueque.exception.CategoryNotFoundException;
 import com.nocountry.retrueque.model.dto.request.ServiceReq;
 import com.nocountry.retrueque.model.dto.response.ServiceRes;
 import com.nocountry.retrueque.model.dto.response.ServiceResShort;
-import com.nocountry.retrueque.model.entity.Category;
-import com.nocountry.retrueque.model.entity.Services;
-import com.nocountry.retrueque.model.entity.Shift;
-import com.nocountry.retrueque.model.entity.ShiftTimeByShift;
+import com.nocountry.retrueque.model.entity.*;
 import com.nocountry.retrueque.model.enums.Day;
 import com.nocountry.retrueque.repository.CategoryRepository;
 import com.nocountry.retrueque.service.interfaces.S3FileUploadService;
@@ -24,7 +21,9 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", uses = {
         CategoryMapper.class,
         UserMapper.class,
-        ShiftMapper.class
+        ShiftMapper.class,
+        DepartamentoMapper.class,
+        ProvinciaMapper.class
 })
 public interface ServiceMapper {
 
@@ -35,6 +34,8 @@ public interface ServiceMapper {
 
   @Mapping(target = "days", source = "shift.days")
   @Mapping(target = "shiftTime", source = "shift.shifts")
+  @Mapping(target = "departamento", source = "departamento")
+  @Mapping(target = "provincia", source= "departamento.provincia")
   ServiceRes entityToRes(Services service);
   default Category map(Integer id, @Context CategoryRepository categoryRepository){
     return categoryRepository.findById(id.longValue())
@@ -44,6 +45,7 @@ public interface ServiceMapper {
   ServiceResShort entityToShort(Services service);
 
   default String map(Set<MultipartFile> images, @Context S3FileUploadService s3FileUploadService){
+    if(images == null ) return null;
     return images.stream()
             .map(s3FileUploadService::uploadFile)
             .collect(Collectors.joining(","));
