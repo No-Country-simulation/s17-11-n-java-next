@@ -63,4 +63,10 @@ public class GlobalExceptionHandler {
         ErrorResponse apiResponse = new ErrorResponse("Invalid parameter: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ServiceException.class)
+    public ResponseEntity<?> handleServiceException(ServiceException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
 }
