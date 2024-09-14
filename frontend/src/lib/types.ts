@@ -7,7 +7,7 @@ export const FormSchemaFilters = z.object({
     departamento: z.string({
         required_error: "Seleccione un departamento",
     }),
-    servicio: z.string({
-        required_error: "Seleccione un tipo de servicio",
+    category: z.string({
+        required_error: "Seleccione un tipo de categoria",
     }),
 });

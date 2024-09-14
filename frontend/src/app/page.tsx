@@ -3,7 +3,7 @@ import ImgBg1 from '@/../public/img/banner1psd 4.jpg'
 import TopbarHome from "@/components/containers/topbar-home";
 import CarouselHome from "@/components/containers/carousel-home";
 import FormHome from "@/components/filters/form-home";
-import CardServicio from "@/components/cards/CardServicio";
+import CardServicio from "@/components/cards/Cardcategory";
 import { srvTemp } from "@/lib/data/servicios";
 
 

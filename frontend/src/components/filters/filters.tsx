@@ -1,7 +1,5 @@
 "use client";
-import { useEffect } from "react";
-import { useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormSchemaFilters } from '@/lib/types';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,25 +17,20 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
 } from "@/components/ui/form";
-import CardServicio from '@/components/cards/CardServicio'
-import useProvincias from "@/hooks/useProvincias"; // Hook de useProvincias tanstackQuery
-import useCategorys from '@/hooks/useCategorys'; // Hook de tanstackQuery
-import useDepartaments from '@/hooks/useDepartaments'; // Hook de tanstackQuery
+import CardServicios from '@/components/cards/Cardcategory';
+import useProvincias from "@/hooks/useProvincias";
+import useCategorys from '@/hooks/useCategorys';
+import useDepartaments from '@/hooks/useDepartaments';
 import { z } from 'zod';
 
 type FormData = z.infer<typeof FormSchemaFilters>;
 
-// Componente de esqueleto
-const SkeletonCard = () => (
-    <div className="w-[300px] h-[150px] bg-gray-300 animate-pulse rounded-md" />
-);
-
-
-
 type FiltersProps = {
     className?: string;
+    provincia: string;
+    departamento: string;
+    category: string;
 };
 
 type ResultData = {
@@ -48,52 +41,36 @@ type ResultData = {
     ubicacion: string;
 };
 
-export default function Filters({ className }: FiltersProps) {
-    const router = useRouter()
+export default function Filters({
+    className,
+    provincia,
+    departamento,
+    category
+}: FiltersProps) {
+    const router = useRouter();
     const [resultados, setResultados] = useState<ResultData[]>([]);
-    const [selectedServicio, setSelectedServicio] = useState<string>("");
+    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [selectedProvinciaId, setSelectedProvinciaId] = useState<number | null>(null);
+    const [selectedDepartamentoId, setSelectedDepartamentoId] = useState<number | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    //
-    const { data: provincias, isLoading: isLoadingProvincias, error: errorProvincias } = useProvincias();
-    const { data: servicios, isLoading: isLoadingServicios, error: errorServicios } = useCategorys();
+    const { data: provincias, isLoading: isLoadingProvincias } = useProvincias();
+    const { data: categories, isLoading: isLoadingCategories } = useCategorys();
     const { data: departamentos, isLoading: isLoadingDepartamentos } = useDepartaments(selectedProvinciaId || 0);
-
-    //
 
     const form = useForm<FormData>({
         resolver: zodResolver(FormSchemaFilters),
         defaultValues: {
-            provincia: '',
-            servicio: '',
-            departamento: '',
+            provincia: provincia || '',
+            category: category || '',
+            departamento: departamento || ''
         }
     });
 
-    const fetchResultados = (data: FormData) => {
-        setLoading(true);
-        console.log("Data:", data);
-    };
-
     const onSubmit = (data: FormData) => {
-        fetchResultados(data);
+        console.log(data);
     };
 
-    useEffect(() => {
-        // Verificar si provincias está definido antes de usarlo
-        if (provincias) {
-            const subscription = form.watch((data) => {
-                const selectedProvincia = provincias.find(p => p.name === data.provincia);
-                if (selectedProvincia) {
-                    setSelectedProvinciaId(selectedProvincia.id);
-                } else {
-                    setSelectedProvinciaId(null);
-                }
-            });
 
-            return () => subscription.unsubscribe();
-        }
-    }, [provincias, form]);
 
     return (
         <div className="justify-center mb-20 px-4 sm:px-6 lg:px-8">
@@ -104,16 +81,22 @@ export default function Filters({ className }: FiltersProps) {
                             name="provincia"
                             control={form.control}
                             render={({ field }) => (
-                                <FormItem className="w-full sm:w-[200px]">
+                                <FormItem className="w-full sm:w-[200px] shadow-gray-600 rounded-lg">
                                     <FormControl>
-                                        <Select onValueChange={(value) => { field.onChange(value); }} value={field.value || ""}>
+                                        <Select
+                                            onValueChange={(value) => {
+                                                field.onChange(value);
+                                                setSelectedProvinciaId(Number(value));
+                                            }}
+                                            value={field.value || ""}
+                                        >
                                             <SelectTrigger className="w-full">
                                                 <SelectValue placeholder="Provincia" />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {Array.isArray(provincias) ? (
                                                     provincias.map((provincia) => (
-                                                        <SelectItem key={provincia.id} value={provincia.name}>
+                                                        <SelectItem key={provincia.id} value={provincia.id.toString()}>
                                                             {provincia.name}
                                                         </SelectItem>
                                                     ))
@@ -133,16 +116,22 @@ export default function Filters({ className }: FiltersProps) {
                             name="departamento"
                             control={form.control}
                             render={({ field }) => (
-                                <FormItem className="w-full sm:w-[200px]">
+                                <FormItem className="w-full sm:w-[200px] shadow-gray-600 rounded-lg">
                                     <FormControl>
-                                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                                        <Select
+                                            onValueChange={(value) => {
+                                                field.onChange(value);
+                                                setSelectedDepartamentoId(Number(value));
+                                            }}
+                                            value={field.value || ""}
+                                        >
                                             <SelectTrigger className="w-full">
                                                 <SelectValue placeholder="Ciudad" />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {Array.isArray(departamentos) ? (
                                                     departamentos.map((departamento) => (
-                                                        <SelectItem key={departamento.id} value={departamento.name}>
+                                                        <SelectItem key={departamento.id} value={departamento.id.toString()}>
                                                             {departamento.name}
                                                         </SelectItem>
                                                     ))
@@ -159,20 +148,26 @@ export default function Filters({ className }: FiltersProps) {
                         />
 
                         <FormField
-                            name="servicio"
+                            name="category"
                             control={form.control}
                             render={({ field }) => (
-                                <FormItem className="w-full sm:w-[200px]">
+                                <FormItem className="w-full sm:w-[200px] shadow-gray-600 rounded-lg">
                                     <FormControl>
-                                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                                        <Select
+                                            onValueChange={(value) => {
+                                                field.onChange(value);
+                                                setSelectedCategoryId(Number(value));
+                                            }}
+                                            value={field.value || ""}
+                                        >
                                             <SelectTrigger className="w-full">
                                                 <SelectValue placeholder="Categoría" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {Array.isArray(servicios) ? (
-                                                    servicios.map((servicio) => (
-                                                        <SelectItem key={servicio.id} value={servicio.name}>
-                                                            {servicio.name}
+                                                {Array.isArray(categories) ? (
+                                                    categories.map((category) => (
+                                                        <SelectItem key={category.id} value={category.id.toString()}>
+                                                            {category.name}
                                                         </SelectItem>
                                                     ))
                                                 ) : (
@@ -194,7 +189,14 @@ export default function Filters({ className }: FiltersProps) {
                 </Form>
             </div>
             <div className='justify-center items-center'>
-                <CardServicio dataResultados={resultados} servicio={selectedServicio} />
+                {categories ? (
+                    <CardServicios 
+                        dataResultados={resultados}
+                        servicio={category}
+                    />
+                ) : (
+                    <p>Cargando categorías...</p>
+                )}
             </div>
         </div>
     );
