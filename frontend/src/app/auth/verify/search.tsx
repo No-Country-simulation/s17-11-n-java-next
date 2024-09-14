@@ -1,12 +1,12 @@
-'use client';
+'use client'; // Asegura que este componente se ejecute solo en el cliente
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import VerifyToken from '@/components/cards/VerifyToken';
 import TopbarGeneral from '@/components/containers/topbar-general';
 import LoginForm from '@/components/froms/LoginForm';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-export default function Page() {
+export default function Search() {
     const [verifyStatus, setVerifyStatus] = useState<string | null>(null);
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -19,7 +19,7 @@ export default function Page() {
     };
 
     return (
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
             <TopbarGeneral />
             <section className="flex items-center justify-center min-h-screen bg-[url('/img/bg_lr.png')] bg-cover bg-center">
                 {/* Caja de verificación de token */}
@@ -64,6 +64,6 @@ export default function Page() {
                     </div>
                 )}
             </section>
-        </>
+        </Suspense>
     );
 }
