@@ -61,7 +61,7 @@ function FormHome() {
       category: data.category || ''
     });
 
-    router.push(`/public/search?${searchParams.toString()}`);
+    router.push(`/public/searchCategorys?${searchParams.toString()}`);
   };
 
   useEffect(() => {
