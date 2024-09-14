@@ -7,6 +7,9 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import Link from "next/link";
+import Image from 'next/image';
+
 
 interface TeamMember {
   image: string;
@@ -18,22 +21,25 @@ interface TeamMember {
 const styles = {
   carouselHidden: {
     opacity: 0,
-    visibility: 'hidden',
-    height: '0',
-    transition: 'opacity 0.5s ease-out, visibility 0.5s ease-out, height 0.5s ease-out',
+    visibility: "hidden",
+    height: "0",
+    transition:
+      "opacity 0.5s ease-out, visibility 0.5s ease-out, height 0.5s ease-out",
   },
   carouselVisible: {
     opacity: 1,
-    visibility: 'visible',
-    height: 'auto',
-    transition: 'opacity 0.5s ease-in, visibility 0.5s ease-in, height 0.5s ease-in',
+    visibility: "visible",
+    height: "auto",
+    transition:
+      "opacity 0.5s ease-in, visibility 0.5s ease-in, height 0.5s ease-in",
   },
 };
 
 function CarouselDevTeam() {
   const [selectedMember, setSelectedMember] =
     useState<string>("Orlando Cardenas");
-  const [isInitialScrollDone, setIsInitialScrollDone] = useState<boolean>(false);
+  const [isInitialScrollDone, setIsInitialScrollDone] =
+    useState<boolean>(false);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
   const team: TeamMember[] = [
@@ -59,7 +65,8 @@ function CarouselDevTeam() {
       image: "Pedro Nuñez.png",
       name: "Pedro Nuñez",
       role: "FRONTEND",
-      linkedin: "https://www.linkedin.com/in/pedro-alejandro-núñez-castañeda-67969117a/",
+      linkedin:
+        "https://www.linkedin.com/in/pedro-alejandro-núñez-castañeda-67969117a/",
     },
     {
       image: "Luiggi Rosas.png",
@@ -136,7 +143,7 @@ function CarouselDevTeam() {
       });
     }
   };
-  
+
   useEffect(() => {
     if (carouselRef.current && !isInitialScrollDone) {
       const centralIndex = team.findIndex(
@@ -184,10 +191,12 @@ function CarouselDevTeam() {
           >
             <Card className="border-none w-full h-full cursor-pointer m-0 p-0">
               <CardContent className="flex flex-col justify-start p-0">
-                <img
+                <Image
                   src={`/team/${member.image}`}
                   alt={`${member.name} - ${member.role}`}
                   loading="lazy"
+                  width={500} // Ajusta el ancho según sea necesario
+                  height={300} // Ajusta la altura según sea necesario
                   className={`object-cover w-full h-2/3 rounded-t-md ${
                     selectedMember !== member.name ? "filter grayscale" : ""
                   }`}
@@ -198,14 +207,14 @@ function CarouselDevTeam() {
                 <p className="text-start text-[14px] text-[#A8A8A8] ml-1.5">
                   {member.role}
                 </p>
-                <a
+                <Link
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-start text-[14px] text-[#A8A8A8] ml-1.5"
+                  className="text-start text-[14px] text-[#A8A8A8] hover:text-blue-600 hover:font-bold ml-1.5"
                 >
                   LinkedIn
-                </a>
+                </Link>
               </CardContent>
             </Card>
           </CarouselItem>
