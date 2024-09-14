@@ -40,86 +40,86 @@ function CarouselDevTeam() {
     {
       image: "Natalia Caniza.png",
       name: "Natalia Caniza",
-      role: "UI",
-      linkedin: "https://linkedin.com/in/nataliacaniza",
+      role: "DESIGN UX/UI",
+      linkedin: "https://www.linkedin.com/in/naticaniza",
     },
     {
       image: "Malena de Arriba.png",
       name: "Malena de Arriba",
       role: "DESIGN UX/UI",
-      linkedin: "https://linkedin.com/in/malenadearriba",
+      linkedin: "https://www.linkedin.com/in/malena-de-arriba/",
     },
     {
       image: "Orlando Cardenas.png",
       name: "Orlando Cardenas",
       role: "FRONTEND",
-      linkedin: "https://linkedin.com/in/orlandocardenas",
+      linkedin: "https://www.linkedin.com/in/orlandocardenasvillegas/",
     },
     {
       image: "Pedro Nuñez.png",
       name: "Pedro Nuñez",
       role: "FRONTEND",
-      linkedin: "https://linkedin.com/in/pedronunez",
+      linkedin: "https://www.linkedin.com/in/pedro-alejandro-núñez-castañeda-67969117a/",
     },
     {
       image: "Luiggi Rosas.png",
       name: "Luiggi Rosas",
       role: "FRONTEND",
-      linkedin: "https://linkedin.com/in/luiggirosas",
+      linkedin: "https://www.linkedin.com/in/luiggi-rosas/",
     },
     {
       image: "Matias Acevedo.png",
       name: "Matias Acevedo",
-      role: "BACKEND",
-      linkedin: "https://linkedin.com/in/matiasacevedo",
+      role: "PROJECT MANAGER",
+      linkedin: "https://www.linkedin.com/in/matias-nicolas-acevedo",
     },
     {
       image: "Joaquín Peña.png",
       name: "Joaquín Peña",
-      role: "DEVOPS",
-      linkedin: "https://linkedin.com/in/joaquinpena",
+      role: "DESIGN UX/UI",
+      linkedin: "https://www.linkedin.com/in/joaquinpe/",
     },
     {
       image: "Victor Maye.png",
       name: "Victor Maye",
-      role: "BACKEND",
-      linkedin: "https://linkedin.com/in/victormaye",
+      role: "FRONTEND",
+      linkedin: "https://www.linkedin.com/in/victor-fullstack",
     },
     {
       image: "Alexander Machicado.png",
       name: "Alexander Machicado",
       role: "BACKEND",
-      linkedin: "https://linkedin.com/in/alexandermachicado",
+      linkedin: "https://www.linkedin.com/in/machicadogomezalexander/",
     },
     {
       image: "Edgar Camberos.png",
       name: "Edgar Camberos",
-      role: "FULLSTACK",
-      linkedin: "https://linkedin.com/in/edgarcamberos",
+      role: "BACKEND",
+      linkedin: "https://www.linkedin.com/in/edgar-camberos-8a66052bb/",
     },
     {
       image: "Arnoldo Felce.png",
       name: "Arnoldo Felce",
-      role: "FRONTEND",
-      linkedin: "https://linkedin.com/in/arnoldofelce",
+      role: "QA TESTER",
+      linkedin: "https://www.linkedin.com/in/arnoldo-felce-rondón",
     },
     {
       image: "Benjamin Matos.png",
       name: "Benjamin Matos",
-      role: "BACKEND",
-      linkedin: "https://linkedin.com/in/benjaminmatos",
+      role: "QA TESTER",
+      linkedin: "https://www.linkedin.com/in/benjaminmatosvega",
     },
     {
       image: "Gisela Lago.png",
       name: "Gisela Lago",
-      role: "DESIGNER",
-      linkedin: "https://linkedin.com/in/giselalago",
+      role: "QA TESTER",
+      linkedin: "https://www.linkedin.com/in/giselalago",
     },
     {
       image: "Gladys Ferreira.png",
       name: "Gladys Ferreira",
-      role: "UX/UI",
-      linkedin: "https://linkedin.com/in/gladysferreira",
+      role: "QA TESTER",
+      linkedin: "https://www.linkedin.com/in/gladys-ferreira/",
     },
   ];
 
@@ -136,59 +136,36 @@ function CarouselDevTeam() {
       });
     }
   };
-
-  // // Solo se desplaza al equipo central una vez al montar el componente
-  // useEffect(() => {
-  //   if (carouselRef.current && !isInitialScrollDone) {
-  //     const orlandoIndex = team.findIndex(
-  //       (member) => member.name === "Orlando Cardenas"
-  //     );
-  //     const middleTeamStart = team.length; // El inicio del segundo equipo
-  //     const itemIndex = middleTeamStart + orlandoIndex; // Índice de Orlando en el equipo central
-
-  //     const item = carouselRef.current.children[itemIndex] as HTMLElement;
-  //     item.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "nearest",
-  //       inline: "center",
-  //     });
-
-  //     setIsInitialScrollDone(true); // Marcar que el desplazamiento inicial se hizo
-  //   }
-  // }, [extendedTeam, isInitialScrollDone, team]);
   
   useEffect(() => {
     if (carouselRef.current && !isInitialScrollDone) {
-      const orlandoIndex = team.findIndex(
+      const centralIndex = team.findIndex(
         (member) => member.name === "Orlando Cardenas"
       );
       const middleTeamStart = team.length;
-      const itemIndex = middleTeamStart + orlandoIndex;
+      const itemIndex = middleTeamStart + centralIndex;
 
       const item = carouselRef.current.children[itemIndex] as HTMLElement;
 
-      // Ocultar el carrusel durante el desplazamiento inicial
       const carouselContent = carouselRef.current;
       if (carouselContent) {
         Object.assign(carouselContent.style, styles.carouselHidden);
       }
 
-      // Realiza el desplazamiento inicial sin afectar la visibilidad
       setTimeout(() => {
         item.scrollIntoView({
-          behavior: "smooth", // Puedes ajustar la velocidad aquí
+          behavior: "smooth",
           block: "nearest",
           inline: "center",
         });
 
-        // Espera a que termine el desplazamiento para mostrar el carrusel
         setTimeout(() => {
           if (carouselContent) {
             Object.assign(carouselContent.style, styles.carouselVisible);
           }
           setIsInitialScrollDone(true);
-        }, 1000); // Ajusta el tiempo para que coincida con la duración del desplazamiento
-      }, 100); // Ajusta el tiempo según sea necesario
+        }, 1000);
+      }, 100);
     }
   }, [extendedTeam, isInitialScrollDone, team]);
 
