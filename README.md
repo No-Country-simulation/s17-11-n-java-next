@@ -65,23 +65,235 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 
 ## **👥 Equipo**
 
-| Nombre          | Rol                | Foto                    | Contacto        | 
-| --------------- | ------------------ | ----------------------- | --------------- | 
-| Matias <br> Acevedo  | PM                 | !foto de Matias         | https://www.linkedin.com/in/matias-nicolas-acevedo/ |
-| Joaquín <br> Peña    | Diseño UX/UI     | !foto de Joaquin        | https://www.linkedin.com/in/joaquinpe/ |
-| Malena <br> De Arriba| Diseño UX/UI    | !foto de Malena         | https://www.linkedin.com/in/malena-de-arriba/ |
-| Natalia <br> Caniza  | Diseño UX/UI       | ! foto de Natalia       | https://www.linkedin.com/in/naticaniza/ |
-| Orlando <br> Cardenas| Frontend           | !foto de Orlando        | https://www.linkedin.com/in/orlandocardenasvillegas/ |
-| Pedro <br> Núñez     | Frontend           | !foto de Pedro          | https://www.linkedin.com/in/pedro-alejandro-n%C3%BA%C3%B1ez-casta%C3%B1eda-67969117a/ |
-| Luiggi <br> R. Pérez | Frontend           | !foto de Luiggi         | https://www.linkedin.com/in/luiggi-rosas/ |
-| Victor <br> Maye     | Frontend           | !foto de Victor         | https://www.linkedin.com/in/victor-fullstack/ |
-| Alexander <br> Machicado| Backend       | !foto de Alexander      | https://www.linkedin.com/in/machicadogomezalexander/ |
-| Edgar <br> Camberos  | Backend            | !foto de Edgar          | https://www.linkedin.com/in/edgar-camberos-8a66052bb/| 
-| Arnoldo <br> Felce   | QA                 | !foto de Arnoldo        | https://www.linkedin.com/in/arnoldo-felce-rondón/ |
-| Benjamin <br> Matos  | QA                 | !foto Benjamin          | https://www.linkedin.com/in/benjaminmatosvega/ |
-| Gladys <br> Ferreira | QA                 | !foto de Gladys         | https://www.linkedin.com/in/gladys-ferreira/ |
-| Gisela <br> Lago     | QA                 | !foto de Gisela         | https://www.linkedin.com/in/giselalago/ |
-| Orlando <br> Quintero| TL                 | |
+<table align='center'>
+  <tr>
+    <td align='center'>
+      <div>
+       <h4>Project Manager</h4>
+        <a href="https://www.linkedin.com/in/matias-nicolas-acevedo/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/26e45b85-9e63-42ce-89b4-24fedde809f0"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Matias <br>Acevedo</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/matias-nicolas-acevedo/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Diseño UX/UI</h4>
+        <a href="https://www.linkedin.com/in/joaquinpe/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/afe6ff80-e764-4488-b50e-baa36b99d8de"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Joaquín <br> Peña</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/joaquinpe/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Diseño UX/UI</h4>
+        <a href="https://www.linkedin.com/in/malena-de-arriba/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/ccd4d4c5-aa47-4213-8663-adce0836b5f7"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Malena <br> De Arriba</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/malena-de-arriba/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Diseño UX/UI</h4>
+        <a href="https://www.linkedin.com/in/naticaniza/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/a0dd0690-faa1-454b-8f70-adb3712cf0d8"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Natalia <br> Caniza</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/naticaniza/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<table align='center'>
+  <tr>
+    <td align='center'>
+      <div>
+       <h4>Frontend</h4>
+        <a href="https://www.linkedin.com/in/orlandocardenasvillegas/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/d9e57bef-a217-48c2-8e17-e091f9d27167"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Orlando <br> Cardenas</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/orlandocardenasvillegas/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Frontend</h4>
+        <a href="https://www.linkedin.com/in/pedro-alejandro-n%C3%BA%C3%B1ez-casta%C3%B1eda-67969117a/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/68502fd5-5257-4474-ba06-98d7e92b2769"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Pedro <br> Núñez</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/pedro-alejandro-n%C3%BA%C3%B1ez-casta%C3%B1eda-67969117a/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Frontend</h4>
+        <a href="https://www.linkedin.com/in/luiggi-rosas/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/7e4e7664-79ac-4e1b-aed0-56a284f4a783"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Luiggi <br> R. Pérez</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/luiggi-rosas/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Frontend</h4>
+        <a href="https://www.linkedin.com/in/victor-fullstack/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/6d1e198c-0040-4842-a613-da668c5e68a2"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Victor <br> Maye</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/victor-fullstack/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<table align='center'>
+  <tr>
+    <td align='center'>
+      <div>
+       <h4>Backend</h4>
+        <a href="https://www.linkedin.com/in/machicadogomezalexander/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/3248f75c-9f62-4a33-bafb-fa8935cb1086"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Alexander <br> Machicado</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/machicadogomezalexander/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Backend</h4>
+        <a href="https://www.linkedin.com/in/edgar-camberos-8a66052bb/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/eb953b2c-5ea6-46f8-bedc-e02f53dfddb3"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Edgar <br> Camberos</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/edgar-camberos-8a66052bb/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>QA Tester</h4>
+        <a href="https://www.linkedin.com/in/arnoldo-felce-rondón/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/716a48c6-ba2c-413a-99d6-334318e34dd2"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Arnoldo <br> Felce</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/arnoldo-felce-rondón/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>QA Tester</h4>
+        <a href="https://www.linkedin.com/in/benjaminmatosvega/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/9aaa1d0a-93ca-4ac9-be8c-a38bd84439f1"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Benjamin <br> Matos</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/benjaminmatosvega/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<table align='center'>
+  <tr>
+    <td align='center'>
+      <div>
+       <h4>QA Tester</h4>
+        <a href="https://www.linkedin.com/in/gladys-ferreira/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/90c5319c-2203-4ca0-87f4-70a1f731bd17"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Gladys <br> Ferreira</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/gladys-ferreira/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>QA Tester</h4>
+        <a href="https://www.linkedin.com/in/giselalago/" target="_blank" rel="author">
+          <img width="110" src="https://github.com/user-attachments/assets/4d6f9204-8958-452a-b2b7-44098d9f357e"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Gisela <br> Lago</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/giselalago/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+    <td align='center'>
+      <div>
+       <h4>Team Leader</h4>
+        <a href="https://www.linkedin.com/in/quinteroco/" target="_blank" rel="author">
+          <img width="110" height="140" src="https://github.com/user-attachments/assets/a6f9345b-f31f-40df-b78f-b088974a24f5"/>
+        </a>
+          <h4 style="margin-top: 1rem;">Orlando <br> Quintero</h4>
+        <div style='display: flex; flex-direction: column'>
+          <a href="https://www.linkedin.com/in/quinteroco/" target="_blank">
+            <img style='width:8rem' src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white="/>
+          </a>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
 
 ## **🛠️ Herramientas Utilizadas**
 
