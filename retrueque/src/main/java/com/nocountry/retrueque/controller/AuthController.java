@@ -8,11 +8,7 @@ import com.nocountry.retrueque.model.dto.response.LoginRes;
 import com.nocountry.retrueque.model.dto.response.EmailVerificationTokenRes;
 import com.nocountry.retrueque.model.dto.response.ResendTokenEmailRes;
 import com.nocountry.retrueque.model.dto.response.UserRes;
-import com.nocountry.retrueque.model.entity.UserEntity;
-import com.nocountry.retrueque.model.mapper.ResendTokenEmailMapper;
-import com.nocountry.retrueque.service.EmailServiceImp;
 import com.nocountry.retrueque.service.TokenServiceImp;
-import com.nocountry.retrueque.service.UserServiceImp;
 import com.nocountry.retrueque.service.interfaces.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,10 +17,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("${api.base}/auth")
@@ -61,5 +54,4 @@ public class AuthController {
     ResendTokenEmailRes response = emailService.resendVerificationToken(request);
     return ResponseEntity.ok(new ApiResponse<ResendTokenEmailRes>(response));
   }
-
 }

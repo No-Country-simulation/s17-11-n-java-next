@@ -3,12 +3,10 @@ package com.nocountry.retrueque.service;
 import com.nocountry.retrueque.model.dto.request.UserProfileReq;
 import com.nocountry.retrueque.model.dto.response.UserProfileRes;
 import com.nocountry.retrueque.model.entity.DepartamentoEntity;
-import com.nocountry.retrueque.model.entity.UserEntity;
 import com.nocountry.retrueque.model.entity.UserProfileEntity;
 import com.nocountry.retrueque.model.mapper.UserProfileMapper;
 import com.nocountry.retrueque.repository.DepartamentoRepository;
 import com.nocountry.retrueque.repository.UserProfileRepository;
-import com.nocountry.retrueque.repository.UserRepository;
 import com.nocountry.retrueque.security.AuthenticationFacade;
 import com.nocountry.retrueque.service.interfaces.UserProfileService;
 import com.nocountry.retrueque.service.interfaces.UserService;
@@ -16,14 +14,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 public class UserProfileServiceImp implements UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
-    private final UserRepository userRepository;
     private final UserProfileMapper userProfileMapper;
     private final DepartamentoRepository departamentoRepository;
     private final UserService userService;
@@ -35,12 +31,10 @@ public class UserProfileServiceImp implements UserProfileService {
     @Override
     public UserProfileRes getUserProfile() {
         String email = authenticationFacade.getAuthenticatedUserEmail();
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + email));
 
-        return userProfileRepository.findById(user.getId())
+        return userProfileRepository.findByUserEmail(email)
                 .map(userProfileMapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("Perfil de usuario no encontrado para el usuario con id: " + user.getId()));
+                .orElseThrow(() -> new RuntimeException("Perfil de usuario no encontrado para el usuario con email: " + email));
     }
 
     @Override
