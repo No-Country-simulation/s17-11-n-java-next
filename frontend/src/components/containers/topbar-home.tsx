@@ -7,12 +7,19 @@ import { FaChevronDown, FaUser } from "react-icons/fa";
 import Link from 'next/link';
 import {useAuthStore} from '@/store/auth'
 import {useRouter} from 'next/navigation'
+import useProfile from '@/hooks/useProfile'
 
 const TopbarHome = () => {
   const authStatus = true
   const session = {nombre:'Laura', apellido:'Lopez'} //Temporal, debería obtenerse de la sesión
   const {token, clearAuth} = useAuthStore();
   const router = useRouter()
+  const {data:profile, isLoading:isLoadingUser, error:errorUser} = useProfile()
+
+  const handleLogout = () => {
+    clearAuth(); // Limpiar el estado de autenticación
+    router.push('/'); // Redireccionar a la página de login o a la de inicio
+  };
 
   return (
     <header className="absolute top-6 left-6 right-6 z-40 bg-transparent">
@@ -48,7 +55,7 @@ const TopbarHome = () => {
                 <PopoverTrigger>
                   <div className='bg-white rounded-full p-1 flex flex-row items-center gap-2'>
                     <Image 
-                      src='/img/userimg-default.jpg'
+                      src={profile?.profileImageUrl || '/img/userimg-default.jpg'}
                       alt='usrimg'
                       className='rounded-full'
                       height={30}
@@ -60,13 +67,13 @@ const TopbarHome = () => {
                 <PopoverContent className='w-full h-full bg-secondary-variant-1'>
                   <div className="flex flex-col items-center gap-5">
                     <div>
-                      {`${session.nombre} ${session.apellido}`}
+                    {`${profile?.name} ${profile?.lastname}`}
                       <hr className='border-white w-full' />
                     </div>
                     <Link href={'/dashboard/perfil'} className='font-bold'>
                       Mi Perfil
                     </Link>
-                    <Button variant='ghost' className='font-bold hover:bg-transparent'>
+                    <Button variant='ghost' className='font-bold hover:bg-transparent' onClick={handleLogout}>
                       Cerrar Sesión
                     </Button>
                   </div>
