@@ -8,7 +8,12 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 interface HeaderProfileProps {
-    user: { name: string; avatar: string; rating: number; description: string }
+    user: { 
+        name: string; 
+        profileImagUrl?: string 
+        rating: number; 
+        description: string 
+    }
     products: { description: string }[]
     authUser: boolean
 }
@@ -24,7 +29,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                 <CardHeader>
                     <div className="flex items-center space-x-4">
                         <Avatar className="size-[180px]">
-                            <AvatarImage src={user.avatar} alt={user.name} />
+                            <AvatarImage src={user.profileImagUrl || 'https://placehold.co/64x64/png'} alt={user.name} />
                             <AvatarFallback>{user.name[0]}</AvatarFallback>
                         </Avatar>
                         <div>

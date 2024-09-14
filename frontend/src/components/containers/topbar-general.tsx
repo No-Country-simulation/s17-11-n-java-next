@@ -7,6 +7,7 @@ import { FaChevronDown, FaUser } from "react-icons/fa";
 import Link from 'next/link';
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
+import useProfile from '@/hooks/useProfile'
 
 // Topbar General para las demás interfaces de la página, no es flotante como el del home
 
@@ -15,6 +16,7 @@ const TopbarGeneral = () => {
   const session = { nombre: 'Laura', apellido: 'Lopez' };
   const { token, clearAuth } = useAuthStore();
   const router = useRouter()
+  const {data:profile, isLoading:isLoadingUser, error:errorUser} = useProfile()
 
   // Función para manejar el cierre de sesión
   const handleLogout = () => {
@@ -56,7 +58,7 @@ const TopbarGeneral = () => {
                   <PopoverTrigger>
                     <div className='bg-white rounded-full p-1 flex flex-row items-center gap-2'>
                       <Image
-                        src='/img/userimg-default.jpg'
+                        src={profile?.profileImageUrl || '/img/userimg-default.jpg'}
                         alt='usrimg'
                         className='rounded-full'
                         height={30}
@@ -68,7 +70,7 @@ const TopbarGeneral = () => {
                   <PopoverContent className='w-full h-full bg-secondary-variant-1'>
                     <div className="flex flex-col items-center gap-5">
                       <div>
-                        {`${session.nombre} ${session.apellido}`}
+                      {`${profile?.name} ${profile?.lastname}`}
                         <hr className='border-white w-full' />
                       </div>
                       <Link href={'/dashboard/perfil'} className='font-bold'>

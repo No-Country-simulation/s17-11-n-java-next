@@ -75,3 +75,24 @@ export type DepartamentsResponse = {
     id: number;
     name: string;
 }[];
+
+
+// Response de Profile
+
+export type ProfileResponse = {
+    message: string;
+    data:    DataProfileResponse;
+    success: boolean;
+}
+
+export interface DataProfileResponse {
+    name:            string;
+    lastname:        string;
+    email:           string;
+    phone?:           string;
+    provincia?:       string;
+    departamento?:    string;
+    profileImageUrl?: string;
+    dniFrontUrl?:     string;
+    dniBackUrl?:      string;
+}
