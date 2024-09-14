@@ -1,48 +1,48 @@
-'use client'
-
 import React, { useEffect, useState } from 'react';
-import { FetchVerifyToken } from '@/services/VerifyToken';
+import { FetchVerifyToken,  } from '@/services/VerifyToken';
+import type { DataVerifyToken } from '@/lib/request';
+
 
 export default function VerifyToken({
-    params,
+    token,
     onVerifyResult,
 }: {
-    params: { token: string };
-    onVerifyResult: (status: string) => void; // función para pasar el resultado
+    token: string;
+    onVerifyResult: (status: string) => void; // Función para pasar el resultado
 }) {
-    const [status, setStatus] = useState('Verificando');
+    const [status, setStatus] = useState('Verificando...');
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const verifyToken = async () => {
-            const token = params?.token || new URLSearchParams(window.location.search).get('token');
-
             if (token) {
                 try {
-                    const response = await FetchVerifyToken({ token });
+                    const data: DataVerifyToken = { token };
+                    console.log('esto es el token',token)
+                    const response = await FetchVerifyToken(data);
 
                     if (response?.success) {
-                        setStatus('');
-                        onVerifyResult('success'); // notificamos al componente padre que el token es válido
+                        setStatus('Token válido.');
+                        onVerifyResult('success');
                     } else {
                         setStatus('');
-                        setError('');
-                        onVerifyResult('error'); // notificamos el error al padre
+                        //setError(response.message || 'Token inválido.');
+                        onVerifyResult('error');
                     }
                 } catch (error) {
                     setStatus('');
-                    setError('');
+                    //setError('Error al verificar el token.');
                     onVerifyResult('error');
                 }
             } else {
                 setStatus('');
-                setError('');
+                //setError('Token no encontrado.');
                 onVerifyResult('error');
             }
         };
 
         verifyToken();
-    }, [params, onVerifyResult]);
+    }, [token, onVerifyResult]);
 
     return (
         <div>

@@ -1,16 +1,19 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VerifyToken from '@/components/cards/VerifyToken';
 import TopbarGeneral from '@/components/containers/topbar-general';
 import LoginForm from '@/components/froms/LoginForm';
-import { useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-export default function Page({ params }: { params: { token: string } }) {
+export default function Page() {
     const [verifyStatus, setVerifyStatus] = useState<string | null>(null);
+    const searchParams = useSearchParams();
     const router = useRouter();
 
-    // Función que actualiza el estado según el resultado de la verificación
+    // Obtén el token de los parámetros de búsqueda
+    const token = searchParams.get('token') as string;
+
     const handleVerifyResult = (status: string) => {
         setVerifyStatus(status);
     };
@@ -20,7 +23,11 @@ export default function Page({ params }: { params: { token: string } }) {
             <TopbarGeneral />
             <section className="flex items-center justify-center min-h-screen bg-[url('/img/bg_lr.png')] bg-cover bg-center">
                 {/* Caja de verificación de token */}
-                <VerifyToken params={params} onVerifyResult={handleVerifyResult} />
+                {token ? (
+                    <VerifyToken token={token} onVerifyResult={handleVerifyResult} />
+                ) : (
+                    <div className="text-center text-red-500">Token no proporcionado.</div>
+                )}
 
                 {verifyStatus === 'success' && (
                     <LoginForm
