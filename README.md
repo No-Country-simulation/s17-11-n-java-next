@@ -84,6 +84,7 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 - ### Jira !Jira
 - ### Postman !Postman
 - ### Swagger
-- ### completar por favor
+- ### Freemind
+- ### Google Sheets
 
 ## **Links**
