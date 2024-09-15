@@ -36,16 +36,20 @@ export type ResendEmailResponse = {
 }
 
 // verificar token
-export type VerifyTokenResponse = {
-    message: string
-    data: {
-        email: string
-        isVerified: boolean
-    },
-    success: true
+
+export interface VerifyTokenResponse {
+    message: string;
+    data:    DataVerifyTokenResponse;
+    success: boolean;
 }
 
-//
+export interface DataVerifyTokenResponse {
+    email:      string;
+    isVerified: boolean;
+}
+
+
+
 // Provincias
 
 export type ProvinciasResponse = {

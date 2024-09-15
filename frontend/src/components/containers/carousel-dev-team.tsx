@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -42,7 +42,7 @@ function CarouselDevTeam() {
     useState<boolean>(false);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
-  const team: TeamMember[] = [
+  const team: TeamMember[] = useMemo(()=> [
     {
       image: "Natalia Caniza.png",
       name: "Natalia Caniza",
@@ -128,9 +128,9 @@ function CarouselDevTeam() {
       role: "QA TESTER",
       linkedin: "https://www.linkedin.com/in/gladys-ferreira/",
     },
-  ];
+  ], []);
 
-  const extendedTeam = [...team, ...team, ...team];
+  const extendedTeam = useMemo(() => [...team, ...team, ...team], [team]);
 
   const handleCardClick = (name: string, index: number) => {
     setSelectedMember(name);
