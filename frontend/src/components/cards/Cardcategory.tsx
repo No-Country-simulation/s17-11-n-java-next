@@ -6,7 +6,7 @@ import Image from "next/image";
 import { MapPin } from 'lucide-react';
 
 interface ResultData {
-  id: string;
+  id: number;
   imag: string;
   titulo: string;
   descripcion: string;

@@ -34,7 +34,7 @@ type FiltersProps = {
 };
 
 type ResultData = {
-    id: string;
+    id: number;
     imag: string;
     titulo: string;
     descripcion: string;
