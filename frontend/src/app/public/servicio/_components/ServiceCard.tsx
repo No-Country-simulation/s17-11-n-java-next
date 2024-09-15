@@ -4,7 +4,7 @@ import { Description } from "@radix-ui/react-dialog";
 import Link from "next/link";
 
 interface ServiceCardProps {
-  idUser: string;
+  idUser: number;
   title: string;
   description: string;
   image: string;
