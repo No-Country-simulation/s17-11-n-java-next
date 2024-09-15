@@ -18,3 +18,12 @@ export interface DataVerifyToken {
 export interface DepartamentsRequest {
     id?:number
 }
+
+//interface Request para el filter 
+
+export interface ServicesFiltersRequest {
+    id?: number;
+    name?:string;
+    page?:number;
+    pageSize?: number;
+}
