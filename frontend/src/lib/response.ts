@@ -96,3 +96,88 @@ export interface DataProfileResponse {
     dniFrontUrl?:     string;
     dniBackUrl?:      string;
 }
+
+
+// Response Gets, para los filtros // Filters
+
+export interface ServicesFiltersResponse {
+    message: string;
+    data:    DataServicesFilters;
+    success: boolean;
+}
+
+export interface DataServicesFilters {
+    content:       ContentDataServicesFilters[];
+    currentPage:   number;
+    totalPages:    number;
+    totalElements: number;
+    isFirst:       boolean;
+    isLast:        boolean;
+    pageSize:      number;
+}
+
+export interface ContentDataServicesFilters {
+    id:           number;
+    title:        string;
+    description:  string;
+    rules:        string;
+    imgUrl:       null | string;
+    user:         UserDataServicesFilters;
+    departamento?: DepartamentoDataServicesFilters | null ;
+    provincia:    ProvinciaDataServicesFilters | null;
+    category:     CategoryDataServicesFilters;
+    days:         number[];
+    shiftTime:    number[];
+}
+
+export interface CategoryDataServicesFilters {
+    id:   number;
+    name: string;
+}
+
+export interface ProvinciaDataServicesFilters {
+    id:   number;
+    name: string;
+}
+
+export interface DepartamentoDataServicesFilters {
+    id:   number;
+    name: string;
+}
+
+export interface UserDataServicesFilters {
+    id:       number;
+    username: string;
+}
+
+// servicio por id
+
+export interface ServiceForIdResponse {
+    message: string;
+    data:    DataServiceForIdResponse;
+    success: boolean;
+}
+
+export interface DataServiceForIdResponse {
+    id:           number;
+    title:        string;
+    description:  string;
+    rules:        string;
+    imgUrl:       string;
+    user:         UserServiceForIdResponse;
+    departamento: CategoryServiceForIdResponse;
+    provincia:    CategoryServiceForIdResponse;
+    category:     CategoryServiceForIdResponse;
+    days:         number[];
+    shiftTime:    number[];
+}
+
+export interface CategoryServiceForIdResponse {
+    id:   number;
+    name: string;
+}
+
+export interface UserServiceForIdResponse {
+    id:       number;
+    username: string;
+}
