@@ -78,11 +78,13 @@ export default function Filters({
         if (Array.isArray(serviciosFiltrados)) {
             setResultados(serviciosFiltrados.map(servicio => ({
                 id: servicio.id,
+                idUser: servicio.user.id,
                 imag: servicio.imgUrl || "",
                 titulo: servicio.title,
                 descripcion: servicio.description,
                 ubicacion: servicio.provincia?.name || ""
             })));
+            console.log('esto son los servicios encontrados', serviciosFiltrados);
         } else {
             console.error('Expected an array for serviciosFiltrados');
         }

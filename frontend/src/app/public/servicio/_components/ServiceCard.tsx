@@ -2,8 +2,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Description } from "@radix-ui/react-dialog";
 import Link from "next/link";
+import useServiceForId from "@/hooks/useServiceForId";
 
 interface ServiceCardProps {
+  id: number;
   idUser: number;
   title: string;
   description: string;
@@ -17,6 +19,7 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({
+  id,
   idUser,
   title,
   description,

@@ -39,12 +39,12 @@ export type ResendEmailResponse = {
 
 export interface VerifyTokenResponse {
     message: string;
-    data:    DataVerifyTokenResponse;
+    data: DataVerifyTokenResponse;
     success: boolean;
 }
 
 export interface DataVerifyTokenResponse {
-    email:      string;
+    email: string;
     isVerified: boolean;
 }
 
@@ -66,9 +66,9 @@ export type ProvinciasResponse = {
 
 export type CategorysResponse = {
     message: string;
-    data:{
-        id:number;
-        name:string;
+    data: {
+        id: number;
+        name: string;
     }[];
     success: boolean;
 }
@@ -85,20 +85,20 @@ export type DepartamentsResponse = {
 
 export type ProfileResponse = {
     message: string;
-    data:    DataProfileResponse;
+    data: DataProfileResponse;
     success: boolean;
 }
 
 export interface DataProfileResponse {
-    name:            string;
-    lastname:        string;
-    email:           string;
-    phone?:           string;
-    provincia?:       string;
-    departamento?:    string;
+    name: string;
+    lastname: string;
+    email: string;
+    phone?: string;
+    provincia?: string;
+    departamento?: string;
     profileImageUrl?: string;
-    dniFrontUrl?:     string;
-    dniBackUrl?:      string;
+    dniFrontUrl?: string;
+    dniBackUrl?: string;
 }
 
 
@@ -106,51 +106,51 @@ export interface DataProfileResponse {
 
 export interface ServiciosResponse {
     message: string;
-    data:    DataServiciosResponse;
+    data: DataServiciosResponse;
     success: boolean;
 }
 
 export interface DataServiciosResponse {
-    content:       ContentServiciosResponse[];
-    currentPage:   number;
-    totalPages:    number;
+    content: ContentServiciosResponse[];
+    currentPage: number;
+    totalPages: number;
     totalElements: number;
-    isFirst:       boolean;
-    isLast:        boolean;
-    pageSize:      number;
+    isFirst: boolean;
+    isLast: boolean;
+    pageSize: number;
 }
 
 export interface ContentServiciosResponse {
-    id:           number;
-    title:        string;
-    description:  string;
-    rules:        string;
-    imgUrl:       null | string;
-    user:         UserDataServiciosResponse;
-    departamento?: DepartamentoDataServiciosResponse | null ;
-    provincia:    ProvinciaDataServiciosResponse | null;
-    category:     CategoryDataServiciosResponse;
-    days:         number[];
-    shiftTime:    number[];
+    id: number;
+    title: string;
+    description: string;
+    rules: string;
+    imgUrl: null | string;
+    user: UserDataServiciosResponse;
+    departamento?: DepartamentoDataServiciosResponse | null;
+    provincia: ProvinciaDataServiciosResponse | null;
+    category: CategoryDataServiciosResponse;
+    days: number[];
+    shiftTime: number[];
 }
 
 export interface CategoryDataServiciosResponse {
-    id:   number;
+    id: number;
     name: string;
 }
 
 export interface ProvinciaDataServiciosResponse {
-    id:   number;
+    id: number;
     name: string;
 }
 
 export interface DepartamentoDataServiciosResponse {
-    id:   number;
+    id: number;
     name: string;
 }
 
 export interface UserDataServiciosResponse {
-    id:       number;
+    id: number;
     username: string;
 }
 
@@ -158,30 +158,56 @@ export interface UserDataServiciosResponse {
 
 export interface ServiceForIdResponse {
     message: string;
-    data:    DataServiceForIdResponse;
+    data: DataServiceForIdResponse;
     success: boolean;
 }
 
 export interface DataServiceForIdResponse {
-    id:           number;
-    title:        string;
-    description:  string;
-    rules:        string;
-    imgUrl:       string;
-    user:         UserServiceForIdResponse;
+    id: number;
+    title: string;
+    description: string;
+    rules: string;
+    imgUrl: string;
+    user: UserServiceForIdResponse;
     departamento: CategoryServiceForIdResponse;
-    provincia:    CategoryServiceForIdResponse;
-    category:     CategoryServiceForIdResponse;
-    days:         number[];
-    shiftTime:    number[];
+    provincia: CategoryServiceForIdResponse;
+    category: CategoryServiceForIdResponse;
+    days: number[];
+    shiftTime: number[];
 }
 
 export interface CategoryServiceForIdResponse {
-    id:   number;
+    id: number;
     name: string;
 }
 
 export interface UserServiceForIdResponse {
-    id:       number;
+    id: number;
     username: string;
+}
+
+// todos los Servicios por id de usuario
+
+export interface ServicieByUserResponse {
+    message: string;
+    data: Array<{
+        id: number;
+        title: string;
+        description: string;
+        rules: string;
+        imgUrl: string | null;
+        user: {
+            id: number;
+            username: string;
+        };
+        departamento: string | null;
+        provincia: string | null;
+        category: {
+            id: number;
+            name: string;
+        };
+        days: number[];
+        shiftTime: string[];
+    }>;
+    success: boolean;
 }
