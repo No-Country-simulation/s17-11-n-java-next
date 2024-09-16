@@ -4,6 +4,10 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { MapPin } from 'lucide-react';
+import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
+
+const BASE_ROUTE= '/public' // no quitar o si no da error de ruta
 
 interface ResultData {
   id: number;
@@ -19,6 +23,11 @@ interface CardServicioProps {
 }
 
 export default function CardServicio({ dataResultados, servicio }: CardServicioProps) {
+  const router = useRouter()
+
+  const handleClick = (id: number) => {
+    router.push(`${BASE_ROUTE}/servicio/${id}`);
+  };
   return (
     <>
       <div className='mt-8 mb-8'>
@@ -49,12 +58,12 @@ export default function CardServicio({ dataResultados, servicio }: CardServicioP
                   <MapPin size={16} className="mr-1" />
                   <span className='text-[9px]'>{resultado.ubicacion}</span>
                 </div>
-                <Link
-                  href={`public/servicio/${resultado.id}`}
+                <Button
+                  onClick={() => handleClick(resultado.id)}
                   className="bg-yellow-500 p-2 rounded-full hover:bg-yellow-600 transition duration-300 w-[132px] text-center text-black text-[12px] font-normal leading-none tracking-wide block"
                 >
                   Ver publicación
-                </Link>
+                </Button>
               </div>
             </CardContent>
           </Card>

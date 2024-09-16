@@ -3,6 +3,8 @@ import React from 'react'
 import logort from '@/../public/logort.png'
 import Link from 'next/link'
 
+const BASE_ROUTE= '/public' // no quitar o si no da error de ruta
+
 function FooterGeneral() {
   return (
     <footer className='w-full p-10 bg-primary-variant-2'>
@@ -32,7 +34,7 @@ function FooterGeneral() {
               Aviso Legal
             </Link> - 
             {/* PENDIENTE */}
-            <Link href='public/equipo' className='mx-2 hover:underline hover:font-bold'>
+            <Link href={`${BASE_ROUTE}/equipo/`} className='mx-2 hover:underline hover:font-bold'>
               Equipo de Desarrollo
             </Link> - 
             {/* PENDIENTE */}
