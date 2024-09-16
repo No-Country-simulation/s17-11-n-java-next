@@ -1,6 +1,5 @@
 package com.nocountry.retrueque.model.mapper;
 
-import com.nocountry.retrueque.model.dto.request.UserProfileReq;
 import com.nocountry.retrueque.model.dto.response.UserProfileRes;
 import com.nocountry.retrueque.model.entity.UserProfileEntity;
 import org.mapstruct.Mapper;

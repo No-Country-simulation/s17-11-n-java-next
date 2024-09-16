@@ -1,7 +1,6 @@
 package com.nocountry.retrueque.service;
 
 import com.nocountry.retrueque.exception.ReportNotFoundException;
-import com.nocountry.retrueque.exception.ShiftNotFoundException;
 import com.nocountry.retrueque.model.dto.request.ReportReq;
 import com.nocountry.retrueque.model.dto.response.ReportRes;
 import com.nocountry.retrueque.model.mapper.ReportMapper;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Aceptación de Solicitud</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #74ACDF;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 10px;
+        }
+        .header img {
+            max-width: 200px;
+            height: auto;
+
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 25px;
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+            text-align: left;
+            color: #333;
+        }
+        .content h2 {
+            color: #333;
+            font-size: 20px;
+        }
+        .content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .content a.contact-link {
+            color: #74ACDF; /* Azul para el enlace de contacto */
+            text-decoration: none;
+        }
+        .content a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: block;
+            background-color: #F7C036;
+            color: #fff; /* Color del texto del botón */
+            padding: 10px 30px;
+            margin: 50px auto;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            text-align: center;
+            width: fit-content;
+            font-size: 16px;
+        }
+        .button a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .before-footer {
+            color: #999;
+            border-top: 1px solid #ddd;
+        }
+        .footer {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            background-color: #74ACDF;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://retruequenocountry.s3.us-east-2.amazonaws.com/e4bf8be5-9290-4249-b705-9da9c9b70ce3_logo.png" alt="Logo">
+        <h1>Aceptación de Solicitud</h1>
+    </div>
+    <div class="content">
+        <h2>Hola <span th:text="${name}">[Nombre del usuario]</span>,</h2>
+        <p>¡Buenas noticias! El usuario <strong><span th:text="${providerName}">[Nombre del prestador]</span></strong> ha aceptado tu solicitud de servicio.</p>
+        <p>Puedes ponerte en contacto con el prestador de servicio a través del siguiente enlace:</p>
+        <a th:href="${requestUrl}" class="button" style="display: block; background-color: #F7C036; color: #ffffff; padding: 10px 30px; margin: 50px auto; text-decoration: none; font-weight: bold; border-radius: 50px; text-align: center; width: fit-content; font-size: 16px;">Ver Solicitud</a>
+        <div class="before-footer">
+            <p>¡Gracias por usar Retrueque!</p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Retrueque. Todos los derechos reservados.</p>
+    </div>
+</div>
+</body>
+</html>

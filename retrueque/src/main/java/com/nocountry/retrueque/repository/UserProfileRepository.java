@@ -1,7 +1,6 @@
 package com.nocountry.retrueque.repository;
 
-import com.nocountry.retrueque.model.entity.Role;
-import com.nocountry.retrueque.model.entity.UserEntity;
+
 import com.nocountry.retrueque.model.entity.UserProfileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

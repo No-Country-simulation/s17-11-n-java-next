@@ -2,6 +2,7 @@ package com.nocountry.retrueque.controller;
 
 import com.nocountry.retrueque.model.dto.response.DepartamentoRes;
 import com.nocountry.retrueque.service.interfaces.DepartamentoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("${api.base}/departamentos")
 @RequiredArgsConstructor
+@Tag(name="Departamentos")
 public class DepartamentoController {
 
     private final DepartamentoService departamentoService;

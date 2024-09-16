@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirma tu email</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #74ACDF;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 10px;
+        }
+        .header img {
+            max-width: 200px;
+            height: auto;
+
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 25px;
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+            text-align: left;
+            color: #333;
+        }
+        .content h2 {
+            color: #333;
+            font-size: 20px;
+        }
+        .content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .content a.contact-link {
+            color: #74ACDF;
+            text-decoration: none;
+        }
+        .content a.contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para el botón */
+        .button {
+            display: block;
+            background-color: #F7C036;
+            color: #fff; /* Color del texto del botón */
+            padding: 10px 30px;
+            margin: 50px auto;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            text-align: center;
+            width: fit-content;
+            font-size: 16px;
+        }
+
+        /* Estilos globales para enlaces */
+        a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .contact-us {
+            color: #999;
+            border-top: 1px solid #ddd;
+        }
+        .footer {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            background-color: #74ACDF;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="https://retruequenocountry.s3.us-east-2.amazonaws.com/e4bf8be5-9290-4249-b705-9da9c9b70ce3_logo.png" alt="Logo">
+        <h1>Confirma tu Email</h1>
+    </div>
+    <div class="content">
+        <h2>Hola <span th:text="${name}">[Nombre de usuario]</span>,</h2>
+        <p>¡Te damos la bienvenida a <strong>Retrueque</strong>!</p>
+        <p>Para completar tu registro y empezar a utilizar nuestros servicios, por favor verifica tu correo electrónico haciendo clic en el siguiente enlace:</p>
+        <a th:href="${confirmationUrl}" class="button" style="display: block; background-color: #F7C036; color: #ffffff; padding: 10px 30px; margin: 50px auto; text-decoration: none; font-weight: bold; border-radius: 50px; text-align: center; width: fit-content; font-size: 16px;">Confirmar Email</a>
+        <div class="contact-us">
+            <p>Si tienes algún problema para confirmar tu correo electrónico, no dudes en <a class="contact-link" href="mailto:retrueque.nocountry@gmail.com">contactarnos</a>.</p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Retrueque. Todos los derechos reservados.</p>
+    </div>
+</div>
+</body>
+</html>

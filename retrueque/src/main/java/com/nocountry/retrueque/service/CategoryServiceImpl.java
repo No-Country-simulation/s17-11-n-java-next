@@ -1,7 +1,6 @@
 package com.nocountry.retrueque.service;
 
 import com.nocountry.retrueque.exception.CategoryNotFoundException;
-import com.nocountry.retrueque.exception.UserNotFoundException;
 import com.nocountry.retrueque.model.dto.request.CategoryReq;
 import com.nocountry.retrueque.model.dto.response.CategoryRes;
 import com.nocountry.retrueque.model.mapper.CategoryMapper;

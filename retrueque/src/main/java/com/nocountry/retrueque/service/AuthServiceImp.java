@@ -8,7 +8,6 @@ import com.nocountry.retrueque.model.entity.UserEntity;
 import com.nocountry.retrueque.service.interfaces.AuthService;
 import com.nocountry.retrueque.service.interfaces.UserService;
 import com.nocountry.retrueque.util.JwtUtils;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

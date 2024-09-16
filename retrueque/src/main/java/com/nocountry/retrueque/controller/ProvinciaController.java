@@ -2,6 +2,7 @@ package com.nocountry.retrueque.controller;
 
 import com.nocountry.retrueque.model.dto.response.ProvinciaRes;
 import com.nocountry.retrueque.service.interfaces.ProvinciaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("${api.base}/provincias")
 @RequiredArgsConstructor
+@Tag(name="Provincias")
 public class ProvinciaController {
 
     private final ProvinciaService provinciaService;

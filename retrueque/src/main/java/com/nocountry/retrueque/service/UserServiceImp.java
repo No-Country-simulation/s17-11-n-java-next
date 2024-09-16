@@ -1,27 +1,30 @@
 package com.nocountry.retrueque.service;
 
+import com.nocountry.retrueque.exception.RoleNotFoundException;
+import com.nocountry.retrueque.exception.UserEmailNotFoundException;
 import com.nocountry.retrueque.exception.UserNotFoundException;
 import com.nocountry.retrueque.model.dto.request.UserReq;
+import com.nocountry.retrueque.model.dto.response.UserRatingInfoRes;
 import com.nocountry.retrueque.model.dto.response.UserRes;
-import com.nocountry.retrueque.model.dto.response.UserServicesRes;
 import com.nocountry.retrueque.model.entity.Role;
 import com.nocountry.retrueque.model.entity.UserEntity;
 import com.nocountry.retrueque.model.entity.UserProfileEntity;
 import com.nocountry.retrueque.model.mapper.UserMapper;
-import com.nocountry.retrueque.model.mapper.UserServicesMapper;
 import com.nocountry.retrueque.repository.RoleRepository;
 import com.nocountry.retrueque.repository.UserProfileRepository;
 import com.nocountry.retrueque.repository.UserRepository;
+import com.nocountry.retrueque.service.interfaces.TokenService;
 import com.nocountry.retrueque.service.interfaces.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Service
 @RequiredArgsConstructor
@@ -30,11 +33,11 @@ public class UserServiceImp implements UserService {
   private final UserMapper userMapper;
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
-  private final TokenServiceImp tokenServiceImp;
+  private final TokenService tokenService;
   private final EmailServiceImp emailServiceImp;
   private final RoleRepository roleRepository;
   private final UserProfileRepository userProfileRepository;
-  private final UserServicesMapper userServicesMapper;
+
 
   @Value("${email.link.confirmation}")
   private String linkConfirmation;
@@ -46,12 +49,17 @@ public class UserServiceImp implements UserService {
     newUser.setPassword(passwordEncoder.encode(user.password()));
 
     Role defaultRole = roleRepository.findByName("USER")
-            .orElseThrow(() -> new RuntimeException("Rol de usuario por defecto no encontrado"));
+            .orElseThrow(() -> new RoleNotFoundException("Rol de usuario no encontrado"));
     newUser.setRole(defaultRole);
     var savedUser = this.userRepository.save(newUser);
 
-    String token = tokenServiceImp.createVerificationToken(savedUser);
-    emailServiceImp.sendEmail(savedUser.getEmail(),"Confirma tu cuenta","Para confirmar tu cuenta, haz clic en el siguiente enlace: " + linkConfirmation+token);
+    String token = tokenService.createVerificationToken(savedUser);
+
+    Map<String, Object> templateModel = new HashMap<>();
+    templateModel.put("name", user.name()+" "+user.last_name());
+    templateModel.put("confirmationUrl", linkConfirmation+token);
+    emailServiceImp.sendEmail(savedUser.getEmail(),"¡Casi terminamos! Confirma tu email para empezar a soicitar o publicar tus servicios.",templateModel,"confirm-email");
+
     UserProfileEntity profile = new UserProfileEntity();
     profile.setUser(savedUser);
     userProfileRepository.save(profile);
@@ -85,15 +93,15 @@ public class UserServiceImp implements UserService {
   @Override
   public UserEntity getByEmail(String email){
     return this.userRepository.findByEmail(email)
-            .orElseThrow(()->new UserNotFoundException(email));
+            .orElseThrow(()->new UserEmailNotFoundException(email));
 
   }
 
   @Override
-  public UserServicesRes getUserWithServices(Long userId) {
+  public UserRatingInfoRes getUserWithRating(Long userId) {
     UserEntity user = this.userRepository.findById(userId)
-             .orElseThrow(()-> new UserNotFoundException(String.valueOf(userId)));
-    return this.userServicesMapper.toResponse(user);
+            .orElseThrow(()-> new UserNotFoundException(String.valueOf(userId)));
+    return this.userRepository.findUserRatingInfoByUserId(user.getId());
   }
 
   private void verifyIsExist(long id){

@@ -1,10 +1,13 @@
 package com.nocountry.retrueque.exception;
 
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -69,4 +72,66 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(errorResponse, errorResponse.status());
     }
+
+    @ExceptionHandler(MailSendException.class)
+    public ResponseEntity<ErrorResponse> handleMailSendException(MailSendException ex) {
+        // Mensaje genérico para el usuario final
+        //String message = "No se pudo enviar el correo electrónico. Por favor, inténtelo de nuevo más tarde.";
+        // Mensaje genérico para pruebas
+        String message = ex.getMostSpecificCause() != null ? ex.getMostSpecificCause().getMessage() : ex.getMessage();
+        ErrorResponse errorResponse = new ErrorResponse("Error al enviar el correo electrónico: " + message, HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(UserProfileNotFoundException.class)
+    public ResponseEntity<?> handleServiceException(UserProfileNotFoundException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(UserEmailNotFoundException.class)
+    public ResponseEntity<?> handleServiceException(UserEmailNotFoundException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(UserAlreadyVerifiedException.class)
+    public ResponseEntity<?> handleServiceException(UserAlreadyVerifiedException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<?> handleServiceException(RoleNotFoundException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(PermissionDeniedException.class)
+    public ResponseEntity<?> handleServiceException(PermissionDeniedException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(RequestNotFoundException.class)
+    public ResponseEntity<?> handleServiceException(RequestNotFoundException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(MalformedJwtException.class)
+    public ResponseEntity<ErrorResponse> handleMalformedJwtException(MalformedJwtException ex) {
+        String message = "Token JWT malformado o inválido.";
+        ErrorResponse errorResponse = new ErrorResponse(message, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(SignatureException.class)
+    public ResponseEntity<ErrorResponse> handleSignatureException(SignatureException ex) {
+        String message = "Token inválido o la firma del token no coincide.";
+        ErrorResponse errorResponse = new ErrorResponse(message, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+
 }

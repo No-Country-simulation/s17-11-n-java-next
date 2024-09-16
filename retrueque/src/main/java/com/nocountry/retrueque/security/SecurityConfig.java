@@ -2,6 +2,7 @@ package com.nocountry.retrueque.security;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -35,6 +37,10 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "api/v1/service/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "api/v1/provincias/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "api/v1/departamentos/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "api/v1/requests/comments/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "api/v1/user/**").permitAll()
+
+
                     .anyRequest().authenticated()
             ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)

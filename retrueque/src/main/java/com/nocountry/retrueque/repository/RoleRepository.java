@@ -1,6 +1,5 @@
 package com.nocountry.retrueque.repository;
 
-import com.nocountry.retrueque.model.entity.ProvinciaEntity;
 import com.nocountry.retrueque.model.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 

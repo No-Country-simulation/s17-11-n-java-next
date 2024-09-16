@@ -3,7 +3,6 @@ package com.nocountry.retrueque.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.nocountry.retrueque.service.interfaces.S3FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +28,7 @@ public class S3FileUploadServiceImp implements S3FileUploadService {
         }
 
         // Generar un nombre único para el archivo
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
@@ -37,7 +36,7 @@ public class S3FileUploadServiceImp implements S3FileUploadService {
 
         try (InputStream inputStream = file.getInputStream()) {
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, inputStream, metadata);
-            PutObjectResult result = amazonS3.putObject(putObjectRequest);
+            amazonS3.putObject(putObjectRequest);
 
             // Devolver la URL del archivo
             return amazonS3.getUrl(bucketName, fileName).toString();

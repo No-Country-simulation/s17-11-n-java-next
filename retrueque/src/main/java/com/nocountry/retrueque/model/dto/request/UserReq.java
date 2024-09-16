@@ -19,6 +19,10 @@ public record UserReq(
                 message = "Doesn't match ^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9-]{2,}\\.[a-zA-Z]{2,}$")
         @Size(min = 10)
         String email,
+
+        @Size(min = 6, message = "Password must be at least 6 characters long")
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+                message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
         String password
 ) {
 }

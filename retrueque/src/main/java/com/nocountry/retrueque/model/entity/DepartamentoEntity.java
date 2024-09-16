@@ -19,7 +19,7 @@ public class DepartamentoEntity {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provincia_id", nullable = false)
     private ProvinciaEntity provincia;
 

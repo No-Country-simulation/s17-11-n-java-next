@@ -1,6 +1,6 @@
 package com.nocountry.retrueque.controller;
 
-import com.nocountry.retrueque.model.dto.response.UserServicesRes;
+import com.nocountry.retrueque.model.dto.response.UserRatingInfoRes;
 import com.nocountry.retrueque.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -22,7 +22,7 @@ public class UserController {
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable long id){
     String response = this.userService.softDeleteById(id);
-    return ResponseEntity.ok(new ApiResponse<String>(response));
+    return ResponseEntity.ok(new ApiResponse<>(response));
   }
 
   @GetMapping
@@ -30,10 +30,10 @@ public class UserController {
     return ResponseEntity.ok("paso la prueba");
   }
 
-  @Operation(summary = "Get user with services")
-  @GetMapping("/{userId}/services")
-  public ResponseEntity<?> getUserWithServices(@PathVariable Long userId) {
-    UserServicesRes response = userService.getUserWithServices(userId);
+  @Operation(summary = "Get user with rating")
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getUserWithRating(@PathVariable Long id) {
+    UserRatingInfoRes response = userService.getUserWithRating(id);
     return ResponseEntity.ok(new ApiResponse<>(response));
   }
 
