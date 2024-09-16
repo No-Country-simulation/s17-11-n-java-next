@@ -102,16 +102,16 @@ export interface DataProfileResponse {
 }
 
 
-// Response Gets, para los filtros // Filters
+// Response Gets, ServiciosResponse
 
-export interface ServicesFiltersResponse {
+export interface ServiciosResponse {
     message: string;
-    data:    DataServicesFilters;
+    data:    DataServiciosResponse;
     success: boolean;
 }
 
-export interface DataServicesFilters {
-    content:       ContentDataServicesFilters[];
+export interface DataServiciosResponse {
+    content:       ContentServiciosResponse[];
     currentPage:   number;
     totalPages:    number;
     totalElements: number;
@@ -120,36 +120,36 @@ export interface DataServicesFilters {
     pageSize:      number;
 }
 
-export interface ContentDataServicesFilters {
+export interface ContentServiciosResponse {
     id:           number;
     title:        string;
     description:  string;
     rules:        string;
     imgUrl:       null | string;
-    user:         UserDataServicesFilters;
-    departamento?: DepartamentoDataServicesFilters | null ;
-    provincia:    ProvinciaDataServicesFilters | null;
-    category:     CategoryDataServicesFilters;
+    user:         UserDataServiciosResponse;
+    departamento?: DepartamentoDataServiciosResponse | null ;
+    provincia:    ProvinciaDataServiciosResponse | null;
+    category:     CategoryDataServiciosResponse;
     days:         number[];
     shiftTime:    number[];
 }
 
-export interface CategoryDataServicesFilters {
+export interface CategoryDataServiciosResponse {
     id:   number;
     name: string;
 }
 
-export interface ProvinciaDataServicesFilters {
+export interface ProvinciaDataServiciosResponse {
     id:   number;
     name: string;
 }
 
-export interface DepartamentoDataServicesFilters {
+export interface DepartamentoDataServiciosResponse {
     id:   number;
     name: string;
 }
 
-export interface UserDataServicesFilters {
+export interface UserDataServiciosResponse {
     id:       number;
     username: string;
 }
