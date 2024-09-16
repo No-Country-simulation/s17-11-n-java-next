@@ -23,6 +23,8 @@ import useProvincias from "@/hooks/useProvincias";
 import useCategorys from '@/hooks/useCategorys';
 import useDepartaments from '@/hooks/useDepartaments';
 import { z } from 'zod';
+import useFilteredServices from '@/hooks/useServiceFiltro'; // Asegúrate de importar el hook correcto
+
 
 type FormData = z.infer<typeof FormSchemaFilters>;
 
@@ -57,6 +59,12 @@ export default function Filters({
     const { data: categories, isLoading: isLoadingCategories } = useCategorys();
     const { data: departamentos, isLoading: isLoadingDepartamentos } = useDepartaments(selectedProvinciaId || 0);
 
+    const { data: serviciosFiltrados, isLoading: isLoadingServicios } = useFilteredServices({
+        provinciaId: selectedProvinciaId ?? undefined, // Convierte `null` a `undefined`
+        departamentoId: selectedDepartamentoId ?? undefined, // Convierte `null` a `undefined`
+        categoryId: selectedCategoryId ?? undefined // Convierte `null` a `undefined`
+    });
+
     const form = useForm<FormData>({
         resolver: zodResolver(FormSchemaFilters),
         defaultValues: {
@@ -66,10 +74,26 @@ export default function Filters({
         }
     });
 
-    const onSubmit = (data: FormData) => {
-        console.log(data);
-    };
+    useEffect(() => {
+        if (Array.isArray(serviciosFiltrados)) {
+            setResultados(serviciosFiltrados.map(servicio => ({
+                id: servicio.id,
+                imag: servicio.imgUrl || "",
+                titulo: servicio.title,
+                descripcion: servicio.description,
+                ubicacion: servicio.provincia?.name || ""
+            })));
+        } else {
+            console.error('Expected an array for serviciosFiltrados');
+        }
+    }, [serviciosFiltrados]);
 
+    const onSubmit = async (data: FormData) => {
+        setLoading(true);
+        console.log(data);
+        // Aquí iría la lógica para la búsqueda
+        setLoading(false);
+    };
 
 
     return (
@@ -182,15 +206,20 @@ export default function Filters({
                             )}
                         />
 
-                        <Button type="submit" variant="default" className='text-black text-base font-bold leading-normal tracking-tight h-[50px] shadow-md w-full sm:w-[149px] py-[13px] px-[18px] bg-[#74acdf]'>
-                            Buscar
+                        <Button
+                            type="submit"
+                            variant="default"
+                            className='text-black text-base font-bold leading-normal tracking-tight h-[50px] shadow-md w-full sm:w-[149px] py-[13px] px-[18px] bg-[#74acdf]'
+                            disabled={isLoadingServicios || isLoadingCategories || isLoadingProvincias || isLoadingDepartamentos}
+                        >
+                            {loading ? "Buscando..." : "Buscar"}
                         </Button>
                     </form>
                 </Form>
             </div>
             <div className='justify-center items-center'>
                 {categories ? (
-                    <CardServicios 
+                    <CardServicios
                         dataResultados={resultados}
                         servicio={category}
                     />

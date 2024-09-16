@@ -70,7 +70,8 @@ const TopbarGeneral = () => {
                   <PopoverContent className='w-full h-full bg-secondary-variant-1'>
                     <div className="flex flex-col items-center gap-5">
                       <div>
-                      {`${profile?.name} ${profile?.lastname}`}
+                      {`${profile?.name || ''} ${profile?.lastname || ''}`.trim() || "Nuevo Usuario"}
+
                         <hr className='border-white w-full' />
                       </div>
                       <Link href={'/dashboard/perfil'} className='font-bold'>
