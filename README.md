@@ -345,7 +345,7 @@ Nuestra plataforma simplifica el intercambio de servicios, permitiendo a quienes
 - **Backend Swagger**: [Swagger UI](https://s17-11-n-java-next.onrender.com/swagger-ui/index.html)
 - **Figma Diseño**: [Figma Design](https://www.figma.com/design/g87xq4btYRtXTM2v7NZ0gJ/s17-11-n-java-next--DEVS?node-id=0-1&t=WuQaSYDqX5SDjGGK-1)
 - **Figma Prototipo**: [Figma Prototype](https://www.figma.com/proto/ZQi10Ih3ECWT3BdAmqlE3k/s17-11-n-java-next?node-id=736-26423&node-type=frame&t=OfqA5WcSWSIJ64LK-1&scaling=min-zoom&content-scaling=fixed&page-id=14%3A2&starting-point-node-id=736%3A26423)
-- **Pruebas del Equipo Tester**: [Google Sheets Testing](https://docs.google.com/spreadsheets/d/1ZpMLtps6Rv2vwsRAIv98ePz7CGikdPCkS6SrDxeGZ9U/edit?usp=sharing)
+- **Pruebas del Equipo Tester**: [Google Sheets Testing](https://docs.google.com/spreadsheets/d/1dBFj6yHPQfbUJxIQYYqyBkXGvf9RAYFLXzXmA-yrZJA/edit?gid=2033199235#gid=2033199235)
 
 ## **📸 Capturas de Pantalla**
 
