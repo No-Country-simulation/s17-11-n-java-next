@@ -14,7 +14,7 @@ interface HeaderProfileProps {
         rating: number; 
         description: string 
     }
-    products: { description: string }[]
+    products: { id: number; description: string; imag:string}[]
     authUser: boolean
 }
 const HeaderProfile: React.FC<HeaderProfileProps> = ({

@@ -6,6 +6,8 @@ import TopbarGeneral from '@/components/containers/topbar-general'
 import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
 import useProfile from '@/hooks/useProfile'
+import useServicesByIdUser from '@/hooks/useServicesByIdUser';
+
 
 const DataUser = {
     name: 'John Doe',
@@ -49,17 +51,17 @@ const comments = [
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     }
 ]
-const products = [
-    {
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    }
-]
+// const products = [
+//     {
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+//     },
+//     {
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+//     },
+//     {
+//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+//     }
+// ]
 const requests = [
     {
         name: 'Jane Doe',
@@ -107,7 +109,20 @@ const UserProfile = ({ }) => {
     const router = useRouter()
     const authUser = true
     const {data:user, isLoading:isLoadingUser, error:errorUser} = useProfile()
-
+    //
+    const {
+        data: servicesData,
+        isLoading: isLoadingServices,
+        isError: isErrorServices,
+        error: servicesError
+    } = useServicesByIdUser(id)
+    //
+    const products = servicesData?.data.map((service) => ({
+        id: service.id as number,
+        description: service.description as string,
+        imag: service.imgUrl as string,
+    })) ?? []; 
+    //
     useEffect(() => {
         if (!token) {
             // Si no hay token, redirige al login
@@ -127,7 +142,7 @@ const UserProfile = ({ }) => {
     return (
         <>
             <TopbarGeneral />
-            <section className="user-profile w-full max-w-[1232px] mx-auto my-10">
+            <section className="user-profile w-full max-w-[1232px] mx-auto m-10 p-10">
                 <HeaderProfile
                     user={{
                         name: user?.name || DataUser.name,

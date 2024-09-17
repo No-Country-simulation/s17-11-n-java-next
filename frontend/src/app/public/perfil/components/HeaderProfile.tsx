@@ -1,31 +1,40 @@
 'use client'
 
-import { Star, Edit, Trash2 } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import clsx from 'clsx'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import clsx from 'clsx'
+
+const BASE_ROUTE = '/public';
+
 interface HeaderProfileProps {
     user: { name: string; avatar: string; rating: number; description: string }
-    products: { description: string }[]
-    authUser: boolean
+    products: { id: number; description: string ; imag: string}[]
+    authUser: string
 }
+
 const HeaderProfile: React.FC<HeaderProfileProps> = ({
     user,
     products,
-    authUser
+    authUser,
 }) => {
     const router = useRouter()
+
+    const handleProductClick = (productId: number) => {
+        // Navegar al enlace del producto
+        router.push(`/public/servicio/${productId}`)
+    }
+
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="rounded-3xl bg-[#F1F1F1]">
                 <CardHeader>
                     <div className="flex items-center space-x-4">
                         <Avatar className="size-[180px]">
                             <AvatarImage src={user.avatar} alt={user.name} />
-                            <AvatarFallback>{user.name[0]}</AvatarFallback>
+                            <AvatarFallback>{user.name}</AvatarFallback>
                         </Avatar>
                         <div>
                             <CardTitle className="text-[28px]">
@@ -56,16 +65,17 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
             <div
                 className="space-y-4 overflow-y-auto md:h-[420px]"
                 style={{
-                    scrollbarWidth: 'thin'
+                    scrollbarWidth: 'thin',
                 }}
             >
                 {products.map((product, index) => (
                     <Card
                         key={index}
-                        className="h-[calc(50%-8px)] flex items-center px-4 rounded-3xl bg-[#F1F1F1]"
+                        className="h-[calc(50%-8px)] flex items-center px-4 rounded-3xl bg-[#F1F1F1] cursor-pointer hover:bg-gray-200"
+                        onClick={() => handleProductClick(product.id)} // Evento onClick para redirigir al enlace del producto
                     >
                         <Image
-                            src="https://placehold.co/150x150/png"
+                            src={product.imag || 'https://placehold.co/150x150/png'}
                             alt="Product"
                             width={150}
                             height={150}
@@ -84,20 +94,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                                 <p className="text-sm">{product.description}</p>
                                 {authUser && (
                                     <div className="mt-2 flex justify-end space-x-2">
-                                        <Button
-                                            size="sm"
-                                            variant="outline"
-                                            className="bg-[#74ACDF]"
-                                        >
-                                            <Edit className="w-4 h-4" />
-                                        </Button>
-                                        <Button
-                                            size="sm"
-                                            variant="outline"
-                                            className="bg-[#D14A4A]"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
-                                        </Button>
+                                        {/* Aquí podrías añadir botones o más funcionalidades */}
                                     </div>
                                 )}
                             </CardContent>
@@ -105,14 +102,6 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                     </Card>
                 ))}
             </div>
-            {authUser && (
-                <Button
-                    className="w-full md:w-3/5 mx-auto col-start-[2] bg-[#F6B40E] font-bold h-[50px] hover:bg-[#F7C036]"
-                    onClick={() => router.push('/public/servicio/nuevo')}
-                >
-                    Publicar anuncio
-                </Button>
-            )}
         </div>
     )
 }
