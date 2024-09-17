@@ -31,7 +31,7 @@ function CarouselHome() {
           <CarouselContent>
             {['banner1psd 4.jpg','banner2psd 2.jpg','banner3psd 2.jpg',].map((item,index) => (
               <CarouselItem key={index} className='w-auto'>
-                <div className='w-auto h-[67vh] relative'>
+                <div className='w-auto h-[100vh] relative'>
                   <Image
                     src={`/img/${item}`}
                     alt={`HeroImg ${index+1}`}

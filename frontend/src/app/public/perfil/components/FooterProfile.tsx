@@ -7,7 +7,7 @@ import ListUserCards from './ListUserCards'
 interface FooterProfileProps {
     comments: { name: string; content: string }[]
     requests: { name: string; content: string }[]
-    authUser: boolean
+    authUser: string
 }
 const FooterProfile: React.FC<FooterProfileProps> = ({
     comments,

@@ -29,7 +29,7 @@ const TopbarGeneral = () => {
       <div className="w-full bg-primary mx-0">
         <div className="flex items-center  h-full px-4">
           {/* Logo */}
-          <div className="flex-shrink-0 text-gray-50">
+          <div className="flex-shrink-0 text-gray-50" onClick={() => router.push('/')}>
             <Image alt='logo' src="/logo.png" width={300} height={300} />
           </div>
           <div className="h-10 justify-start items-center gap-6 inline-flex">

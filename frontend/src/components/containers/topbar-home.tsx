@@ -25,7 +25,7 @@ const TopbarHome = () => {
     <header className="absolute top-6 left-6 right-6 z-40 bg-transparent">
       <div className="container w-[80%] lg:w-[95%] bg-primary mx-auto px-4 z-40 flex items-center justify-between h-full p-3">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0" onClick={() => router.push('/')}>
           <Image alt='logo' src="/logo.png" width={300} height={300} />
         </div>
           <div className="h-10 justify-start items-center gap-6 inline-flex">

@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: 'retruequenocountry.s3.us-east-2.amazonaws.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'drive.google.com',
+        pathname: '/**',
+      },
     ],
   },
 };
