@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Search, ChevronDown, ChevronUp } from "lucide-react";
 import TopbarGeneral from "@/components/containers/topbar-general";
+import Link from "next/link";
 
 interface FAQItemProps {
   question: string;
@@ -53,30 +54,24 @@ const FAQComponent = () => {
 
   const faqs = [
     {
-      question: "¿Qué es el trueque y cómo funciona en nuestra plataforma?",
-      answer:
-        "El trueque es un intercambio directo de servicios o productos sin utilizar dinero. En nuestra plataforma, los usuarios pueden publicar ofertas de los productos o servicios que desean intercambiar y buscar las ofertas de otros usuarios que les interesen. Una vez que encuentres una oferta que te guste, puedes contactar al usuario para negociar el intercambio y coordinar los detalles.",
+      question: "1. ¿Qué es el trueque y cómo funciona en nuestra plataforma?",
+      answer: 'El trueque es un intercambio directo de servicios o productos sin utilizar dinero. En nuestra plataforma, los usuarios pueden publicar ofertas de los productos o servicios que desean intercambiar y buscar las ofertas de otros usuarios que les interesen. Una vez que encuentres una oferta que te guste, puedes contactar al usuario para negociar el intercambio y coordinar los detalles.',
     },
     {
-      question: "¿Cómo puedo registrarme y comenzar a intercambiar?",
-      answer:
-        "El proceso de registro es simple y rápido. [Aquí iría la explicación del proceso]",
+      question: "2. ¿Cómo puedo registrarme y comenzar a intercambiar?",
+      answer: 'Para registrarte, simplemente haz clic en el botón de "Registro" en la esquina superior derecha de la página de inicio. Completa el formulario con tu información básica, verifica tu dirección de correo electrónico y ya podrás comenzar a publicar ofertas y buscar intercambios. Es fácil y gratuito.',
     },
     {
-      question:
-        "¿Es seguro intercambiar productos y servicios en esta plataforma?",
-      answer:
-        "Sí, tomamos medidas para garantizar la seguridad. [Aquí irían los detalles de seguridad]",
+      question: "3. ¿Es seguro intercambiar productos y servicios en esta plataforma?",
+      answer: 'Nos tomamos muy en serio la seguridad de nuestros usuarios. Contamos con un sistema de calificaciones y comentarios que permite a los usuarios evaluar sus experiencias de intercambio. Recomendamos siempre revisar los perfiles y las calificaciones antes de realizar un intercambio, y mantener todas las comunicaciones dentro de la plataforma para mayor seguridad.',
     },
     {
-      question: "¿Qué tipos de productos y servicios se pueden intercambiar?",
-      answer:
-        "Se puede intercambiar una amplia variedad de items. [Aquí iría una lista o explicación]",
+      question: "4. ¿Qué tipos de productos y servicios se pueden intercambiar?",
+      answer: 'Puedes intercambiar una amplia variedad de productos y servicios, siempre y cuando cumplan con nuestras políticas y términos de uso. Esto incluye desde artículos del hogar y ropa hasta servicios profesionales como clases particulares, reparaciones, asesorías, y más. Consulta nuestras políticas para asegurarte de que tu oferta cumpla con nuestros estándares.',
     },
     {
-      question: "¿Qué sucede si no estoy satisfecho con un intercambio?",
-      answer:
-        "Tenemos un proceso para manejar disputas. [Aquí irían los detalles del proceso]",
+      question: "5. ¿Qué sucede si no estoy satisfecho con un intercambio?",
+      answer: 'Si no estás satisfecho con un intercambio, te recomendamos que primero intentes resolver el problema directamente con el otro usuario. Si no se puede llegar a una solución, puedes reportar el problema a nuestro equipo de soporte a través de la función de “Ayuda” en la plataforma. Investigaremos el caso y tomaremos las medidas necesarias para ayudarte a resolver la situación.',
     },
   ];
 
@@ -118,9 +113,11 @@ const FAQComponent = () => {
             ¡No dudes en contactarnos para resolver cualquier consulta y sumarla
             a la comunidad!
           </p>
-          <Button className="bg-[#F6B40E] hover:bg-[#ffc32c] text-black text-[20px] py-4 px-4 lg:px-20">
-            Contáctanos
-          </Button>
+          <Link href='/public/contacto'>
+            <Button className="bg-[#F6B40E] hover:bg-[#ffc32c] text-black text-[20px] py-4 px-4 lg:px-20">
+              Contáctanos
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </>

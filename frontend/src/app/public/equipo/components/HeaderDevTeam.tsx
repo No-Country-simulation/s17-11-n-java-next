@@ -10,6 +10,7 @@
     CardContent,
   } from "@/components/ui/card";
   import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
   function HeaderDevTeam() {
     return (
@@ -27,9 +28,11 @@
             </CardDescription>
           </CardContent>
           <CardFooter>
-            <Button className="bg-[#F6B40E] hover:bg-[#dda10d] font-bold px-16">
-              ¡Colaboremos juntos!
-            </Button>
+            <Link href='/public/contacto'>
+              <Button className="bg-[#F6B40E] hover:bg-[#dda10d] font-bold px-16">
+                ¡Colaboremos juntos!
+              </Button>
+            </Link>
           </CardFooter>
         </Card>
       </>

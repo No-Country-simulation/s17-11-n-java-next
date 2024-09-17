@@ -26,7 +26,9 @@ const TopbarHome = () => {
       <div className="container w-[80%] lg:w-[95%] bg-primary mx-auto px-4 z-40 flex items-center justify-between h-full p-3">
         {/* Logo */}
         <div className="flex-shrink-0">
-          <Image alt='logo' src="/logo.png" width={300} height={300} />
+          <Link href='/'>
+            <Image alt='logo' src="/logo.png" width={300} height={300} />
+          </Link>
         </div>
           <div className="h-10 justify-start items-center gap-6 inline-flex">
             <div className="w-[184px] justify-center items-center flex text-center text-[#fcfcfc] hover:text-black text-base font-bold leading-normal tracking-tight">
