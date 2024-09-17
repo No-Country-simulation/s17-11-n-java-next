@@ -12,7 +12,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -133,5 +135,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, errorResponse.status());
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMismatchTypeExceptions(MethodArgumentTypeMismatchException ex) {
+        List<String> data = new ArrayList<>();
+        data.add("parameter: "+ ex.getName());
+        data.add("expectedType: " + (ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "Unknown"));
+        data.add("message: "+ ex.getMessage());
 
+        ErrorResponse errorResponse = new ErrorResponse("Invalid type parameter", data, HttpStatus.BAD_REQUEST );
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
 }

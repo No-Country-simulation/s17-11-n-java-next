@@ -1,5 +1,7 @@
 package com.nocountry.retrueque.controller;
 
+import com.nocountry.retrueque.model.dto.OnCreate;
+import com.nocountry.retrueque.model.dto.OnUpdate;
 import com.nocountry.retrueque.model.dto.request.ServiceReq;
 import com.nocountry.retrueque.service.interfaces.ServicesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,7 +26,7 @@ public class ServicesController {
   @Operation(summary = "Create a new service", description = "Available for USER role.")
   @SecurityRequirement(name = "bearer-key")
   @PostMapping(consumes = "multipart/form-data")
-  public ResponseEntity<?> create(@ModelAttribute @Valid ServiceReq request){
+  public ResponseEntity<?> create(@ModelAttribute @Validated(OnCreate.class) ServiceReq request){
     var response = this.servicesService.create(request);
     return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(response));
   }
@@ -55,8 +58,8 @@ public class ServicesController {
 
   @Operation(summary = "Update service", description = "Update using body and path, only available by authenticated user.")
   @SecurityRequirement(name = "bearer-key")
-  @PutMapping("/{id}")
-  public ResponseEntity<?> updateById(@RequestBody @Valid ServiceReq request, @PathVariable long id){
+  @PutMapping(path = "/{id}", consumes = "multipart/form-data")
+  public ResponseEntity<?> updateById(@ModelAttribute @Validated(OnUpdate.class) ServiceReq request, @PathVariable long id){
     var response = this.servicesService.updateById(request, id);
     return ResponseEntity.ok(new ApiResponse<>(response));
   }

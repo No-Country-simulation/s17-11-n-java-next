@@ -5,14 +5,19 @@ import com.nocountry.retrueque.model.dto.request.ShiftReq;
 import com.nocountry.retrueque.model.dto.response.CustomPage;
 import com.nocountry.retrueque.model.dto.response.ShiftRes;
 import com.nocountry.retrueque.model.entity.Shift;
+import com.nocountry.retrueque.model.enums.Day;
 import com.nocountry.retrueque.model.mapper.PageMapper;
 import com.nocountry.retrueque.model.mapper.ShiftMapper;
 import com.nocountry.retrueque.repository.ShiftRepository;
 import com.nocountry.retrueque.service.interfaces.ShiftService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -61,5 +66,18 @@ public class ShiftServiceImpl implements ShiftService {
   private void verifyIsExist(long id){
     boolean isExist = this.shiftRepository.existsById(id);
     if(!isExist) throw new ShiftNotFoundException(id);
+  }
+
+  @Override
+  public Shift updateByServiceAndId(Set<Integer> shiftIds, long id){
+    if(shiftIds == null || shiftIds.isEmpty()) return null;
+    Shift previousShift = this.shiftRepository.findById(id)
+            .orElseThrow(()->new EntityNotFoundException("Shift not found, id:"+id));
+    String newDays = shiftIds.stream()
+            .map(day->Day.fromId(day).name())
+            .collect(Collectors.joining("-"));
+    previousShift.setDays(newDays);
+    this.shiftRepository.save(previousShift);
+    return previousShift;
   }
 }

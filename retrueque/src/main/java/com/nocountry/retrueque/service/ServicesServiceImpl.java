@@ -16,9 +16,8 @@ import com.nocountry.retrueque.model.mapper.ServiceMapper;
 import com.nocountry.retrueque.repository.CategoryRepository;
 import com.nocountry.retrueque.repository.DepartamentoRepository;
 import com.nocountry.retrueque.repository.ServiceRepository;
-import com.nocountry.retrueque.service.interfaces.AuthService;
-import com.nocountry.retrueque.service.interfaces.S3FileUploadService;
-import com.nocountry.retrueque.service.interfaces.ServicesService;
+import com.nocountry.retrueque.service.interfaces.*;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +41,9 @@ public class ServicesServiceImpl implements ServicesService {
   private final PageMapper pageMapper;
   private final AuthService authService;
   private final S3FileUploadService s3Service;
+  private final ShiftTimeService shiftTimeService;
+  private final ShiftService shiftService;
+  private final EntityManager entityManager;
 
 
   @Override
@@ -95,13 +97,17 @@ public class ServicesServiceImpl implements ServicesService {
     return this.serviceMapper.entityToRes(serviceFound);
   }
 
+  @Transactional
   @Override
   public ServiceRes updateById(ServiceReq service, long id) {
-    this.verifyIsExist(id);
-    var newService = this.serviceMapper.reqToEntity(service, categoryRepo, s3Service);
-    newService.setUser(this.authService.getAuthUser());
-    var serviceFound = this.serviceRepository.save(newService);
-    return this.serviceMapper.entityToRes(serviceFound);
+    Services oldService = this.serviceRepository.findById(id)
+            .orElseThrow(()-> new ServicesNotFoundException(id));
+    this.serviceMapper.updateServiceFromReq(service, oldService, this.categoryRepo, this.s3Service);
+    this.serviceRepository.save(oldService);
+    this.shiftService.updateByServiceAndId(service.days(), oldService.getShift().getId());
+    this.shiftTimeService.updateByShiftId(oldService.getShift(), service.shiftTime());
+//    entityManager.clear();
+    return this.getById(id);
   }
 
   @Override

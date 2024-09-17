@@ -8,9 +8,7 @@ import com.nocountry.retrueque.model.entity.*;
 import com.nocountry.retrueque.model.enums.Day;
 import com.nocountry.retrueque.repository.CategoryRepository;
 import com.nocountry.retrueque.service.interfaces.S3FileUploadService;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
@@ -41,6 +39,16 @@ public interface ServiceMapper {
     return categoryRepository.findById(id.longValue())
             .orElseThrow(()->new CategoryNotFoundException(id));
   }
+
+  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "imgUrl", source = "imgUrl")
+  @Mapping(target = "category", source = "categoryId")
+  void updateServiceFromReq(ServiceReq request,
+                            @MappingTarget Services services,
+                            @Context CategoryRepository categoryRepository,
+                            @Context S3FileUploadService s3FileUploadService
+                            );
 
   ServiceResShort entityToShort(Services service);
 
