@@ -10,7 +10,7 @@ public record UserProfileReq(
         @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Doesn't match ^[a-zA-Z\\s]+$")
         String name,
 
-        @Size(min = 4, max = 100)
+        @Size(min = 2, max = 100)
         @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Doesn't match ^[a-zA-Z\\s]+$")
         String lastname,
 
@@ -21,6 +21,9 @@ public record UserProfileReq(
 
         Long departamento_id,
 
+        @Size(min = 8, message = "Password must be at least 8 characters long")
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\\[\\]:;<>,.?~\\-])[A-Za-z\\d!@#$%^&*()_+{}\\[\\]:;<>,.?~\\-]{8,}$\n",
+                message = "Password must contain at least one uppercase letter, one lowercase letter and one special character")
         String password,
 
         MultipartFile profileImage,
