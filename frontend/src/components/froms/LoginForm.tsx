@@ -28,8 +28,8 @@ const formSchema = z.object({
 
 // 
 interface LoginFormProps {
-  title:string;
-  extraDiv?:React.ReactNode;
+  title: string;
+  extraDiv?: React.ReactNode;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ title, extraDiv }) => {
@@ -51,7 +51,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, extraDiv }) => {
       const resp = await Fetchlogin(values);
       if (resp.success && resp.data?.token && resp.data?.role && resp.data?.id) {
         setToken(resp.data.token, resp.data.role, resp.data.id);  // Guarda el token si existe
-        console.log("Login exitoso, token guardado:", resp.data.token);
+        //console.log("Login exitoso, token guardado:", resp.data.token);
         router.push('/') // lo envia al home
       } else {
         setErrorMessage("Error en la autenticación. Verifique sus credenciales.");
@@ -65,7 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title, extraDiv }) => {
     <div className="flex flex-col items-center drop-shadow-lg shadow-accent-foreground my-14">
       <Form {...form}>
         <h1 className="text-display-small-bold font-bold text-center bg-white p-2 mb-5 rounded-md drop-shadow-lg">
-{title}
+          {title}
         </h1>
         {extraDiv}
         <form

@@ -81,7 +81,7 @@ function CarouselDevTeam() {
       linkedin: "https://www.linkedin.com/in/matias-nicolas-acevedo",
     },
     {
-      image: "Joaquín Pena.png",
+      image: "JoaquinPena.png",
       name: "Joaquín Peña",
       role: "DESIGN UX/UI",
       linkedin: "https://www.linkedin.com/in/joaquinpe/",
