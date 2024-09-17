@@ -8,9 +8,9 @@ public record LoginReq(
         @Email
         String email,
 
+        @Pattern(regexp = "^(?=.*[A-ZÑ])(?=.*[a-zñ])(?=.*\\d)(?=.*[-@#$%^&*.,()_+{}|;:'\"<>/!¡¿?])[A-ZÑa-zñ\\d-@#$%^&*.,()_+{}|;:'\"<>/!¡¿?]{6,}$",
+                message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character @#$%^&*()_+{}|,.;:'\"<>/!¡¿?")
         @Size(min = 8, message = "Password must be at least 8 characters long")
-        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\\[\\]:;<>,.?~\\-])[A-Za-z\\d!@#$%^&*()_+{}\\[\\]:;<>,.?~\\-]{8,}$\n",
-                message = "Password must contain at least one uppercase letter, one lowercase letter and one special character")
         String password
 ) {
 }
