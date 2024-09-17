@@ -3,7 +3,7 @@ import { useAuthStore } from "@/store/auth";
 import type { ProvinciasResponse } from "@/lib/response";
 
 const API = process.env.NEXT_PUBLIC_BACKEND_URL as string;
-console.log('esta es la api url',API)
+//console.log('esta es la api url',API)
 
 export const ProvinciasFetch = async (): Promise<ProvinciasResponse | null> => {
     try{
@@ -19,11 +19,11 @@ export const ProvinciasFetch = async (): Promise<ProvinciasResponse | null> => {
           }
       
           const data: ProvinciasResponse = await response.json();
-          console.log(data)
+          //console.log(data)
           return data;
           
         } catch (error) {
-          console.log("Error en la petición", error);
+          //console.log("Error en la petición", error);
           return null;
         }
 }

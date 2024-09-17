@@ -55,7 +55,7 @@ export const Fetchregister = async (data: DataRegister): Promise<RegisterRespons
     };
   } catch (error) {
     // Maneja errores y retorna una respuesta con error
-    console.error('Error en la petición:', error);
+    //console.error('Error en la petición:', error);
     return {
       message: 'Error en el registro',
       data: {

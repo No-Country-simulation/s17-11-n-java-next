@@ -12,16 +12,16 @@ export const DataUserbyID = async (idUser: number): Promise<DataUserDataResponse
                 "Content-Type": "application/json",
             },
         });
-        console.log(`Response Status: ${response.status}`); // Log para verificar el estado de la respuesta
+        // console.log(`Response Status: ${response.status}`); // Log para verificar el estado de la respuesta
         if (!response.ok) {
             throw new Error(`Error en la petición: ${response.statusText}`);
         }
 
         const data: DataUserDataResponse = await response.json();
-        console.log("Data fetched:", data); // Log para verificar los datos obtenidos
+        //console.log("Data fetched:", data); // Log para verificar los datos obtenidos
         return data;
     } catch (error) {
-        console.log("Error en la petición", error);
+        //console.log("Error en la petición", error);
         return null;
     }
 }

@@ -19,7 +19,7 @@ export const ServicesByUser = async (idUser:number): Promise<ServicieByUserRespo
         const data: ServicieByUserResponse = await response.json();
         return data;
     } catch (error) {
-        console.log("Error en la petición", error);
+        //console.log("Error en la petición", error);
         return null;
     }
 }
