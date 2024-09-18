@@ -29,10 +29,8 @@ const TopbarGeneral = () => {
       <div className="w-full bg-primary mx-0">
         <div className="flex items-center  h-full px-4">
           {/* Logo */}
-          <div className="flex-shrink-0 text-gray-50">
-            <Link href='/'>
-              <Image alt='logo' src="/logo.png" width={300} height={300} />
-            </Link>
+          <div className="flex-shrink-0 text-gray-50" onClick={() => router.push('/')}>
+            <Image alt='logo' src="/logo.png" width={300} height={300} />
           </div>
           <div className="h-10 justify-start items-center gap-6 inline-flex">
             <div className="w-[184px] justify-center items-center flex text-center hover:text-black text-[#fcfcfc] text-base font-bold leading-normal tracking-tight">
