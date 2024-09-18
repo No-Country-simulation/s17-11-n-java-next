@@ -258,3 +258,12 @@ export interface DataUpdateProfileResponse {
     dniFrontImage: string;
     dniBackImage: string;
 }
+
+//delete service
+
+
+export interface DeleteServiceResponse {
+    message: string;
+    data:    string;
+    success: boolean;
+}
