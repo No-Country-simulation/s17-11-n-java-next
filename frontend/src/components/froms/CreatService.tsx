@@ -20,8 +20,11 @@ const serviceSchema = z.object({
     description: z.string().min(10, 'La descripción debe tener al menos 10 caracteres'),
     rules: z.string().min(10, 'Las reglas deben tener al menos 10 caracteres'),
     selectedFile: z.instanceof(File).refine(
-        (file) => file instanceof File,
-        { message: 'Debes seleccionar una imagen válida' }
+        (file) => file.size <= 2 * 1024 * 1024, // Máx. 2MB
+        { message: 'La imagen debe ser menor a 2MB' }
+    ).refine(
+        (file) => ['image/jpeg', 'image/png'].includes(file.type),
+        { message: 'El formato de la imagen debe ser JPEG o PNG' }
     ),
     selectedCategoryId: z.number().min(1, 'Debes seleccionar una categoría'),
 });
@@ -53,7 +56,8 @@ export default function CreateService() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [rules, setRules] = useState('');
-    const router = useRouter()
+    const router = useRouter();
+    const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
     const { data: provincias, isLoading: isLoadingProvincias } = useProvincias();
     const { data: categories, isLoading: isLoadingCategories } = useCategorys();
@@ -83,14 +87,14 @@ export default function CreateService() {
             selectedCategoryId: selectedCategoryId || 0,
         };
 
-        const validation = serviceSchema.safeParse(formData);
+        const result = serviceSchema.safeParse(formData);
 
-        if (!validation.success) {
+        if (!result.success) {
             // Muestra errores de validación
-            alert(validation.error.errors.map((err) => err.message).join('\n'));
+            setValidationErrors(result.error.errors.map((err) => err.message));
             return;
         }
-
+        setValidationErrors([]);
         try {
             const response = await CreateServices(
                 title,
@@ -340,6 +344,13 @@ export default function CreateService() {
                     </div>
                 </Card>
             </form>
+            {validationErrors.length > 0 && (
+                <div className="text-red-500">
+                    {validationErrors.map((error, index) => (
+                        <p key={index}>{error}</p>
+                    ))}
+                </div>
+            )}
             <SuccessDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} />
         </>
     );
