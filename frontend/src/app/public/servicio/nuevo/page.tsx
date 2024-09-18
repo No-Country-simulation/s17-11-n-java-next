@@ -1,7 +1,9 @@
 import CreatService from '@/components/froms/CreatService'
 import TopbarGeneral from '@/components/containers/topbar-general';
 
-function Page() {
+import React from 'react'
+
+export default function page() {
     return (
         <>
             <TopbarGeneral />
@@ -10,4 +12,3 @@ function Page() {
     )
 }
 
-export default Page;
