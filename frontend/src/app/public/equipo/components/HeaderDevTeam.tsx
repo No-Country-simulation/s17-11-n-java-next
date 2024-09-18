@@ -10,7 +10,7 @@
     CardContent,
   } from "@/components/ui/card";
   import { Button } from "@/components/ui/button";
-import Link from "next/link";
+  import { Contact2 } from "@/components/dialog/Contact2";
 
   function HeaderDevTeam() {
     return (
@@ -28,11 +28,7 @@ import Link from "next/link";
             </CardDescription>
           </CardContent>
           <CardFooter>
-            <Link href='/public/contacto'>
-              <Button className="bg-[#F6B40E] hover:bg-[#dda10d] font-bold px-16">
-                ¡Colaboremos juntos!
-              </Button>
-            </Link>
+            <Contact2 />
           </CardFooter>
         </Card>
       </>

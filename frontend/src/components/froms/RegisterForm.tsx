@@ -18,6 +18,8 @@ import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Fetchregister } from "@/services/RegisterFetch";
 import { useRouter } from "next/navigation";
 import { DialogRegistroExitoso } from "@/components/dialog/DialogRegistroExitoso";
+import { DialogErrorRegistro } from "@/components/dialog/DialogeErrorRegistro";
+
 //
 
 // Definición del esquema de validación
@@ -65,8 +67,8 @@ const formSchema = z
       )
       .regex(/(?=.*\d)/, "La contraseña debe contener al menos un número")
       .regex(
-        /(?=.*[@#$%^&+=])/,
-        "La contraseña debe contener al menos un carácter especial (@, #, $, etc.)"
+        /(?=.*[@#$%^&+=!])/,
+        "La contraseña debe contener al menos un carácter especial (@, #, $, %, ^, &, +, =, !)"
       ),
     confirmPassword: z
       .string()
@@ -81,9 +83,11 @@ const formSchema = z
     message: "Las contraseñas no coinciden",
   });
 
+
 const RegisterForm = () => {
   //
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogErrorOpen, setDialogErrorOpen] = useState(false);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState({
@@ -110,9 +114,11 @@ const RegisterForm = () => {
         // router.push('/login')
       } else {
         setErrorMessage("Error en el registro. Vuelva a intentarlo.");
+        setDialogErrorOpen(true);
       }
     } catch (error) {
       setErrorMessage("Error en el registro. Vuelva a intentarlo.");
+      setDialogErrorOpen(true);
     }
   }
 
@@ -257,6 +263,7 @@ const RegisterForm = () => {
       </Form>
       {/* Importar y mostrar el diálogo */}
       <DialogRegistroExitoso open={dialogOpen} onOpenChange={setDialogOpen} />
+      <DialogErrorRegistro open={dialogErrorOpen} onOpenChange={setDialogErrorOpen} errorMessage={errorMessage} />
     </div>
   );
 };
