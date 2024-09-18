@@ -22,15 +22,15 @@ export default function SectionServicesHome() {
         })));
         console.log('esto son los servicios encontrados', rsservices);
     } else {
-        console.error('No se obtuvieron Datos useServicesHomeSize12',rsservices);
+        console.error('No se obtuvieron Datos en Section-services-home: useServicesHomeSize12',rsservices);
     }
   }, [rsservices]);
-  console.log("RS Services:",resultados);
+  // console.log("RS Services:",resultados);
   let locservices
   if(resultados != null){
     locservices = resultados
   } else locservices = srvTemp
-  console.log("Content:",locservices);
+  // console.log("Content:",locservices);
 
   let srv = []
   if(locservices != null){

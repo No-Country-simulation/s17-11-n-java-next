@@ -84,7 +84,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                         className="h-[calc(50%-8px)] flex items-center px-4 rounded-3xl bg-[#F1F1F1]"
                     >
                         <Image
-                            src="https://placehold.co/150x150/png"
+                            src={`${product.imag || "https://placehold.co/150x150/png"}`}
                             alt="Product"
                             width={150}
                             height={150}
@@ -96,7 +96,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                                     Producto
                                 </CardTitle>
                                 <p className="text-xs text-gray-500">
-                                    Cambio por producto
+                                    Cambio por:
                                 </p>
                             </CardHeader>
                             <CardContent>
@@ -107,6 +107,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                                             size="sm"
                                             variant="outline"
                                             className="bg-[#74ACDF]"
+                                            onClick={() => router.push(`/public/servicio/${product.id}`)}
                                         >
                                             <Edit className="w-4 h-4" />
                                         </Button>
