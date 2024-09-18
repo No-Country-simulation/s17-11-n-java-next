@@ -6,16 +6,9 @@ import Image from "next/image";
 import { MapPin } from 'lucide-react';
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { ResultData } from "@/lib/response";
 
 const BASE_ROUTE= '/public' // no quitar o si no da error de ruta
-
-interface ResultData {
-  id: number;
-  imag: string;
-  titulo: string;
-  descripcion: string;
-  ubicacion: string;
-}
 
 interface CardServicioProps {
   dataResultados: ResultData[];

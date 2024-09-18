@@ -176,6 +176,14 @@ export interface DataServiceForIdResponse {
     shiftTime: number[];
 }
 
+export interface ResultData {
+    id: number;
+    imag: string | null;
+    titulo: string;
+    descripcion: string;
+    ubicacion: string;
+}
+
 export interface CategoryServiceForIdResponse {
     id: number;
     name: string;

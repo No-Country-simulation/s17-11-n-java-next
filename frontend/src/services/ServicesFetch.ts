@@ -27,3 +27,27 @@ export const ServicesFetch = async (): Promise<ServiciosResponse | null> => {
         return null;
     }
 }
+
+export async function ServicesFetchHomeSize12(): Promise<ServiciosResponse | null>{
+    try{
+        //
+        const response = await fetch(`${API}/api/v1/service`, {
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                page: '0',
+                size: '12',
+            },
+        });
+        if (!response.ok){
+            throw new Error(`Error en la petición: ${response.statusText}`);
+        }
+        const data: ServiciosResponse = await response.json();
+        // console.log(data)
+        return data;
+        //
+    }catch(error){
+        console.log("Error en la petición", error);
+        return null;
+    }
+}

@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import {Contact3} from '@/components/dialog/Contact3'
+import Link from "next/link";
 
 function FooterDevTeam() {
   return (

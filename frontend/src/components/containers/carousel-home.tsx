@@ -20,6 +20,7 @@ import Link from 'next/link';
 function CarouselHome() {
   const router = useRouter()
   const {token, clearAuth} = useAuthStore();
+  
   return (
     <div className="w-full bg-primary">
         <Carousel opts={{
@@ -46,7 +47,7 @@ function CarouselHome() {
           { !token ? ( //Si no hay sesión, mostrar dialog
             <Dialog.Root>
               <Dialog.Trigger className='bg-primary shadow-md shadow-gray-600 hover:bg-primary-variant-1 rounded-lg px-4 py-4 -translate-y-[15rem] ml-12 uppercase'>
-              Publicar Anuncio
+                Publicar Anuncio
               </Dialog.Trigger>
               <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 bg-black/50 z-40' />
@@ -79,7 +80,7 @@ function CarouselHome() {
             <Button
               type="submit"
               variant="default"
-              onClick={() => router.push('/servicios/crear')}
+              onClick={() => router.push('/public/servicio/nuevo')}
               className="bg-primary shadow-md shadow-gray-600 rounded-lg px-4 py-4 -translate-y-[15rem] ml-12 uppercase"
             >
               Publicar Anuncio
