@@ -14,7 +14,7 @@ const DataUser = {
     avatar: 'https://placehold.co/64x64/png',
     rating: 4,
     description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed etiam, si coactus fueris, quocumque loco fueris, quocumque tempore fueris, debes esse in officio.'
+        'Perfil sin actualizar'
 }
 
 const comments = [
@@ -148,7 +148,9 @@ const UserProfile = ({ }) => {
                         name: user?.name || DataUser.name,
                         profileImagUrl: user?.profileImageUrl || DataUser.avatar,
                         rating:  DataUser.rating,
-                        description: DataUser.description,
+                        ubicacion: user?.provincia && user?.departamento 
+                            ? `${user.provincia} , ${user.departamento}` 
+                            : "Ubicación Sin Actualizar",
                     }}
                     products={products}
                     authUser={authUser}

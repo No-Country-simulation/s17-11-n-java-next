@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import {Contact3} from '@/components/dialog/Contact3'
 
 function FooterDevTeam() {
   return (
@@ -31,7 +32,7 @@ function FooterDevTeam() {
         </CardContent>
         <hr className="border-t-2 border-black" />
         <CardFooter>
-          <Button className="bg-[#F6B40E] hover:bg-[#dda10d] font-bold px-40">Contáctanos</Button>
+          <Contact3/>
         </CardFooter>
       </Card>
       <aside className="flex-1 bg-[#DADCE0] flex items-center justify-center rounded-md p-4">
