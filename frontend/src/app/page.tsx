@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import ImgBg1 from '@/../public/img/banner1psd 4.jpg'
 import TopbarHome from "@/components/containers/topbar-home";
@@ -6,14 +8,12 @@ import FormHome from "@/components/filters/form-home";
 import CardServicio from "@/components/cards/Cardcategory";
 import { srvTemp } from "@/lib/data/servicios";
 import {MejorCalificados,CercanosaTi, MasBuscados } from '@/lib/data/ServicciesHome'
+import { ServicesFetchHomeSize12 } from "@/services/ServicesFetch";
+import SectionServicesHome from "@/components/containers/section-services-home";
 
 
 export default function Home() {
-  // Partir los 12 Servicios (Esta parte se implementa temporalmente, se modificará cuando se tenga el endpoint)
-    let srv = []
-    srv.push(srvTemp.slice(0,4))
-    srv.push(srvTemp.slice(4,8))
-    srv.push(srvTemp.slice(8,12))
+    
   return (
     <main className="w-full">
       {/* Hero */}
@@ -46,20 +46,21 @@ export default function Home() {
         </div>
       </section>
       {/* Mejor Calificados */}
-      <section className="p-16 my-8">
+      {/* <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Mejor Calificados</h1>
         <CardServicio dataResultados={MejorCalificados} servicio={''} key={1} />
-      </section>
+      </section> */}
       {/* Más Buscados */}
-      <section className="p-16 my-8">
+      {/* <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Más Buscados</h1>
         <CardServicio dataResultados={MasBuscados} servicio={''} key={2} />
-      </section>
+      </section> */}
       {/* Cercanos a Ti */}
-      <section className="p-16 my-8">
+      {/* <section className="p-16 my-8">
         <h1 className="text-display-medium font-bold uppercase">Cercanos a Ti</h1>
         <CardServicio dataResultados={CercanosaTi} servicio={''} key={3} />
-      </section>
+      </section> */}
+      <SectionServicesHome />
     </main>
   );
 }
