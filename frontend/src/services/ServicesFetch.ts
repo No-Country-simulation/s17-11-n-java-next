@@ -19,11 +19,11 @@ export const ServicesFetch = async (): Promise<ServiciosResponse | null> => {
 
         }
         const data: ServiciosResponse = await response.json();
-        console.log(data)
+        //console.log(data)
         return data;
         //
     }catch(error){
-        console.log("Error en la petición", error);
+        //console.log("Error en la petición", error);
         return null;
     }
 }

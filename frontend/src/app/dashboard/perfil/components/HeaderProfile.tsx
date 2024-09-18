@@ -12,7 +12,8 @@ interface HeaderProfileProps {
         name: string; 
         profileImagUrl?: string 
         rating: number; 
-        description: string 
+        ubicacion: string;
+
     }
     products: { id: number; description: string; imag:string}[]
     authUser: boolean
@@ -23,6 +24,11 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
     authUser
 }) => {
     const router = useRouter()
+    //
+    const handleButtonClick =()=> {
+        router.push('/dashboard/perfil/editar')
+    };
+    //
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
             <Card className="rounded-3xl bg-[#F1F1F1]">
@@ -35,6 +41,14 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                         <div>
                             <CardTitle className="text-[28px]">
                                 {user.name}
+                                <Button
+                                            size="sm"
+                                            variant="outline"
+                                            className="bg-[#74ACDF] ml-40 hover:bg-[#9cb5cc] text-black font-bold drop-shadow-md"
+                                            onClick={handleButtonClick}
+                                        >
+                                            <Edit className="w-4 h-4" />
+                                        </Button>
                             </CardTitle>
                             <div className="flex">
                                 {[...Array(5)].map((_, i) => (
@@ -54,7 +68,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-[24px]">{user.description}</p>
+                    <p className="text-[24px]">Ubicacion : {user.ubicacion}</p>
                 </CardContent>
             </Card>
 

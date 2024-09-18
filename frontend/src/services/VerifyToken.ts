@@ -21,7 +21,7 @@ export const FetchVerifyToken = async (data: DataVerifyToken): Promise<VerifyTok
         
         // Verifica si la respuesta es válida (status 2xx)
         if (!resp.ok) {
-            console.error('Error en la verificación del token:', resp.statusText);
+            //console.error('Error en la verificación del token:', resp.statusText);
             return null;
         }
 
@@ -30,15 +30,15 @@ export const FetchVerifyToken = async (data: DataVerifyToken): Promise<VerifyTok
 
         // Verifica el campo 'success' en la respuesta
         if (result.success) {
-            console.log('Token verificado con éxito:', result);
+            //console.log('Token verificado con éxito:', result);
             return result;
         } else {
-            console.error('Error en la verificación del token:', result);
+            //console.error('Error en la verificación del token:', result);
             return null;
         }
 
     } catch (error) {
-        console.error('Error en la solicitud:', error);
+        //console.error('Error en la solicitud:', error);
         return null;
     }
 };

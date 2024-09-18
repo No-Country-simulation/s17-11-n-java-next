@@ -225,15 +225,36 @@ export interface ServicieByUserResponse {
 
 export interface UserDataResponse {
     message: string;
-    data:    DataUserDataResponse;
+    data: DataUserDataResponse;
     success: boolean;
 }
 
 export interface DataUserDataResponse {
-    name:            string;
-    lastName:        string;
+    name: string;
+    lastName: string;
     profileImageUrl: string;
-    departamento:    string;
-    provincia:       string;
-    averageRating:   number;
+    departamento: string;
+    provincia: string;
+    averageRating: number;
+}
+
+// Actualizar Perfil de Usuario
+
+export interface UpdateProfileResponse {
+    message: string;
+    data: DataUpdateProfileResponse;
+    success: boolean;
+}
+
+export interface DataUpdateProfileResponse {
+    name: string;
+    lastname: string;
+    email: string;
+    phone: string;
+    provincia: string;
+    departamento_id: number;
+    password: string;
+    profileImageUrl: string;
+    dniFrontImage: string;
+    dniBackImage: string;
 }

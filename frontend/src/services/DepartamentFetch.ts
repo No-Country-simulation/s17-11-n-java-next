@@ -21,7 +21,7 @@ export const DepartamentFetch = async (idProvincia: number): Promise<Departament
         }
             return await response.json();
     } catch (error){
-        console.log(error)
+        //console.log(error)
         return null
     }
 }

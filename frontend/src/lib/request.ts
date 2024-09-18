@@ -27,3 +27,18 @@ export interface ServicesFiltersRequest {
     page?:number;
     pageSize?: number;
 }
+
+// Actualizar los datos profile
+
+export interface DataUpdateProfile {
+    name: string;
+    lastname: string;
+    email?: string;
+    phone?: string;
+    departamento_id?: number;
+    password?: string;
+    profileImage?: File;
+    dniFrontImage?: File;
+    dniBackImage?: File;
+}
+

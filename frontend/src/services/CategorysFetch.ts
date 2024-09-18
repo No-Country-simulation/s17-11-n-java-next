@@ -18,11 +18,11 @@ export const CategorysFetch = async (): Promise<CategorysResponse | null> => {
         }
 
         const data: CategorysResponse = await response.json();
-        console.log(data)
+        //console.log(data)
         return data;
 
     } catch (error) {
-        console.log("Error en la petición", error);
+        // console.log("Error en la petición", error);
         return null;
     }
 }
