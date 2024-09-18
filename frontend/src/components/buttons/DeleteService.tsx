@@ -53,8 +53,8 @@ export function DeleteButton({ serviceId }: DeleteButtonProps) {
             onClick={handleDeleteClick}
             size="sm"
             variant="outline"
-            className={`bg-[#D14A4A] ${mutation.isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={mutation.isLoading}
+            className={`bg-[#D14A4A] ${mutation.isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={mutation.isPending}
           >
             <Trash2 className="w-4 h-4" />
           </Button>
@@ -70,9 +70,9 @@ export function DeleteButton({ serviceId }: DeleteButtonProps) {
             <Button
               onClick={handleConfirm}
               variant="destructive"
-              disabled={mutation.isLoading}
+              disabled={mutation.isPending}
             >
-              {mutation.isLoading ? 'Eliminando...' : 'Eliminar'}
+              {mutation.isPending ? 'Eliminando...' : 'Eliminar'}
             </Button>
             <Button
               variant="outline"
