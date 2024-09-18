@@ -45,21 +45,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Mejor Calificados */}
-      {/* <section className="p-16 my-8">
-        <h1 className="text-display-medium font-bold uppercase">Mejor Calificados</h1>
-        <CardServicio dataResultados={MejorCalificados} servicio={''} key={1} />
-      </section> */}
-      {/* Más Buscados */}
-      {/* <section className="p-16 my-8">
-        <h1 className="text-display-medium font-bold uppercase">Más Buscados</h1>
-        <CardServicio dataResultados={MasBuscados} servicio={''} key={2} />
-      </section> */}
-      {/* Cercanos a Ti */}
-      {/* <section className="p-16 my-8">
-        <h1 className="text-display-medium font-bold uppercase">Cercanos a Ti</h1>
-        <CardServicio dataResultados={CercanosaTi} servicio={''} key={3} />
-      </section> */}
       <SectionServicesHome />
     </main>
   );
