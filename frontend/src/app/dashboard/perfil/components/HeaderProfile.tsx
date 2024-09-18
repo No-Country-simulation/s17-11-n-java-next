@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import {DeleteButton} from '@/components/buttons/DeleteService'
 interface HeaderProfileProps {
     user: { 
         name: string; 
@@ -111,13 +112,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
                                         >
                                             <Edit className="w-4 h-4" />
                                         </Button>
-                                        <Button
-                                            size="sm"
-                                            variant="outline"
-                                            className="bg-[#D14A4A]"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
-                                        </Button>
+                                        <DeleteButton serviceId={product.id} />
                                     </div>
                                 )}
                             </CardContent>
