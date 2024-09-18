@@ -11,15 +11,29 @@ import useCategorys from '@/hooks/useCategorys';
 import useDepartaments from '@/hooks/useDepartaments';
 import Image from 'next/image';
 import { Card } from "@/components/ui/card";
+import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+import {SuccessDialog} from '@/components/dialog/Success-dialog'
+
+const serviceSchema = z.object({
+    title: z.string().min(5, 'El título debe tener al menos 5 caracteres'),
+    description: z.string().min(10, 'La descripción debe tener al menos 10 caracteres'),
+    rules: z.string().min(10, 'Las reglas deben tener al menos 10 caracteres'),
+    selectedFile: z.instanceof(File).refine(
+        (file) => file instanceof File,
+        { message: 'Debes seleccionar una imagen válida' }
+    ),
+    selectedCategoryId: z.number().min(1, 'Debes seleccionar una categoría'),
+});
 
 const daysOfWeek = [
-    { name: 'Domingo', number: 0 },
-    { name: 'Lunes', number: 1 },
-    { name: 'Martes', number: 2 },
-    { name: 'Miércoles', number: 3 },
-    { name: 'Jueves', number: 4 },
-    { name: 'Viernes', number: 5 },
-    { name: 'Sábado', number: 6 }
+    { name: 'D', number: 0 },
+    { name: 'L', number: 1 },
+    { name: 'M', number: 2 },
+    { name: 'M', number: 3 },
+    { name: 'J', number: 4 },
+    { name: 'V', number: 5 },
+    { name: 'S', number: 6 }
 ];
 
 const timeOfDay = [
@@ -29,6 +43,7 @@ const timeOfDay = [
 ];
 
 export default function CreateService() {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [days, setDays] = useState<number[]>([]);
     const [shiftTime, setShiftTime] = useState<number[]>([]);
@@ -38,6 +53,7 @@ export default function CreateService() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [rules, setRules] = useState('');
+    const router = useRouter()
 
     const { data: provincias, isLoading: isLoadingProvincias } = useProvincias();
     const { data: categories, isLoading: isLoadingCategories } = useCategorys();
@@ -57,79 +73,95 @@ export default function CreateService() {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-    
-        // Validación de longitud
-        if (description.length < 10) {
-            alert('La descripción debe tener al menos 10 caracteres');
+
+        // Validar datos usando Zod
+        const formData = {
+            title,
+            description,
+            rules,
+            selectedFile,
+            selectedCategoryId: selectedCategoryId || 0,
+        };
+
+        const validation = serviceSchema.safeParse(formData);
+
+        if (!validation.success) {
+            // Muestra errores de validación
+            alert(validation.error.errors.map((err) => err.message).join('\n'));
             return;
         }
-    
-        if (rules.length < 10) {
-            alert('Las reglas deben tener al menos 10 caracteres');
-            return;
-        }
-    
-        if (!selectedFile) {
-            alert('Por favor selecciona una imagen');
-            return;
-        }
-    
+
         try {
             const response = await CreateServices(
                 title,
-                description, // Ya validado con al menos 10 caracteres
-                rules, // Ya validado con al menos 10 caracteres
-                selectedFile,
-                selectedCategoryId !== null ? selectedCategoryId.toString() : '', 
-                days.map((day) => day.toString()), 
-                shiftTime.map((time) => time.toString()) 
+                description,
+                rules,
+                selectedFile!,
+                selectedCategoryId?.toString() ?? '',
+                days.map((day) => day.toString()),
+                shiftTime.map((time) => time.toString())
             );
-            console.log('Respuesta del servidor:', response);
+            if (response.success == true) {
+                setIsDialogOpen(true);
+            }
+            
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
     };
-    
+
 
     return (
         <>
             <form onSubmit={handleSubmit} className="space-y-8 mt-5 mb-20 w-full max-w-[1232px] mx-auto px-4">
-                <h2 className="font-bold text-[36px] mx-auto max-w-3xl">
-                    Publica tu anuncio
-                </h2>
+                {/* Contenido del formulario */}
+                <h2 className="font-bold text-[36px] mx-auto max-w-3xl">Publica tu anuncio</h2>
                 <Card className="w-full max-w-3xl mx-auto rounded-3xl p-8 flex justify-center bg-[#F7C036] border-none">
-                    <div className="w-fit bg-white flex flex-col items-center px-6 py-2 rounded-lg font-semibold">
-                        <div
-                            className="relative cursor-pointer"
-                            onClick={() => {
-                                const fileInput = document.getElementById('file-input') as HTMLInputElement | null;
-                                if (fileInput) {
-                                    fileInput.click();
-                                }
-                            }}
-                        >
-                            <Camera className="w-16 h-16 mx-auto" />
-                            <h3>Añadir fotos</h3>
-                            <input
-                                id="file-input"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => setSelectedFile(e.target.files ? e.target.files[0] : null)}
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            />
-                        </div>
+                    {/* Botón para seleccionar imagen */}
+                    <div className="w-fit bg-[#F7C036] flex flex-col items-center px-6 py-2 rounded-lg font-semibold">
+                        <Card className="w-full max-w-3xl mx-auto rounded-3xl p-8 flex justify-center bg-[#F7C036] border-none">
+                            {/* Botón para seleccionar imagen */}
+                            <div className="w-fit bg-white flex flex-col items-center px-6 py-2 rounded-lg font-semibold">
+                                <label htmlFor="file-input" className="cursor-pointer flex flex-col items-center">
+                                    <Camera className="w-16 h-16 mx-auto" />
+                                    <h3>Añadir foto</h3>
+                                </label>
+                                <input
+                                    id="file-input"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        if (e.target.files && e.target.files[0]) {
+                                            setSelectedFile(e.target.files[0]);
+                                        }
+                                    }}
+                                    className="hidden"
+                                />
+                                {/* {selectedFile && (
+                                    <div className="mt-2 bg-[#F7C036]">
+                                        <Image
+                                            src={URL.createObjectURL(selectedFile)}
+                                            alt="Selected file"
+                                            width={96}
+                                            height={96}
+                                            className="object-cover rounded-lg bg-[#F7C036]"
+                                        />
+                                    </div>
+                                )} */}
+
+                            </div>
+                        </Card>
                         {selectedFile && (
-                            <div className="mt-2">
+                            <div className="mt-2 bg-[#F7C036]">
                                 <Image
                                     src={URL.createObjectURL(selectedFile)}
                                     alt="Selected file"
                                     width={96}
                                     height={96}
-                                    className="object-cover rounded-lg"
+                                    className="object-cover rounded-lg bg-[#F7C036]"
                                 />
                             </div>
                         )}
-                        <p>0/6</p>
                     </div>
                 </Card>
                 <Card className="w-full max-w-3xl mx-auto rounded-3xl bg-[#74ACDF] px-4 lg:px-24 py-2 lg:py-14">
@@ -245,29 +277,44 @@ export default function CreateService() {
 
                         {/* Checkbox para Días de la Semana */}
                         <div>
-                            <Label className="block text-lg font-semibold">Días de la semana</Label>
-                            <div className="flex flex-wrap gap-4 mt-2">
+                            <Label className="text-white font-semibold text-[1.2rem] my-4">Días de la semana</Label>
+                            <p className="text-sm text-white mb-2">
+                                Marca los días y horarios que tenés
+                                disponible para realizar el trueque
+                            </p>
+                            <div className="flex justify-between mb-2">
                                 {daysOfWeek.map((day) => (
-                                    <label key={day.number} className="flex items-center gap-2">
+                                    <div
+                                        key={day.number}
+                                        className="flex flex-col items-center gap-3"
+                                    >
+                                        <Label
+                                            htmlFor={`day-${day.number}`}
+                                            className="ml-1 bg-[#F7C036] text-center font-bold aspect-square p-4 rounded-full"
+                                        >
+                                            {day.name}
+                                        </Label>
                                         <Checkbox
+                                            id={`day-${day.number}`}
                                             checked={days.includes(day.number)}
                                             onCheckedChange={() => handleDaySelection(day.number)}
+                                            className="border-black border-2"
                                         />
-                                        <span>{day.name}</span>
-                                    </label>
+                                    </div>
                                 ))}
                             </div>
                         </div>
 
                         {/* Checkbox para Horarios */}
                         <div>
-                            <Label className="block text-lg font-semibold">Horarios de trabajo</Label>
-                            <div className="flex flex-wrap gap-4 mt-2">
+                            <Label className="text-white font-semibold text-[1.2rem] my-4">Horarios de trabajo</Label>
+                            <div className="flex justify-center space-x-4 mt-6">
                                 {timeOfDay.map((time) => (
                                     <label key={time.number} className="flex items-center gap-2">
                                         <Checkbox
                                             checked={shiftTime.includes(time.number)}
                                             onCheckedChange={() => handleTimeSelection(time.number)}
+                                            className="border-black border-2"
                                         />
                                         <span>{time.name}</span>
                                     </label>
@@ -276,10 +323,24 @@ export default function CreateService() {
                         </div>
 
                         {/* Botón de Enviar */}
-                        <Button type="submit" className="w-full mt-4">Publicar</Button>
+                        <div className="flex justify-center gap-x-6">
+                            <Button
+                                variant="outline"
+                                className="border-white border-2 bg-transparent font-bold px-14 py-6 drop-shadow-md"
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="submit"
+                                className="bg-[#F7C036] hover:bg-[#F7C036] text-black font-bold px-14 py-6 drop-shadow-md"
+                            >
+                                Publicar
+                            </Button>
+                        </div>
                     </div>
                 </Card>
             </form>
+            <SuccessDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} />
         </>
     );
 }
