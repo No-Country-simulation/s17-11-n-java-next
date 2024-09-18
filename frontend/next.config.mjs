@@ -36,6 +36,11 @@ const nextConfig = {
                   protocol: 'https',
                   hostname: 'drive.google.com',
                   pathname: '/**'
+              },
+              {
+                  protocol: 'https',
+                  hostname: 'randomuser.me',
+                  pathname: '/**'
               }
           ]
       },
