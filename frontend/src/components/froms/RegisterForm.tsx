@@ -19,7 +19,6 @@ import { Fetchregister } from "@/services/RegisterFetch";
 import { useRouter } from "next/navigation";
 import { DialogRegistroExitoso } from "@/components/dialog/DialogRegistroExitoso";
 import { DialogErrorRegistro } from "@/components/dialog/DialogeErrorRegistro";
-
 //
 
 // Definición del esquema de validación
