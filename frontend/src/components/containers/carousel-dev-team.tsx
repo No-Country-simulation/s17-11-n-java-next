@@ -62,7 +62,7 @@ function CarouselDevTeam() {
       linkedin: "https://www.linkedin.com/in/orlandocardenasvillegas/",
     },
     {
-      image: "Pedro Nuñez.png",
+      image: "Pedro Nunez.png",
       name: "Pedro Nuñez",
       role: "FRONTEND",
       linkedin:
@@ -81,7 +81,7 @@ function CarouselDevTeam() {
       linkedin: "https://www.linkedin.com/in/matias-nicolas-acevedo",
     },
     {
-      image: "Joaquín Peña.png",
+      image: "Joaquín Pena.png",
       name: "Joaquín Peña",
       role: "DESIGN UX/UI",
       linkedin: "https://www.linkedin.com/in/joaquinpe/",

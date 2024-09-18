@@ -2,7 +2,7 @@ export const MejorCalificados = [
     {id:1, imag: "/servicios/Albañilería/Albañilería6.jpeg", titulo: "Albañilería", descripcion: "Reformas y construcciones con calidad.", ubicacion: "Tafí Viejo"},
     {id:2, imag: "/servicios/Cerrajería/Cerrajería2.jpeg", titulo: "Cerrajería", descripcion: "Apertura, instalación y reparación de cerraduras.", ubicacion: "Capital"},
     {id:3, imag: "/servicios/Clases de idioma/Clases de idioma5.jpeg", titulo: "Clases de Idiomas", descripcion: "mejora tu fluidez con lecciones adaptadas a tu nivel y objetivos.", ubicacion: "Yerba Buena"},
-    {id:4, imag: "/servicios/Diseño Gráfico/Diseño Gráfico4.jpeg", titulo: "Cocina", descripcion: "Reformas y construcciones con mejores acabados.", ubicacion: "San Cristóbal"},
+    {id:4, imag: "/servicios/Diseño Gráfico/diseno4.jpeg", titulo: "Diseño", descripcion: "Se crean paquetes de dibujos y logotipos para tu empresa", ubicacion: "San Cristóbal"},
 ]
 
 export const MasBuscados = [

@@ -56,7 +56,7 @@ const Page = ({ params }: { params: { id: number } }) => {
   return (
     <>
       <TopbarGeneral />
-      <section className="w-full max-w-[1232px] mx-auto mt-10">
+      <section className="w-full max-w-[1232px] mx-auto m-10 p-10">
         <section>
           <ServiceCard {...serviceProps} />
         </section>

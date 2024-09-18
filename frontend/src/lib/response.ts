@@ -219,3 +219,21 @@ export interface ServicieByUserResponse {
     }>;
     success: boolean;
 }
+
+
+// ver datos de otro Usuario
+
+export interface UserDataResponse {
+    message: string;
+    data:    DataUserDataResponse;
+    success: boolean;
+}
+
+export interface DataUserDataResponse {
+    name:            string;
+    lastName:        string;
+    profileImageUrl: string;
+    departamento:    string;
+    provincia:       string;
+    averageRating:   number;
+}
