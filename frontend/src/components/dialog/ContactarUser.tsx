@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuthStore } from '@/store/auth';
+import useMensajesEnviados from '@/hooks/useMensajeEnviados'; // Importar el hook
+
 
 const API = process.env.NEXT_PUBLIC_BACKEND_URL as string;
 
@@ -21,6 +23,7 @@ interface Databutton {
 export function ContactUser({ Databutton }: { Databutton: Databutton }) {
     const { idservice, userId } = Databutton;
     const { token } = useAuthStore.getState();
+    const { refetch } = useMensajesEnviados();
 
     // Estados para manejar el mensaje y el conteo de caracteres
     const [message, setMessage] = useState("");
@@ -31,19 +34,16 @@ export function ContactUser({ Databutton }: { Databutton: Databutton }) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validar que el mensaje no esté vacío
         if (message.trim() === "") {
             setStatusMessage({ type: "error", text: "Por favor, ingresa un mensaje." });
             return;
         }
 
-        // Crear el payload a enviar
         const data = {
             serviceId: idservice,
             description: message,
         };
 
-        // Realizar la petición fetch
         try {
             const response = await fetch(`${API}/api/v1/requests`, {
                 method: "POST",
@@ -54,11 +54,11 @@ export function ContactUser({ Databutton }: { Databutton: Databutton }) {
                 body: JSON.stringify(data),
             });
 
-            // Manejar la respuesta del servidor
             if (response.ok) {
                 setStatusMessage({ type: "success", text: "Mensaje enviado con éxito." });
-                setMessage(""); // Resetear el mensaje
+                setMessage("");
                 setCharCount(0);
+                refetch(); // Refrescar los mensajes enviados
             } else {
                 setStatusMessage({ type: "error", text: "Hubo un problema al enviar el mensaje. Inténtalo de nuevo." });
             }
@@ -68,7 +68,6 @@ export function ContactUser({ Databutton }: { Databutton: Databutton }) {
         }
     };
 
-    // Manejar el cambio en el textarea
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.target.value);
         setCharCount(e.target.value.length);

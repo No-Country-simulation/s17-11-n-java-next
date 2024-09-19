@@ -7,6 +7,7 @@ import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
 import useProfile from '@/hooks/useProfile'
 import useServicesByIdUser from '@/hooks/useServicesByIdUser';
+import useMensajesEnviados from '@/hooks/useMensajeEnviados';
 
 
 const DataUser = {
@@ -62,20 +63,20 @@ const comments = [
 //         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 //     }
 // ]
-const requests = [
-    {
-        name: 'Jane Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        name: 'Jane Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    {
-        name: 'Jane Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    }
-]
+// const requests = [
+//     {
+//         name: 'Jane Doe',
+//         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+//     },
+//     {
+//         name: 'Jane Doe',
+//         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+//     },
+//     {
+//         name: 'Jane Doe',
+//         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+//     }
+// ]
 const receivedRequests = [
     {
         name: 'Jane Doe',
@@ -109,6 +110,7 @@ const UserProfile = ({ }) => {
     const router = useRouter()
     const authUser = true
     const {data:user, isLoading:isLoadingUser, error:errorUser} = useProfile()
+    const { data: sentRequestsResponse, isLoading: isLoadingSentRequests, isError: isErrorSentRequests } = useMensajesEnviados();
     //
     const {
         data: servicesData,
@@ -122,6 +124,11 @@ const UserProfile = ({ }) => {
         description: service.description as string,
         imag: service.imgUrl as string,
     })) ?? []; 
+    //
+    const sentRequests = sentRequestsResponse?.data.map((mensaje) => ({
+        name: mensaje.user.name,
+        content: mensaje.description
+    })) ?? [];
     //
     useEffect(() => {
         if (!token) {
