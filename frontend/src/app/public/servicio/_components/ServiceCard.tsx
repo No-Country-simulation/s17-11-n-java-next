@@ -47,14 +47,14 @@ const ServiceCard = ({
       }}
     >
       <div className="flex gap-8 flex-col md:flex-row">
-        <aside className="flex-1 bg-gray-200 flex items-center justify-center">
+        <aside className="flex-1 bg-transparent flex items-center justify-center">
           <figure className="space-y-2">
             <Image
               src={image || "https://placehold.co/571x416/png"}
               alt="Service"
-              width={571}
-              height={416}
-              className="object-cover object-center w-full h-full"
+              width={300}
+              height={300}
+              className="object-cover object-center w-full max-h-96"
             />
           </figure>
         </aside>
@@ -62,7 +62,7 @@ const ServiceCard = ({
           <div>
             <header className="flex items-center mb-2">
               <Image
-                className="w-12 h-12 bg-gray-300 rounded-full mr-3"
+                className="w-12 h-12 bg-gray-300 rounded-full mr-3 hidden"
                 src="https://placehold.co/79x79/png"
                 alt={userName}
                 width={79}

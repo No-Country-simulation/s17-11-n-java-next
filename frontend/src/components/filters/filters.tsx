@@ -65,6 +65,8 @@ export default function Filters({
         categoryId: selectedCategoryId ?? undefined // Convierte `null` a `undefined`
     });
 
+    console.log("Comp/filters Select opts: ", provincia, departamento, category);
+
     const form = useForm<FormData>({
         resolver: zodResolver(FormSchemaFilters),
         defaultValues: {
@@ -223,7 +225,7 @@ export default function Filters({
                 {categories ? (
                     <CardServicios
                         dataResultados={resultados}
-                        servicio={category}
+                        servicio={""}
                     />
                 ) : (
                     <p>Cargando categorías...</p>
