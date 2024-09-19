@@ -55,6 +55,8 @@ function FormHome() {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    // console.log("form-home Data Form:",data);
+    
     const searchParams = new URLSearchParams({
       provincia: data.provincia || '',
       departamento: data.departamento || '',
@@ -68,7 +70,7 @@ function FormHome() {
     // Verificar si provincias está definido antes de usarlo
     if (provincias) {
         const subscription = form.watch((data) => {
-            const selectedProvincia = provincias.find(p => p.name === data.provincia);
+            const selectedProvincia = provincias.find(p => p.id.toString() === data.provincia);
             if (selectedProvincia) {
                 setSelectedProvinciaId(selectedProvincia.id);
             } else {
@@ -99,7 +101,7 @@ function FormHome() {
                     <SelectContent>
                       {Array.isArray(provincias) ? (
                         provincias.map((provincia) => (
-                          <SelectItem key={provincia.id} value={provincia.name}>
+                          <SelectItem key={provincia.id} value={provincia.id.toString()}>
                             {provincia.name}
                           </SelectItem>
                         ))
@@ -129,7 +131,7 @@ function FormHome() {
                     <SelectContent>
                       {Array.isArray(departamentos) ? (
                         departamentos.map((departamento) => (
-                          <SelectItem key={departamento.id} value={departamento.name}>
+                          <SelectItem key={departamento.id} value={departamento.id.toString()}>
                             {departamento.name}
                           </SelectItem>
                         ))
@@ -159,7 +161,7 @@ function FormHome() {
                     <SelectContent>
                       {Array.isArray(categorys) ? (
                         categorys.map((category) => (
-                          <SelectItem key={category.id} value={category.name}>
+                          <SelectItem key={category.id} value={category.id.toString()}>
                             {category.name}
                           </SelectItem>
                         ))
