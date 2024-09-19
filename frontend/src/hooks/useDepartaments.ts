@@ -2,7 +2,7 @@
 import {useQuery} from '@tanstack/react-query'
 import {DepartamentFetch} from '@/services/DepartamentFetch'
 
-export default function useDepartaments(idProvincia:number) {
+export default function useDepartaments(idProvincia:number) {    
     return useQuery({
         queryKey: ['departaments', idProvincia],
         queryFn:()=> DepartamentFetch(idProvincia),
