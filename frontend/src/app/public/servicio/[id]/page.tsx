@@ -53,6 +53,8 @@ const Page = ({ params }: { params: { id: number } }) => {
     shifts: ["Mañana", "Tarde", "Noche"] // Mapear según los turnos disponibles
   };
 
+  const categoryId = data?.data?.category?.id ?? -1;
+
   return (
     <>
       <TopbarGeneral />
@@ -61,7 +63,7 @@ const Page = ({ params }: { params: { id: number } }) => {
           <ServiceCard {...serviceProps} />
         </section>
         <section>
-          <RelatedServices />
+        <RelatedServices categoryId={categoryId} />
         </section>
       </section></>
   );
