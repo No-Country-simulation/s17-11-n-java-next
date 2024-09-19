@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Description } from "@radix-ui/react-dialog";
 import Link from "next/link";
 import useServiceForId from "@/hooks/useServiceForId";
+import {ContactUser} from '@/components/dialog/ContactarUser'
 
 interface ServiceCardProps {
   id: number;
@@ -31,6 +32,13 @@ const ServiceCard = ({
   days,
   shifts
 }: ServiceCardProps) => {
+
+  //
+  const Databutton = {
+    myid: id,
+    userId: idUser
+  };
+  //
   return (
     <article
       className=" px-4 lg:px-8 py-12 mx-3 bg-white rounded-3xl overflow-hidden border-2 border-[#BAD6EF]"
@@ -77,14 +85,7 @@ const ServiceCard = ({
             </p>
           </div>
           <div className="flex space-x-4 justify-center">
-            <button
-              className="bg-[#f7b40f] text-black font-bold px-8 lg:px-12 py-3 rounded"
-              style={{
-                filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
-              }}
-            >
-              CONTACTAR
-            </button>
+            <ContactUser Databutton={Databutton}/>
             <Link
               href={`/public/perfil/${idUser}`} // Usa la id en la ruta
               className="bg-[#74ACDF] text-black font-bold px-8 lg:px-12 py-3 rounded"
