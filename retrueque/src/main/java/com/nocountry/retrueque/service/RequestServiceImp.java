@@ -21,11 +21,14 @@ import com.nocountry.retrueque.service.interfaces.EmailService;
 import com.nocountry.retrueque.service.interfaces.RequestService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +40,9 @@ public class RequestServiceImp implements RequestService {
     private final ServiceRepository serviceRepository;
     private final EmailService emailService;
     private final AuthService authService;
+
+    @Value("${web.frontend-url}")
+    private String frontendUrl;
 
     @Transactional
     @Override
@@ -61,7 +67,7 @@ public class RequestServiceImp implements RequestService {
         templateModel.put("name", service.getUser().getName()+" "+service.getUser().getLast_name());
         templateModel.put("requesterName", user.getName()+" "+user.getLast_name());
         //debería mostrar el detalle request, pero aún no existe el link, también ponerlo en una variable de entorno
-        templateModel.put("requestUrl","https://s17-11-n-java-next-urev.onrender.com/dashboard/perfil");
+        templateModel.put("requestUrl", frontendUrl + "/dashboard/perfil");
 
         emailService.sendEmail(service.getUser().getEmail(), "¡Has recibido una nueva solicitud de servicio!",templateModel,"request-service");
 
@@ -75,9 +81,8 @@ public class RequestServiceImp implements RequestService {
                 orElseThrow(()-> new RequestNotFoundException("Peticion con ID " + id + " no encontrada."));
 
         String email = this.authService.getAuthUser().getEmail();
-        String a = request.getServiceTarget().getUser().getEmail();
         if (!email.equals(request.getServiceTarget().getUser().getEmail())) {
-            throw new PermissionDeniedException("No tienes permitido aaceptar o cancelar esta solicitud");
+            throw new PermissionDeniedException("No tienes permitido aceptar o cancelar esta solicitud");
         }
 
         request.setIsConfirm(requestUptdateReq.isConfirmed());
@@ -86,7 +91,7 @@ public class RequestServiceImp implements RequestService {
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("name", requestSaved.getUserOrigin().getName()+" "+requestSaved.getUserOrigin().getLast_name());
         templateModel.put("providerName", requestSaved.getServiceTarget().getUser().getName()+" "+requestSaved.getServiceTarget().getUser().getLast_name());
-        templateModel.put("requestUrl","https://s17-11-n-java-next-urev.onrender.com/dashboard/perfil");
+        templateModel.put("requestUrl", frontendUrl + "/dashboard/perfil");
 
 
         if(requestUptdateReq.isConfirmed()) {
@@ -95,13 +100,13 @@ public class RequestServiceImp implements RequestService {
                     templateModel, "request-confirmed");
         }
         else {
-            templateModel.put("servicesUrl","https://s17-11-n-java-next-urev.onrender.com");
+            templateModel.put("servicesUrl", frontendUrl);
             emailService.sendEmail(requestSaved.getUserOrigin().getEmail(),
                     "Actualización sobre Tu Solicitud de Servicio",
                     templateModel,"request-rejected");
         }
 
-        String message = requestSaved.getIsConfirm()?"Reques was confirmate":"Reques was rejected";
+        String message = requestSaved.getIsConfirm() ? "Solicitud aceptada" : "Solicitud rechazada";
 
         return new RequestMesRes(requestSaved.getId(),message);
     }

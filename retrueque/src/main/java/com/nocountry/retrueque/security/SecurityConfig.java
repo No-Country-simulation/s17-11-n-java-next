@@ -2,7 +2,6 @@ package com.nocountry.retrueque.security;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -39,6 +38,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "api/v1/departamentos/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "api/v1/requests/comments/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "api/v1/user/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "api/v1/auth/verify").permitAll()
 
 
                     .anyRequest().authenticated()

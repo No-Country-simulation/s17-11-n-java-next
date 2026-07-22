@@ -55,8 +55,8 @@ public class ServicesController {
 
   @Operation(summary = "Update service", description = "Update using body and path, only available by authenticated user.")
   @SecurityRequirement(name = "bearer-key")
-  @PutMapping("/{id}")
-  public ResponseEntity<?> updateById(@RequestBody @Valid ServiceReq request, @PathVariable long id){
+  @PutMapping(value = "/{id}", consumes = "multipart/form-data")
+  public ResponseEntity<?> updateById(@ModelAttribute @Valid ServiceReq request, @PathVariable long id){
     var response = this.servicesService.updateById(request, id);
     return ResponseEntity.ok(new ApiResponse<>(response));
   }

@@ -1,5 +1,6 @@
 package com.nocountry.retrueque.service;
 
+import com.nocountry.retrueque.exception.EmailDeliveryException;
 import com.nocountry.retrueque.exception.UserAlreadyVerifiedException;
 import com.nocountry.retrueque.exception.UserEmailNotFoundException;
 import com.nocountry.retrueque.model.dto.request.ResendTokenEmailReq;
@@ -9,15 +10,15 @@ import com.nocountry.retrueque.model.mapper.ResendTokenEmailMapper;
 import com.nocountry.retrueque.repository.UserRepository;
 import com.nocountry.retrueque.service.interfaces.EmailService;
 import com.nocountry.retrueque.service.interfaces.TokenService;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class EmailServiceImp implements EmailService {
 
 
 
-    private final JavaMailSender javaMailSender;
+    private final RestClient.Builder restClientBuilder;
     private final TokenService tokenService;
     private final ResendTokenEmailMapper resendTokenEmailMapper;
     private final UserRepository userRepository;
@@ -37,25 +38,32 @@ public class EmailServiceImp implements EmailService {
     @Value("${email.link.confirmation}")
     private String linkConfirmation;
 
+    @Value("${resend.api-key}")
+    private String resendApiKey;
+
+    @Value("${resend.from}")
+    private String resendFrom;
+
     @Override
     public void sendEmail(String to, String subject, Map<String, Object> templateModel, String templateName) {
+        Context context = new Context();
+        context.setVariables(templateModel);
+        String htmlBody = templateEngine.process(templateName, context);
+
         try {
-            MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
-            Context context = new Context();
-            context.setVariables(templateModel);
-
-            String htmlBody = templateEngine.process(templateName, context);
-
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(htmlBody, true);
-
-            javaMailSender.send(message);
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            restClientBuilder
+                    .baseUrl("https://api.resend.com")
+                    .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + resendApiKey)
+                    .defaultHeader(HttpHeaders.USER_AGENT, "retrueque-backend")
+                    .build()
+                    .post()
+                    .uri("/emails")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new ResendEmailRequest(resendFrom, to, subject, htmlBody))
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (RestClientException exception) {
+            throw new EmailDeliveryException("No se pudo enviar el correo en este momento.", exception);
         }
     }
 
@@ -79,8 +87,5 @@ public class EmailServiceImp implements EmailService {
 
         return resendTokenEmailMapper.toResendTokenEmailRes(user.getEmail(), "Verification token has been resent to your email.");
     }
-
-    public void EmailConfirmation(String to, String subject, Map<String, Object> templateModel) {
-
-    }
+    private record ResendEmailRequest(String from, String to, String subject, String html) { }
 }

@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.Optional;
 
 @RestController
@@ -25,7 +24,7 @@ public class UserProfileController {
 
     @Operation(summary = "Get profile from user autenticate")
     @GetMapping()
-    public ResponseEntity<ApiResponse<UserProfileRes>> getUserProfile() {
+        public ResponseEntity<ApiResponse<UserProfileRes>> getUserProfile() {
         UserProfileRes userProfile = userProfileService.getUserProfile();
         return Optional.ofNullable(userProfile)
                 .map(profile -> ResponseEntity.ok(new ApiResponse<>(profile)))

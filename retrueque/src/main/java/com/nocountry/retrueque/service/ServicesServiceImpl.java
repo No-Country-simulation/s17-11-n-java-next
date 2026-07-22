@@ -28,6 +28,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -96,24 +97,76 @@ public class ServicesServiceImpl implements ServicesService {
   }
 
   @Override
+  @Transactional
   public ServiceRes updateById(ServiceReq service, long id) {
-    this.verifyIsExist(id);
-    var newService = this.serviceMapper.reqToEntity(service, categoryRepo, s3Service);
-    newService.setUser(this.authService.getAuthUser());
-    var serviceFound = this.serviceRepository.save(newService);
-    return this.serviceMapper.entityToRes(serviceFound);
+    var serviceFound = this.findByIdOrThrow(id);
+    var currentUser = this.authService.getAuthUser();
+    this.verifyOwnership(serviceFound, currentUser);
+
+    serviceFound.setTitle(service.title());
+    serviceFound.setDescription(service.description());
+    serviceFound.setRules(service.rules());
+    serviceFound.setCategory(this.serviceMapper.map(service.categoryId(), categoryRepo));
+    serviceFound.setDepartamento(currentUser.getProfile().getDepartamento());
+
+    if (service.imgUrl() != null && !service.imgUrl().isEmpty()) {
+      serviceFound.setImgUrl(service.imgUrl().stream()
+              .map(s3Service::uploadFile)
+              .collect(Collectors.joining(",")));
+    }
+
+    this.updateShift(serviceFound, service);
+    return this.serviceMapper.entityToRes(this.serviceRepository.save(serviceFound));
   }
 
   @Override
+  @Transactional
   public String deleteById(long id) {
-    this.verifyIsExist(id);
-    this.serviceRepository.deleteById(id);
+    var serviceFound = this.findByIdOrThrow(id);
+    this.verifyOwnership(serviceFound, this.authService.getAuthUser());
+    this.serviceRepository.delete(serviceFound);
     return "Service deleted, id: " + id;
   }
 
-  private void verifyIsExist(long id) {
-    boolean isExist = this.serviceRepository.existsById(id);
-    if (!isExist) throw new ServicesNotFoundException(id);
+  private Services findByIdOrThrow(long id) {
+    return this.serviceRepository.findById(id)
+            .orElseThrow(() -> new ServicesNotFoundException(id));
+  }
+
+  private void verifyOwnership(Services service, com.nocountry.retrueque.model.entity.UserEntity currentUser) {
+    if (!service.getUser().getId().equals(currentUser.getId())) {
+      throw new com.nocountry.retrueque.exception.PermissionDeniedException(
+              "No tienes permiso para modificar este servicio");
+    }
+  }
+
+  private void updateShift(Services service, ServiceReq request) {
+    var shift = service.getShift();
+    if (shift == null) {
+      shift = new com.nocountry.retrueque.model.entity.Shift();
+      service.setShift(shift);
+    }
+    var serviceShift = shift;
+
+    serviceShift.setDays(request.days().stream()
+            .map(day -> com.nocountry.retrueque.model.enums.Day.fromId(day).name())
+            .sorted()
+            .collect(Collectors.joining("-")));
+
+    var shiftTimes = request.shiftTime().stream()
+            .map(id -> {
+              var shiftTime = new ShiftTimeByShift();
+              shiftTime.setShiftTime(ShiftTime.fromId(id));
+              shiftTime.setShift(serviceShift);
+              return shiftTime;
+            })
+            .collect(Collectors.toCollection(ArrayList::new));
+    if (serviceShift.getShifts() == null) {
+      serviceShift.setShifts(new ArrayList<>());
+    } else {
+      serviceShift.getShifts().clear();
+    }
+    serviceShift.getShifts().addAll(shiftTimes);
   }
 
   private void isValidUser(UserProfileEntity profile) {

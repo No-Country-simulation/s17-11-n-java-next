@@ -16,7 +16,7 @@ public class Shift {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String days;
-  @OneToMany(mappedBy = "shift", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "shift", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<ShiftTimeByShift> shifts;
 
   public Shift(String days) {
